@@ -1,1 +1,1 @@
-# SOS1617-03
+Nuestras fuentes de información están orientadas a analizar la inversión en educación de cada Comunidad Autónoma, los resultados del informe PISA en ciencia, matemáticas y lectura además de la tasa de abandono escolar en cada CCAA.
