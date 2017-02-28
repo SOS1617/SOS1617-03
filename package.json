@@ -1,0 +1,23 @@
+{
+  "name": "time",
+  "version": "0.0.0",
+  "description": "Make /time return format \"1st March of 2017, 08:35:00\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SOS1617/SOS1617-03.git"
+  },
+  "author": "@byRuly",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SOS1617/SOS1617-03/issues"
+  },
+  "homepage": "https://github.com/SOS1617/SOS1617-03#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "moment": "^2.17.1"
+  }
+}
