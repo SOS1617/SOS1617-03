@@ -4,6 +4,7 @@
   "description": "Make /time return format \"1st March of 2017, 08:35:00\"",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
