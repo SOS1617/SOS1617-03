@@ -2,7 +2,6 @@ var express = require("express");
 var moment = require("moment");
 var port = (process.env.PORT || 16778);
 var path = require("path");
-//ESTO ES UNA PRUEBA DE IVÁN
 
 var app = express();
 var publicFolder = path.join(__dirname, 'public');
