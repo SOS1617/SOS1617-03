@@ -4,6 +4,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var helmet = require("helmet");
 var path = require('path');
+var publicFolder = path.join(__dirname, 'public');
 
 var app = express();
 
@@ -30,7 +31,7 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
     
     dbRuben = database.collection("results");
     dbRaul = database.collection("earlyleavers");
-    dbIvan = database.collection("investmenteducation");
+    dbIvan = database.collection("investmentseducation");
     
 
     app.listen(port, () => {
@@ -39,6 +40,8 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
 });
 
 });
+
+app.use("/",express.static(publicFolder));
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,21 +62,21 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
         console.log('INFO: Empty DB, loading initial data');
 
               var results = [{
-                "country": "Spain",
+                "country": "spain",
                 "year": "2012",
                 "science-calification": "496",
                 "reading-calification": "488",
                 "math-calification": "484"
             },
             {
-                "country": "Spain",
+                "country": "spain",
                 "year": "2015",
                 "science-calification": "493",
                 "reading-calification": "496",
                 "math-calification": "486"
             },
             {
-                "country": "Finland",
+                "country": "finland",
                 "year": "2015",
                 "science-calification": "531",
                 "reading-calification": "526",
@@ -87,12 +90,13 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
 });
 });
 
+/*
 //Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /results");
     response.redirect(301, BASE_API_PATH + "/results");
 });
-
+*/
 
 // GET a collection
 app.get(BASE_API_PATH + "/results", function (request, response) {
@@ -378,7 +382,7 @@ app.get(BASE_API_PATH + "/earlyleavers/loadInitialData",function(request, respon
         console.log('INFO: Empty DB, loading initial data');
 
               var earlyleavers = [{
-                "country": "Spain",
+                "country": "spain",
                 "year": "2014",
                 "eslmale": "25.6",
                 "eslfemale": "18.1",
@@ -386,7 +390,7 @@ app.get(BASE_API_PATH + "/earlyleavers/loadInitialData",function(request, respon
                 "eslobjective": "15"
             },
             {
-                "country": "Spain",
+                "country": "spain",
                 "year": "2015",
                 "eslmale": "24",
                 "eslfemale": "15.8",
@@ -394,7 +398,7 @@ app.get(BASE_API_PATH + "/earlyleavers/loadInitialData",function(request, respon
                 "eslobjective": "15"
             },
             {
-                "country": "France",
+                "country": "france",
                 "year": "2015",
                 "eslmale": "10.1",
                 "eslfemale": "8.5",
@@ -409,12 +413,13 @@ app.get(BASE_API_PATH + "/earlyleavers/loadInitialData",function(request, respon
 });
 });
 
+/*
 //Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /earlyleavers");
     response.redirect(301, BASE_API_PATH + "/earlyleavers");
 });
-
+*/
 
 // GET a collection
 app.get(BASE_API_PATH + "/earlyleavers", function (request, response) {
@@ -661,7 +666,7 @@ app.delete(BASE_API_PATH + "/earlyleavers", function (request, response) {
 
 //Load initial data
 
-app.get(BASE_API_PATH + "/countriesIvn/loadInitialData",function(request, response) {
+app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request, response) {
     
     dbIvan.find({}).toArray(function(err,countries){
         
@@ -674,34 +679,34 @@ app.get(BASE_API_PATH + "/countriesIvn/loadInitialData",function(request, respon
         console.log('INFO: Empty DB, loading initial data');
 
               var countr = [{
-                "country": "España", 
+                "country": "spain", 
                 "year":"2014", 
                 "population": "46.48",
                 "riskpoverty":"22.2", 
                 "inveducation": "46789.6"
             },
             {
-                "country": "Reino Unido",
+                "country": "unitedkingdom",
                 "year": "2014",
                 "population": "64.613", 
                 "riskpoverty": "20.8",
                 "inveducation": "117116.4"
             },
             {
-                "country": "Estados Unidos",
+                "country": "unitedstates",
                 "year":"2014", 
                 "population": "318.907",
                 "riskpoverty":"13.5",
                 "inveducation": "582356"
             },
-            {"country": "Italia",
+            {"country": "italy",
             "year":"2014",
             "population": "60.789,",
             "riskpoverty":"19.9",
             "inveducation": "67799.8"
             },
             {
-                "country": "Alemania",
+                "country": "germany",
                 "year":"2014",
                 "population": "80.982",
                 "riskpoverty":"16.7",
@@ -767,17 +772,18 @@ dbIvan.find({}, function (err, countries) {
     }
 });*/
 
+/*
 // Base GET
 app.get("/", function (request, response) {
-    console.log("INFO: Redirecting to /countriesIvn");
-    response.redirect(301, BASE_API_PATH + "/countriesIvn");
+    console.log("INFO: Redirecting to /investmentseducation");
+    response.redirect(301, BASE_API_PATH + "/investmentseducation");
 });
-
+*/
 
 // GET a collection
-app.get(BASE_API_PATH + "/countriesIvn", function (request, response) {
-    console.log("INFO: New GET request to /countriesIvn");
-    dbIvan.find({}, function (err, countries) {
+app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
+    console.log("INFO: New GET request to /investmentseducation");
+    dbIvan.find({}).toArray( function (err, countries) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
@@ -788,50 +794,101 @@ app.get(BASE_API_PATH + "/countriesIvn", function (request, response) {
     });
 });
 
+// GET a collection de un mismo año 
 
-// GET a single resource
-app.get(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
-    var countrieParam = request.params.country;
-    if (!countrieParam) {
-        console.log("WARNING: New GET request to /countriesIvn/:name without name, sending 400...");
+app.get(BASE_API_PATH + "/investmentseducation/:year", function (request, response) {
+    var year = request.params.year;
+    var country = request.params.year;
+
+    if(isNaN(request.params.year.charAt(0))){
+        
+
+            if (!country) {
+        console.log("WARNING: New GET request to /investmentseducation/:country without name, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New GET request to /countriesIvn/" + countrieParam);
-        dbIvan.find({country : countrieParam}, function (err, countries) {
+        console.log("INFO: New GET request to /investmentseducation/" + country);
+        dbIvan.find({country:country}).toArray(function (err, investmentseducation) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
-            } else {
-                //var filteredContacts = contacts.filter((contact) => {
-                //    return (contact.name.localeCompare(name, "en", {'sensitivity': 'base'}) === 0);
-                //});
-                if (countries.length > 0) {
-                    var countrie = countries[0]; //since we expect to have exactly ONE contact with this name
-                    console.log("INFO: Sending countrie: " + JSON.stringify(countrie, 2, null));
-                    response.send(countrie);
+            } else if (investmentseducation.length > 0) { 
+                    var investmentseducationP = investmentseducation; //since we expect to have exactly ONE contact with this name
+                    console.log("INFO: Sending earlyleaver: " + JSON.stringify(investmentseducationP, 2, null));
+                    response.send(investmentseducationP);
                 } else {
-                    console.log("WARNING: There are not any countrie with name " + countrieParam);
+                    console.log("WARNING: There are not any investmentseducation with country " + country);
                     response.sendStatus(404); // not found
+                
                 }
-            }
         });
-    }
+
+}
+    }else{
+
+    if (!year) {
+        console.log("WARNING: New GET request to /investmentseducation/:year without year, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New GET request to /investmentseducation/" + year);
+        dbIvan.find({year:year}).toArray(function (err, investmentseducation) {
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500); // internal server error
+            } else if (investmentseducation.length > 0) { 
+                    var investmentseducationP = investmentseducation; //since we expect to have exactly ONE contact with this name
+                    console.log("INFO: Sending result: " + JSON.stringify(investmentseducationP, 2, null));
+                    response.send(investmentseducationP);
+                } else {
+                    console.log("WARNING: There are not any investmentseducation with year " + year);
+                    response.sendStatus(404); // not found
+                
+                }
+        });
+}
+    
+}});
+
+// Get a un recurso concreto
+app.get(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
+    var country = request.params.country;
+    var year = request.params.year;
+    if (!country || !year) {
+        console.log("WARNING: New GET request to /investmentseducation/:country without name or without year, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New GET request to /investmentseducation/" + country + "/" + year);
+        dbIvan.find({country:country, $and:[{year:year}]}).toArray(function (err, investmentseducation) {
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500); // internal server error
+            } else if (investmentseducation.length > 0) { 
+                    var investmentseducationP = investmentseducation[0]; //since we expect to have exactly ONE contact with this name
+                    console.log("INFO: Sending earlyleaver: " + JSON.stringify(investmentseducationP, 2, null));
+                    response.send(investmentseducationP);
+                } else {
+                    console.log("WARNING: There are not any investment educarion with country " + country +  "and year " + year);
+                    response.sendStatus(404); // not found
+                
+                }
+        });
+}
 });
 
 
 //POST over a collection
-app.post(BASE_API_PATH + "/countries", function (request, response) {
+app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
     var newCountrie = request.body;
     if (!newCountrie) {
-        console.log("WARNING: New POST request to /countriesIvn/ without countrie, sending 400...");
+        console.log("WARNING: New POST request to /investmentseducation/ without countrie, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New POST request to /countriesIvn with body: " + JSON.stringify(newCountrie, 2, null));
+        console.log("INFO: New POST request to /investmentseducation with body: " + JSON.stringify(newCountrie, 2, null));
         if (!newCountrie.country || !newCountrie.year || !newCountrie.population || !newCountrie.riskpoverty || !newCountrie.inveducation) {
             console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbIvan.find({}, function (err, countries) {
+            dbIvan.find({}).toArray( function (err, countries) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -856,34 +913,34 @@ app.post(BASE_API_PATH + "/countries", function (request, response) {
 
 
 //POST over a single resource
-app.post(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
+app.post(BASE_API_PATH + "/investmentseducation/:country", function (request, response) {
     var name = request.params.country;
-    console.log("WARNING: New POST request to /countriesIvn/" + name + ", sending 405...");
+    console.log("WARNING: New POST request to /investmentseducation/" + name + ", sending 405...");
     response.sendStatus(405); // method not allowed
 });
 
 
 //PUT over a collection
-app.put(BASE_API_PATH + "/countriesIvn", function (request, response) {
+app.put(BASE_API_PATH + "/investmentseducation", function (request, response) {
     console.log("WARNING: New PUT request to /countriesIvn, sending 405...");
     response.sendStatus(405); // method not allowed
 });
 
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
+app.put(BASE_API_PATH + "/investmentseducation/:country", function (request, response) {
     var updatedCountry = request.body;
     var name = request.params.country;
     if (!updatedCountry) {
-        console.log("WARNING: New PUT request to /countriesIvn/ without contact, sending 400...");
+        console.log("WARNING: New PUT request to /investmentseducation/ without contact, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New PUT request to /countriesIvn/" + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+        console.log("INFO: New PUT request to /investmentseducation/" + name + " with data " + JSON.stringify(updatedCountry, 2, null));
         if (!updatedCountry.country || !updatedCountry.year || !updatedCountry.population || !updatedCountry.riskpoverty || !updatedCountry.inveducation) {
             console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbIvan.find({}, function (err, countries) {
+            dbIvan.find({}).toArray( function (err, countries) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
@@ -907,8 +964,8 @@ app.put(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
 
 
 //DELETE over a collection
-app.delete(BASE_API_PATH + "/countriesIvn", function (request, response) {
-    console.log("INFO: New DELETE request to /countriesIvn");
+app.delete(BASE_API_PATH + "/investmentseducation", function (request, response) {
+    console.log("INFO: New DELETE request to /investmentseducation");
     dbIvan.remove({}, {multi: true}, function (err, numRemoved) {
         if (err) {
             console.error('WARNING: Error removing data from DB');
@@ -927,13 +984,13 @@ app.delete(BASE_API_PATH + "/countriesIvn", function (request, response) {
 
 
 //DELETE over a single resource
-app.delete(BASE_API_PATH + "/countries/:country", function (request, response) {
+app.delete(BASE_API_PATH + "/investmentseducation/:country", function (request, response) {
     var name = request.params.country;
     if (!name) {
-        console.log("WARNING: New DELETE request to /countriesIvn/:country without name, sending 400...");
+        console.log("WARNING: New DELETE request to /investmentseducation/:country without name, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New DELETE request to /countriesIvn/" + name);
+        console.log("INFO: New DELETE request to /investmentseducation/" + name);
         dbIvan.remove({country: name}, {}, function (err, numRemoved) {
             if (err) {
                 console.error('WARNING: Error removing data from DB');
