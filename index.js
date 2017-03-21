@@ -788,7 +788,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
             console.error('WARNING: Error getting data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
+            console.log("INFO: Sending countries: " + JSON.stringify(countries, 2, null));
             response.send(countries);
         }
     });
@@ -814,7 +814,7 @@ app.get(BASE_API_PATH + "/investmentseducation/:year", function (request, respon
                 response.sendStatus(500); // internal server error
             } else if (investmentseducation.length > 0) { 
                     var investmentseducationP = investmentseducation; //since we expect to have exactly ONE contact with this name
-                    console.log("INFO: Sending earlyleaver: " + JSON.stringify(investmentseducationP, 2, null));
+                    console.log("INFO: Sending country: " + JSON.stringify(investmentseducationP, 2, null));
                     response.send(investmentseducationP);
                 } else {
                     console.log("WARNING: There are not any investmentseducation with country " + country);
