@@ -876,6 +876,7 @@ app.get(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
 });
 
 
+
 //POST over a collection
 app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
     var newCountrie = request.body;
@@ -888,13 +889,13 @@ app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
             console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbIvan.find({}).toArray( function (err, countries) {
+            dbIvan.find({country:newCountrie.country, $and:[{year:newCountrie.year}]}).toArray( function (err, countries) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else {
                     var countriesBeforeInsertion = countries.filter((countrie) => {
-                        return (countrie.name.localeCompare(newCountrie.name, "en", {'sensitivity': 'base'}) === 0);
+                        return (countrie.country.localeCompare(newCountrie.country, "en", {'sensitivity': 'base'}) === 0);
                     });
                     if (countriesBeforeInsertion.length > 0) {
                         console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " already extis, sending 409...");
