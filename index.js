@@ -625,12 +625,17 @@ app.put(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, respo
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
-                } else if (earlyleavers.length > 0) {
-                        dbRaul.update({country: updatedEarlyleaver.country, year: updatedEarlyleaver.year}, updatedEarlyleaver);
-                        console.log("INFO: Modifying earlyleaver with country " + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
-                        response.send(updatedEarlyleaver); // return the updated contact
+                } else if(countries.length > 0) {
+						dbIvan.update({country: updatedCountry.country, year: updatedCountry.year}, updatedCountry);
+                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+                        response.send(updatedCountry); // return the updated contact
+      
+                    } else if (countriesBeforeInsertion.length > 0) {
+                        dbIvan.update({country: name}, updatedCountry);
+                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+                        response.send(updatedCountry); // return the updated contact
                     } else {
-                        console.log("WARNING: There are not any earlyleavers with country " + country);
+                        console.log("WARNING: There are not any country with name " + name);
                         response.sendStatus(404); // not found
                     }
                 }
@@ -929,25 +934,28 @@ app.put(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 
 //PUT over a single resource
-app.put(BASE_API_PATH + "/investmentseducation/:country", function (request, response) {
+app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
     var updatedCountry = request.body;
-    var name = request.params.country;
+    var country = request.params.country;
+	var year = request.params.year;
     if (!updatedCountry) {
         console.log("WARNING: New PUT request to /investmentseducation/ without contact, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New PUT request to /investmentseducation/" + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+        console.log("INFO: New PUT request to /investmentseducation/" + country + " with data " + JSON.stringify(updatedCountry, 2, null));
         if (!updatedCountry.country || !updatedCountry.year || !updatedCountry.population || !updatedCountry.riskpoverty || !updatedCountry.inveducation) {
             console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbIvan.find({}).toArray( function (err, countries) {
+            dbIvan.find({country:updatedCountry.country, $and:[{year:updatedCountry.year}]}).toArray( function (err, countries) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
-                } else {
-                    var countriesBeforeInsertion = countries.filter((country) => {
-                        return (country.name.localeCompare(name, "en", {'sensitivity': 'base'}) === 0);
+                } else if(countries.length > 0) {
+						dbIvan.update({country: updatedCountry.country, year: updatedCountry.year}, updatedCountry);
+                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+                        response.send(updatedCountry); // return the updated contact
+      
                     });
                     if (countriesBeforeInsertion.length > 0) {
                         dbIvan.update({country: name}, updatedCountry);
