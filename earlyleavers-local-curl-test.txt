@@ -2,7 +2,7 @@ GET a la ruta base (p.e. “/towns”) devuelve una lista con todos los recursos
     curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/earlyleavers'
 
 POST a la ruta base (p.e. “/towns”) crea un nuevo recurso
-    curl -v -XPOST -H 'Content-type: application/json' -d '{ \"country\": \"france\", \"year\": \"2015\", \"eslmale\": \"10.1\", \"eslfemale\": \"8.5\", \"esltotal\": \"9.3\", \"eslobjective\": \"9.5\"}' 'http://localhost:8080/api/v1/earlyleavers'
+    curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "france", "year": "2015", "eslmale": "10.1", "eslfemale": "8.5", "esltotal": "9.3", "eslobjective": "9.5"}' 'http://localhost:8080/api/v1/earlyleavers'
 
 GET a un recurso (p.e. “/towns/seville”) devuelve ese recurso[country]:
     curl -v -XGET -H 'Content-type: application/json'  'http://localhost:8080/api/v1/earlyleavers/spain'
@@ -17,13 +17,13 @@ DELETE a un recurso (p.e. “/towns/seville”) borra ese recurso:
     curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/earlyleavers/spain/2014'
 
 PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso:
-    curl -v -XPUT -H 'Content-type: application/json' -d '{ \"country\": \"france\", \"year\": \"2013\", \"eslmale\": \"10.7\", \"eslfemale\": \"8.6\", \"esltotal\": \"9.7\", \"eslobjective\": \"9.5\"}' 'http://localhost:8080/api/v1/earlyleavers/france/2010'
+    curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "france", "year": "2013", "eslmale": "10.7", "eslfemale": "8.6", "esltotal": "9.7", "eslobjective": "9.5"}' 'http://localhost:8080/api/v1/earlyleavers/france/2010'
     
 POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido:
-    curl -v -XPOST -H 'Content-type: application/json' -d '{ \"country\": \"france\", \"year\": \"2015\", \"eslmale\": \"10.1\", \"eslfemale\": \"8.5\", \"esltotal\": \"9.3\", \"eslobjective\": \"9.5\"}' 'http://localhost:8080/api/v1/earlyleavers/france/2010'
+    curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "france", "year": "2015", "eslmale": "10.1", "eslfemale": "8.5", "esltotal": "9.3", "eslobjective": "9.5"}' 'http://localhost:8080/api/v1/earlyleavers/france/2010'
     
 PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido:
-   curl -v -XPUT -H 'Content-type: application/json' -d '{ \"country\": \"france\", \"year\": \"2015\", \"eslmale\": \"10.1\", \"eslfemale\": \"8.5\", \"esltotal\": \"9.3\", \"eslobjective\": \"9.5\"}' 'http://localhost:8080/api/v1/earlyleavers'
+    curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "france", "year": "2015", "eslmale": "10.1", "eslfemale": "8.5", "esltotal": "9.3", "eslobjective": "9.5"}' 'http://localhost:8080/api/v1/earlyleavers'
     
 DELETE a la ruta base (p.e. “/towns”) borra todos los recursos:
     curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/earlyleavers'
