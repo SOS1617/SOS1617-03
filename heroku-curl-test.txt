@@ -37,12 +37,12 @@ curl -XPUT -H "Content-type: application/json" -d '{
 
 //Actualizar un recurso concreto
 curl -XPUT -H "Content-type: application/json" -d '{
-	"country": "Spain",
+	"country": "spain",
 	"year": "2012",
 	"science": "1",
 	"reading": "1",
 	"math": "1"
-}' 'http://sos1617-03.herokuapp.com/api/v1/results/Spain/2012'
+}' 'http://sos1617-03.herokuapp.com/api/v1/results/spain/2012'
 
 //Borrar una coleccion
 curl -v -XDELETE -H 'Content-type: application/json'  'http://sos1617-03.herokuapp.com/api/v1/results'

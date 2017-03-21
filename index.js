@@ -64,23 +64,23 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
               var results = [{
                 "country": "spain",
                 "year": "2012",
-                "science-calification": "496",
-                "reading-calification": "488",
-                "math-calification": "484"
+                "science": "496",
+                "reading": "488",
+                "math": "484"
             },
             {
                 "country": "spain",
                 "year": "2015",
-                "science-calification": "493",
-                "reading-calification": "496",
-                "math-calification": "486"
+                "science": "493",
+                "reading": "496",
+                "math": "486"
             },
             {
                 "country": "finland",
                 "year": "2015",
-                "science-calification": "531",
-                "reading-calification": "526",
-                "math-calification": "511"
+                "science": "531",
+                "reading": "526",
+                "math": "511"
             }];
         
     dbRuben.insert(results);
