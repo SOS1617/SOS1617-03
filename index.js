@@ -625,17 +625,12 @@ app.put(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, respo
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
-                } else if(countries.length > 0) {
-						dbIvan.update({country: updatedCountry.country, year: updatedCountry.year}, updatedCountry);
-                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
-                        response.send(updatedCountry); // return the updated contact
-      
-                    } else if (countriesBeforeInsertion.length > 0) {
-                        dbIvan.update({country: name}, updatedCountry);
-                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
-                        response.send(updatedCountry); // return the updated contact
+                } else if (earlyleavers.length > 0) {
+                        dbRaul.update({country: updatedEarlyleaver.country, year: updatedEarlyleaver.year}, updatedEarlyleaver);
+                        console.log("INFO: Modifying earlyleaver with country " + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
+                        response.send(updatedEarlyleaver); // return the updated contact
                     } else {
-                        console.log("WARNING: There are not any country with name " + name);
+                        console.log("WARNING: There are not any earlyleavers with country " + country);
                         response.sendStatus(404); // not found
                     }
                 }
@@ -953,23 +948,16 @@ app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
                     response.sendStatus(500); // internal server error
                 } else if(countries.length > 0) {
 						dbIvan.update({country: updatedCountry.country, year: updatedCountry.year}, updatedCountry);
-                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+                        console.log("INFO: Modifying country with country " + country + " with data " + JSON.stringify(updatedCountry, 2, null));
                         response.send(updatedCountry); // return the updated contact
-      
-                    });
-                    if (countriesBeforeInsertion.length > 0) {
-                        dbIvan.update({country: name}, updatedCountry);
-                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
-                        response.send(updatedCountry); // return the updated contact
-                    } else {
-                        console.log("WARNING: There are not any country with name " + name);
+                    } else{
+                        console.log("WARNING: There are not any country with country " + country);
                         response.sendStatus(404); // not found
-                    }
+					}
                 }
-            });
+            )}
         }
-    }
-});
+    });
 
 
 //DELETE over a collection
