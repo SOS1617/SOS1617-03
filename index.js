@@ -659,6 +659,298 @@ app.delete(BASE_API_PATH + "/earlyleavers", function (request, response) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//Load initial data
+
+app.get(BASE_API_PATH + "/countriesIvn/loadInitialData",function(request, response) {
+    
+    dbIvan.find({}).toArray(function(err,countries){
+        
+         if (err) {
+        console.error('WARNING: Error while getting initial data from DB');
+        return 0;
+    }
+    
+      if (countries.length === 0) {
+        console.log('INFO: Empty DB, loading initial data');
+
+              var countr = [{
+                "country": "España", 
+                "year":"2014", 
+                "population": "46.48",
+                "riskpoverty":"22.2", 
+                "inveducation": "46789.6"
+            },
+            {
+                "country": "Reino Unido",
+                "year": "2014",
+                "population": "64.613", 
+                "riskpoverty": "20.8",
+                "inveducation": "117116.4"
+            },
+            {
+                "country": "Estados Unidos",
+                "year":"2014", 
+                "population": "318.907",
+                "riskpoverty":"13.5",
+                "inveducation": "582356"
+            },
+            {"country": "Italia",
+            "year":"2014",
+            "population": "60.789,",
+            "riskpoverty":"19.9",
+            "inveducation": "67799.8"
+            },
+            {
+                "country": "Alemania",
+                "year":"2014",
+                "population": "80.982",
+                "riskpoverty":"16.7",
+                "inveducation": "136.487.3"
+            }];
+        dbIvan.insert(countr);
+    } else {
+        console.log('INFO: DB has ' + countries.length + ' countries ');
+    }
+});
+});
+
+/*
+dbIvan.find({}, function (err, countries) {
+    console.log('INFO: Initialiting DB...');
+
+    if (err) {
+        console.error('WARNING: Error while getting initial data from DB');
+        return 0;
+    }
+
+
+    if (countries.length === 0) {
+        console.log('INFO: Empty DB, loading initial data');
+
+        var countr = [{
+                "country": "España", 
+                "year":"2014", 
+                "population": "46.48",
+                "riskpoverty":"22.2", 
+                "inveducation": "46789.6"
+            },
+            {
+                "country": "Reino Unido",
+                "year": "2014",
+                "population": "64.613", 
+                "riskpoverty": "20.8",
+                "inveducation": "117116.4"
+            },
+            {
+                "country": "Estados Unidos",
+                "year":"2014", 
+                "population": "318.907",
+                "riskpoverty":"13.5",
+                "inveducation": "582356"
+            },
+            {"country": "Italia",
+            "year":"2014",
+            "population": "60.789,",
+            "riskpoverty":"19.9",
+            "inveducation": "67799.8"
+            },
+            {
+                "country": "Alemania",
+                "year":"2014",
+                "population": "80.982",
+                "riskpoverty":"16.7",
+                "inveducation": "136.487.3"
+            }];
+        dbIvan.insert(countr);
+    } else {
+        console.log('INFO: DB has ' + countries.length + ' countries ');
+    }
+});*/
+
+// Base GET
+app.get("/", function (request, response) {
+    console.log("INFO: Redirecting to /countriesIvn");
+    response.redirect(301, BASE_API_PATH + "/countriesIvn");
+});
+
+
+// GET a collection
+app.get(BASE_API_PATH + "/countriesIvn", function (request, response) {
+    console.log("INFO: New GET request to /countriesIvn");
+    dbIvan.find({}, function (err, countries) {
+        if (err) {
+            console.error('WARNING: Error getting data from DB');
+            response.sendStatus(500); // internal server error
+        } else {
+            console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
+            response.send(countries);
+        }
+    });
+});
+
+
+// GET a single resource
+app.get(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
+    var countrieParam = request.params.country;
+    if (!countrieParam) {
+        console.log("WARNING: New GET request to /countriesIvn/:name without name, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New GET request to /countriesIvn/" + countrieParam);
+        dbIvan.find({country : countrieParam}, function (err, countries) {
+            if (err) {
+                console.error('WARNING: Error getting data from DB');
+                response.sendStatus(500); // internal server error
+            } else {
+                //var filteredContacts = contacts.filter((contact) => {
+                //    return (contact.name.localeCompare(name, "en", {'sensitivity': 'base'}) === 0);
+                //});
+                if (countries.length > 0) {
+                    var countrie = countries[0]; //since we expect to have exactly ONE contact with this name
+                    console.log("INFO: Sending countrie: " + JSON.stringify(countrie, 2, null));
+                    response.send(countrie);
+                } else {
+                    console.log("WARNING: There are not any countrie with name " + countrieParam);
+                    response.sendStatus(404); // not found
+                }
+            }
+        });
+    }
+});
+
+
+//POST over a collection
+app.post(BASE_API_PATH + "/countries", function (request, response) {
+    var newCountrie = request.body;
+    if (!newCountrie) {
+        console.log("WARNING: New POST request to /countriesIvn/ without countrie, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New POST request to /countriesIvn with body: " + JSON.stringify(newCountrie, 2, null));
+        if (!newCountrie.country || !newCountrie.year || !newCountrie.population || !newCountrie.riskpoverty || !newCountrie.inveducation) {
+            console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            dbIvan.find({}, function (err, countries) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var countriesBeforeInsertion = countries.filter((countrie) => {
+                        return (countrie.name.localeCompare(newCountrie.name, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (countriesBeforeInsertion.length > 0) {
+                        console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " already extis, sending 409...");
+                        response.sendStatus(409); // conflict
+                    } else {
+                        console.log("INFO: Adding countrie " + JSON.stringify(newCountrie, 2, null));
+                        dbIvan.insert(newCountrie);
+                        response.sendStatus(201); // created
+                    }
+                }
+            });
+        }
+    }
+});
+
+
+
+//POST over a single resource
+app.post(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
+    var name = request.params.country;
+    console.log("WARNING: New POST request to /countriesIvn/" + name + ", sending 405...");
+    response.sendStatus(405); // method not allowed
+});
+
+
+//PUT over a collection
+app.put(BASE_API_PATH + "/countriesIvn", function (request, response) {
+    console.log("WARNING: New PUT request to /countriesIvn, sending 405...");
+    response.sendStatus(405); // method not allowed
+});
+
+
+//PUT over a single resource
+app.put(BASE_API_PATH + "/countriesIvn/:country", function (request, response) {
+    var updatedCountry = request.body;
+    var name = request.params.country;
+    if (!updatedCountry) {
+        console.log("WARNING: New PUT request to /countriesIvn/ without contact, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New PUT request to /countriesIvn/" + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+        if (!updatedCountry.country || !updatedCountry.year || !updatedCountry.population || !updatedCountry.riskpoverty || !updatedCountry.inveducation) {
+            console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
+            response.sendStatus(422); // unprocessable entity
+        } else {
+            dbIvan.find({}, function (err, countries) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                } else {
+                    var countriesBeforeInsertion = countries.filter((country) => {
+                        return (country.name.localeCompare(name, "en", {'sensitivity': 'base'}) === 0);
+                    });
+                    if (countriesBeforeInsertion.length > 0) {
+                        dbIvan.update({country: name}, updatedCountry);
+                        console.log("INFO: Modifying country with name " + name + " with data " + JSON.stringify(updatedCountry, 2, null));
+                        response.send(updatedCountry); // return the updated contact
+                    } else {
+                        console.log("WARNING: There are not any country with name " + name);
+                        response.sendStatus(404); // not found
+                    }
+                }
+            });
+        }
+    }
+});
+
+
+//DELETE over a collection
+app.delete(BASE_API_PATH + "/countriesIvn", function (request, response) {
+    console.log("INFO: New DELETE request to /countriesIvn");
+    dbIvan.remove({}, {multi: true}, function (err, numRemoved) {
+        if (err) {
+            console.error('WARNING: Error removing data from DB');
+            response.sendStatus(500); // internal server error
+        } else {
+            if (numRemoved > 0) {
+                console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
+                response.sendStatus(204); // no content
+            } else {
+                console.log("WARNING: There are no contacts to delete");
+                response.sendStatus(404); // not found
+            }
+        }
+    });
+});
+
+
+//DELETE over a single resource
+app.delete(BASE_API_PATH + "/countries/:country", function (request, response) {
+    var name = request.params.country;
+    if (!name) {
+        console.log("WARNING: New DELETE request to /countriesIvn/:country without name, sending 400...");
+        response.sendStatus(400); // bad request
+    } else {
+        console.log("INFO: New DELETE request to /countriesIvn/" + name);
+        dbIvan.remove({country: name}, {}, function (err, numRemoved) {
+            if (err) {
+                console.error('WARNING: Error removing data from DB');
+                response.sendStatus(500); // internal server error
+            } else {
+                console.log("INFO: Countries removed: " + numRemoved);
+                if (numRemoved === 1) {
+                    console.log("INFO: The contact with name " + name + " has been succesfully deleted, sending 204...");
+                    response.sendStatus(204); // no content
+                } else {
+                    console.log("WARNING: There are no contacts to delete");
+                    response.sendStatus(404); // not found
+                }
+            }
+        });
+    }
+});
 
 
 
