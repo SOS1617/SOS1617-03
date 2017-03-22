@@ -324,12 +324,12 @@ app.put(BASE_API_PATH + "/results/:country/:year", function (request, response) 
             console.log("WARNING: The result " + JSON.stringify(updatedResult, 2, null) + " is not well-formed, sending 422...");
             response.sendStatus(422); // unprocessable entity
         } else {
-            dbRuben.find({country:updatedResult.country, $and:[{year:updatedResult.year}]}).toArray(function (err, results) {
+            dbRuben.find({country:country, $and:[{year:year}]}).toArray(function (err, results) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
                 } else if (results.length > 0) {
-                        dbRuben.update({country: updatedResult.country, year: updatedResult.year}, updatedResult);
+                        dbRuben.update({country: country, year: year}, updatedResult);
                         console.log("INFO: Modifying result with country " + country + " with data " + JSON.stringify(updatedResult, 2, null));
                         response.send(updatedResult); // return the updated contact
                     } else {
