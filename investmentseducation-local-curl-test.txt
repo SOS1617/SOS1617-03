@@ -19,10 +19,10 @@
 //PUT a un recurso (p.e. “/towns/seville”) actualiza ese recurso:
 curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "spain", "year": "2014", "population": "80", "riskpoverty": "22.2", "inveducation": "46789.6"}' 'http://localhost:8080/api/v1/investmentseducation/spain/2014'    
 //POST a un recurso (p.e. “/towns/seville”) debe dar un error de método no permitido:
-    curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "spain", "year": "2015", "population": "46", "riskpoverty": "22.2", "invedu": "46789.6"}' 'http://localhost:8080/api/v1/investmentseducation/spain/2010'
+    curl -v -XPOST -H 'Content-type: application/json' -d '{ "country": "spain", "year": "2015", "population": "46", "riskpoverty": "22.2", "inveducation": "46789.6"}' 'http://localhost:8080/api/v1/investmentseducation/spain/2010'
     
 //PUT a la ruta base (p.e. “/towns”) debe dar un error de método no permitido:
-    curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "spain", "year": "2015", "population": "46", "riskpoverty": "22.2", "invedu": "46789.6"}' 'http://localhost:8080/api/v1/investmentseducation'
+    curl -v -XPUT -H 'Content-type: application/json' -d '{ "country": "spain", "year": "2015", "population": "46", "riskpoverty": "22.2", "inveducation": "46789.6"}' 'http://localhost:8080/api/v1/investmentseducation'
     
 //DELETE a la ruta base (p.e. “/towns”) borra todos los recursos:
     curl -v -XDELETE -H 'Content-type: application/json'  'http://localhost:8080/api/v1/investmentseducation'
