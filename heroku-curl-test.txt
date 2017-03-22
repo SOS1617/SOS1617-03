@@ -9,28 +9,22 @@ curl -v -XGET -H 'Content-type: application/json'  'http://sos1617-03.herokuapp.
 curl -v -XGET -H 'Content-type: application/json'  'http://sos1617-03.herokuapp.com/api/v1/results'
 
 //Crear un elemento en una colección
-curl -XPOST -H "Content-type: application/json" -d '{"country": "spain","year": "2012","science": "500","reading": "300","math": "400"}' 'http://sos1617-03.herokuapp.com/api/v1/results'
+curl -XPOST -H "Content-type: application/json" -d '{"country": "Japan","year": "2012","science": "500","reading": "300","math": "400"}' 'http://sos1617-03.herokuapp.com/api/v1/results'
 
 //Crear un elemento en un recurso concreto (PROHIBIDO)
-curl -XPOST -H "Content-type: application/json" -d '{"country": "germany","year": "2012","science": "500","reading": "300","math": "400"}' 'http://sos1617-03.herokuapp.com/api/v1/results/Spain/2015'
+curl -XPOST -H "Content-type: application/json" -d '{"country": "germany","year": "2012","science": "500","reading": "300","math": "400"}' 'http://sos1617-03.herokuapp.com/api/v1/results/spain/2015'
 
 //Actualizar una coleccion (PROHIBIDO)
-curl -XPUT -H "Content-type: application/json" -d '{	"country": "spain",	"year": "2012",	"science": "1",	"reading": "1",	"math": "1"}' 'http://sos1617-03.herokuapp.com/api/v1/results/'
+curl -XPUT -H "Content-type: application/json" -d '{	"country": "japan",	"year": "2014",	"science": "1",	"reading": "1",	"math": "1"}' 'http://sos1617-03.herokuapp.com/api/v1/results/spain/2015'
 
 //Actualizar un recurso concreto
-curl -XPUT -H "Content-type: application/json" -d '{
-	"country": "spain",
-	"year": "2012",
-	"science": "1",
-	"reading": "1",
-	"math": "1"
-}' 'http://sos1617-03.herokuapp.com/api/v1/results/spain/2012'
+curl -XPUT -H "Content-type: application/json" -d '	{"country": "brasil", "year": "2013","science": "1","reading": "1",	"math": "1"}' 'http://sos1617-03.herokuapp.com/api/v1/results/finland/2015'
 
 //Borrar una coleccion
 curl -v -XDELETE -H 'Content-type: application/json'  'http://sos1617-03.herokuapp.com/api/v1/results'
 
 //Borrar un recurso concreto
-curl -XDELETE -H "Content-type: application/json" 'http://sos1617-03.herokuapp.com/api/v1/results/germany/2012'
+curl -XDELETE -H "Content-type: application/json" 'http://sos1617-03.herokuapp.com/api/v1/results/spain/2012'
 
 
 ////////////////////////

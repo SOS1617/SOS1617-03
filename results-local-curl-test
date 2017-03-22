@@ -41,13 +41,7 @@ curl -XPUT -H "Content-type: application/json" -d '{
 }' 'http://localhost:8080/api/v1/results/'
 
 //Actualizar un recurso concreto
-curl -XPUT -H "Content-type: application/json" -d '{
-	"country": "Spain",
-	"year": "2012",
-	"science": "1",
-	"reading": "1",
-	"math": "1"
-}' 'http://localhost:8080/api/v1/results/Spain/2012'
+curl -XPUT -H "Content-type: application/json" -d '{	"country": "Japan",	"year": "2013",	"science": "1",	"reading": "1",	"math": "1"}' 'http://localhost:8080/api/v1/results/Spain/2012'
 
 
 //Borrar una coleccion
