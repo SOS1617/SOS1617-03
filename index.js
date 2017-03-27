@@ -43,6 +43,8 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
 
 app.use("/",express.static(publicFolder));
 
+app.use("/api/v1/tests", express.static(path.join(__dirname , "public/tests.html")));
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////CODIGO API RUBEN////////////////////////////////////////////////////////////
@@ -84,8 +86,10 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
             }];
         
     dbRuben.insert(results);
+    response.sendStatus(200); //Ok
       } else {
         console.log('INFO: DB has ' + results.length + ' results ');
+        response.sendStatus(200); //Ok
     }
 });
 });
@@ -407,8 +411,10 @@ app.get(BASE_API_PATH + "/earlyleavers/loadInitialData",function(request, respon
             }];
         
     dbRaul.insert(earlyleavers);
+    response.sendStatus(200); //Ok
       } else {
         console.log('INFO: DB has ' + earlyleavers.length + ' objects ');
+        response.sendStatus(200); //Ok
     }
 });
 });
@@ -586,14 +592,15 @@ app.delete(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, re
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /earlyleavers/" + country + " and year " + year);
-        dbRaul.remove({country:country, $and:[{year:year}]}, {}, function (err, numRemoved) {
+        dbRaul.remove({country:country, $and:[{year:year}]}, {}, function (err, result) {
+            var numRemoved = JSON.parse(result);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-                console.log("INFO: Earlyleavers removed: " + numRemoved);
-                if (numRemoved === 1) {
-                    console.log("INFO: The earlyleavers with country " + country + "and year " + year + " has been succesfully deleted, sending 204...");
+                console.log("INFO: Earlyleavers removed: " + numRemoved.n);
+                if (numRemoved.n === 1) {
+                    console.log("INFO: The earlyleavers with country " + country + " and year " + year + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
                     console.log("WARNING: There are no countries to delete");
@@ -641,13 +648,14 @@ app.put(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, respo
 //DELETE a una coleccion
 app.delete(BASE_API_PATH + "/earlyleavers", function (request, response) {
     console.log("INFO: New DELETE request to /earlyleavers");
-    dbRaul.remove({}, {multi: true}, function (err, numRemoved) {
+    dbRaul.remove({}, {multi: true}, function (err, result) {
+        var numRemoved = JSON.parse(result);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved > 0) {
-                console.log("INFO: All the earlyleavers (" + numRemoved + ") have been succesfully deleted, sending 204...");
+            if (numRemoved.n > 0) {
+                console.log("INFO: All the earlyleavers (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
                 console.log("WARNING: There are no earlyleavers to delete");
@@ -713,8 +721,10 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "inveducation": "136.487.3"
             }];
         dbIvan.insert(countr);
+        response.sendStatus(200); //Ok
     } else {
         console.log('INFO: DB has ' + countries.length + ' countries ');
+        response.sendStatus(200); //Ok
     }
 });
 });
