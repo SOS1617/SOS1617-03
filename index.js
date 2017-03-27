@@ -627,6 +627,9 @@ app.put(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, respo
         if (!updatedEarlyleaver.country || !updatedEarlyleaver.year || !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale || !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective) {
             console.log("WARNING: The earlyleaver " + JSON.stringify(updatedEarlyleaver, 2, null) + " is not well-formed, sending 400...");
             response.sendStatus(400); // bad request
+        } else if (updatedEarlyleaver.country != country || !updatedEarlyleaver.year != year|| !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale || !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective) {
+            console.log("WARNING: The earlyleaver " + JSON.stringify(updatedEarlyleaver, 2, null) + " is not well-formed, sending 400...");
+            response.sendStatus(400); // bad request
         } else {
             dbRaul.find({country:updatedEarlyleaver.country, $and:[{year:updatedEarlyleaver.year}]}).toArray(function (err, earlyleavers) {
                 if (err) {
