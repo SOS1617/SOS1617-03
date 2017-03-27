@@ -535,7 +535,7 @@ app.post(BASE_API_PATH + "/earlyleavers", function (request, response) {
         console.log("INFO: New POST request to /earlyleavers with body: " + JSON.stringify(newEarlyleaver, 2, null));
         if (!newEarlyleaver.country || !newEarlyleaver.year || !newEarlyleaver.eslmale || !newEarlyleaver.eslfemale || !newEarlyleaver.esltotal || !newEarlyleaver.eslobjective) {
             console.log("WARNING: The earlyleaver " + JSON.stringify(newEarlyleaver, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
+            response.sendStatus(400); // bad request
         } else {
             dbRaul.find({country:newEarlyleaver.country, $and:[{year:newEarlyleaver.year}]}).toArray(function (err, earlyleavers) {
                 if (err) {
@@ -626,7 +626,7 @@ app.put(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, respo
         console.log("INFO: New PUT request to /earlyleavers/" + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
         if (!updatedEarlyleaver.country || !updatedEarlyleaver.year || !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale || !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective) {
             console.log("WARNING: The earlyleaver " + JSON.stringify(updatedEarlyleaver, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
+            response.sendStatus(400); // bad request
         } else {
             dbRaul.find({country:updatedEarlyleaver.country, $and:[{year:updatedEarlyleaver.year}]}).toArray(function (err, earlyleavers) {
                 if (err) {
