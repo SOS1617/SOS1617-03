@@ -624,10 +624,8 @@ app.put(BASE_API_PATH + "/earlyleavers/:country/:year", function (request, respo
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New PUT request to /earlyleavers/" + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
-        if (!updatedEarlyleaver.country || !updatedEarlyleaver.year || !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale || !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective) {
-            console.log("WARNING: The earlyleaver " + JSON.stringify(updatedEarlyleaver, 2, null) + " is not well-formed, sending 400...");
-            response.sendStatus(400); // bad request
-        } else if (updatedEarlyleaver.country != country || !updatedEarlyleaver.year != year|| !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale || !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective) {
+        if (!updatedEarlyleaver.country || !updatedEarlyleaver.year || !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale ||
+                    !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective || updatedEarlyleaver.country !== country || updatedEarlyleaver.year !== year) { //keep an eye on this
             console.log("WARNING: The earlyleaver " + JSON.stringify(updatedEarlyleaver, 2, null) + " is not well-formed, sending 400...");
             response.sendStatus(400); // bad request
         } else {
