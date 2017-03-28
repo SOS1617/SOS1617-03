@@ -982,7 +982,7 @@ app.delete(BASE_API_PATH + "/investmentseducation", function (request, response)
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved > 0) {
+            if (numRemoved.n > 0) {
                 console.log("INFO: All the countries (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
