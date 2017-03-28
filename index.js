@@ -121,7 +121,7 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
 
 app.get(BASE_API_PATH + "/results/:year", function (request, response) {
     var year = request.params.year;
-    var country = request.params.year;
+    var country = request.params.yfear;
 
     if(isNaN(request.params.year.charAt(0))){
         
