@@ -235,8 +235,8 @@ app.post(BASE_API_PATH + "/results", function (request, response) {
     } else {
         console.log("INFO: New POST request to /results with body: " + JSON.stringify(newResult, 2, null));
         if (!newResult.country || !newResult.year || !newResult.science || !newResult.math || !newResult.reading) {
-            console.log("WARNING: The contact " + JSON.stringify(newResult, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
+            console.log("WARNING: The contact " + JSON.stringify(newResult, 2, null) + " is not well-formed, sending 400...");
+            response.sendStatus(400); // unprocessable entity
         } else {
             dbRuben.find({country:newResult.country, $and:[{year:newResult.year}]}).toArray(function (err, results) {
                 if (err) {
@@ -325,8 +325,8 @@ app.put(BASE_API_PATH + "/results/:country/:year", function (request, response) 
     } else {
         console.log("INFO: New PUT request to /results/" + country + " with data " + JSON.stringify(updatedResult, 2, null));
         if (!updatedResult.country || !updatedResult.year || !updatedResult.science || !updatedResult.math || !updatedResult.reading) {
-            console.log("WARNING: The result " + JSON.stringify(updatedResult, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
+            console.log("WARNING: The result " + JSON.stringify(updatedResult, 2, null) + " is not well-formed, sending 400...");
+            response.sendStatus(400); // unprocessable entity
         } else {
             dbRuben.find({country:country, $and:[{year:year}]}).toArray(function (err, results) {
                 if (err) {
@@ -897,8 +897,8 @@ app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
     } else {
         console.log("INFO: New POST request to /investmentseducation with body: " + JSON.stringify(newCountrie, 2, null));
         if (!newCountrie.country || !newCountrie.year || !newCountrie.population || !newCountrie.riskpoverty || !newCountrie.inveducation) {
-            console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
+            console.log("WARNING: The countrie " + JSON.stringify(newCountrie, 2, null) + " is not well-formed, sending 400...");
+            response.sendStatus(400); // unprocessable entity
         } else {
             dbIvan.find({country:newCountrie.country, $and:[{year:newCountrie.year}]}).toArray( function (err, countries) {
                 if (err) {
@@ -950,8 +950,8 @@ app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
     } else {
         console.log("INFO: New PUT request to /investmentseducation/" + country + " with data " + JSON.stringify(updatedCountry, 2, null));
         if (!updatedCountry.country || !updatedCountry.year || !updatedCountry.population || !updatedCountry.riskpoverty || !updatedCountry.inveducation) {
-            console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 422...");
-            response.sendStatus(422); // unprocessable entity
+            console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 400...");
+            response.sendStatus(400); // unprocessable entity
         } else {
             dbIvan.find({country:updatedCountry.country, $and:[{year:updatedCountry.year}]}).toArray( function (err, countries) {
                 if (err) {
