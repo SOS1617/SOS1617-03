@@ -732,66 +732,7 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
 });
 });
 
-/*
-dbIvan.find({}, function (err, countries) {
-    console.log('INFO: Initialiting DB...');
 
-    if (err) {
-        console.error('WARNING: Error while getting initial data from DB');
-        return 0;
-    }
-
-
-    if (countries.length === 0) {
-        console.log('INFO: Empty DB, loading initial data');
-
-        var countr = [{
-                "country": "España", 
-                "year":"2014", 
-                "population": "46.48",
-                "riskpoverty":"22.2", 
-                "inveducation": "46789.6"
-            },
-            {
-                "country": "Reino Unido",
-                "year": "2014",
-                "population": "64.613", 
-                "riskpoverty": "20.8",
-                "inveducation": "117116.4"
-            },
-            {
-                "country": "Estados Unidos",
-                "year":"2014", 
-                "population": "318.907",
-                "riskpoverty":"13.5",
-                "inveducation": "582356"
-            },
-            {"country": "Italia",
-            "year":"2014",
-            "population": "60.789,",
-            "riskpoverty":"19.9",
-            "inveducation": "67799.8"
-            },
-            {
-                "country": "Alemania",
-                "year":"2014",
-                "population": "80.982",
-                "riskpoverty":"16.7",
-                "inveducation": "136.487.3"
-            }];
-        dbIvan.insert(countr);
-    } else {
-        console.log('INFO: DB has ' + countries.length + ' countries ');
-    }
-});*/
-
-/*
-// Base GET
-app.get("/", function (request, response) {
-    console.log("INFO: Redirecting to /investmentseducation");
-    response.redirect(301, BASE_API_PATH + "/investmentseducation");
-});
-*/
 
 // GET a collection
 app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
@@ -954,7 +895,8 @@ app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New PUT request to /investmentseducation/" + country + " with data " + JSON.stringify(updatedCountry, 2, null));
-        if (!updatedCountry.country || !updatedCountry.year || !updatedCountry.population || !updatedCountry.riskpoverty || !updatedCountry.inveducation) {
+        if (!updatedCountry.country || !updatedCountry.year || !updatedCountry.population || !updatedCountry.riskpoverty || !updatedCountry.inveducation
+           || updatedCountry.country !== country || updatedCountry.year !== year) {
             console.log("WARNING: The country " + JSON.stringify(updatedCountry, 2, null) + " is not well-formed, sending 400...");
             response.sendStatus(400); // unprocessable entity
         } else {
