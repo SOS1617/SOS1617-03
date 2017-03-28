@@ -978,17 +978,18 @@ app.delete(BASE_API_PATH + "/investmentseducation", function (request, response)
     console.log("INFO: New DELETE request to /investmentseducation");
     dbIvan.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
-        if (err) {
-            console.error('WARNING: Error removing data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            if (numRemoved.n > 0) {
-                console.log("INFO: All the countries (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
-                response.sendStatus(204); // no content
+            if (err) {
+                console.error('WARNING: Error removing data from DB');
+                response.sendStatus(500); // internal server error
             } else {
-                console.log("WARNING: There are no contacts to delete");
-                response.sendStatus(404); // not found
-            }
+                console.log("INFO: Earlyleavers removed: " + numRemoved.n);
+                if (numRemoved.n === 1) {
+                    console.log("INFO: The earlyleavers with country " + country + " and year " + year + " has been succesfully deleted, sending 204...");
+                    response.sendStatus(204); // no content
+                } else {
+                    console.log("WARNING: There are no countries to delete");
+                    response.sendStatus(404); // not found
+                }
         }
     });
 });
