@@ -293,13 +293,14 @@ app.delete(BASE_API_PATH + "/results/:country/:year", function (request, respons
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New DELETE request to /results/" + country + " and year " + year);
-        dbRuben.remove({country:country, $and:[{year:year}]}, {}, function (err, numRemoved) {
+        dbRuben.remove({country:country, $and:[{year:year}]}, {}, function (err, result) {
+            var numRemoved = JSON.parse(result);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-                console.log("INFO: Results removed: " + numRemoved);
-                if (numRemoved === 1) {
+                console.log("INFO: Results removed: " + numRemoved.n);
+                if (numRemoved.n === 1) {
                     console.log("INFO: The result with country " + country + "and year " + year + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
@@ -348,13 +349,14 @@ app.put(BASE_API_PATH + "/results/:country/:year", function (request, response) 
 //DELETE a una coleccion
 app.delete(BASE_API_PATH + "/results", function (request, response) {
     console.log("INFO: New DELETE request to /results");
-    dbRuben.remove({}, {multi: true}, function (err, numRemoved) {
+    dbRuben.remove({}, {multi: true}, function (err, result) {
+        var numRemoved = JSON.parse(result);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
-            if (numRemoved > 0) {
-                console.log("INFO: All the results (" + numRemoved + ") have been succesfully deleted, sending 204...");
+            if (numRemoved.n > 0) {
+                console.log("INFO: All the results (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
                 console.log("WARNING: There are no results to delete");
@@ -974,13 +976,14 @@ app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/investmentseducation", function (request, response) {
     console.log("INFO: New DELETE request to /investmentseducation");
-    dbIvan.remove({}, {multi: true}, function (err, numRemoved) {
+    dbIvan.remove({}, {multi: true}, function (err, result) {
+        var numRemoved = JSON.parse(result);
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
         } else {
             if (numRemoved > 0) {
-                console.log("INFO: All the countries (" + numRemoved + ") have been succesfully deleted, sending 204...");
+                console.log("INFO: All the countries (" + numRemoved.n + ") have been succesfully deleted, sending 204...");
                 response.sendStatus(204); // no content
             } else {
                 console.log("WARNING: There are no contacts to delete");
@@ -992,21 +995,23 @@ app.delete(BASE_API_PATH + "/investmentseducation", function (request, response)
 
 
 //DELETE over a single resource
-app.delete(BASE_API_PATH + "/investmentseducation/:country", function (request, response) {
-    var name = request.params.country;
-    if (!name) {
-        console.log("WARNING: New DELETE request to /investmentseducation/:country without name, sending 400...");
+app.delete(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
+    var country = request.params.country;
+    var year = request.params.year;
+    if (!country || !year) {
+        console.log("WARNING: New DELETE request to /investmentseducation/:country/:year without country and year, sending 400...");
         response.sendStatus(400); // bad request
     } else {
-        console.log("INFO: New DELETE request to /investmentseducation/" + name);
-        dbIvan.remove({country: name}, {}, function (err, numRemoved) {
+        console.log("INFO: New DELETE request to /investmentseducation/" + country + "and year" + year);
+        dbIvan.remove({country: country, $and: [{year:year}]}, {}, function (err, result) {
+            var numRemoved = JSON.parse(result);
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
             } else {
-                console.log("INFO: Countries removed: " + numRemoved);
-                if (numRemoved === 1) {
-                    console.log("INFO: The contact with name " + name + " has been succesfully deleted, sending 204...");
+                console.log("INFO: Countries removed: " + numRemoved.n);
+                if (numRemoved.n === 1) {
+                    console.log("INFO: The contact with country " + country + "and year" + year + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
                 } else {
                     console.log("WARNING: There are no contacts to delete");
