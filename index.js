@@ -121,7 +121,7 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
 
 app.get(BASE_API_PATH + "/results/:year", function (request, response) {
     var year = request.params.year;
-    var country = request.params.yfear;
+    var country = request.params.year;
 
     if(isNaN(request.params.year.charAt(0))){
         
@@ -927,11 +927,14 @@ app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 
 //POST over a single resource
-app.post(BASE_API_PATH + "/investmentseducation/:country", function (request, response) {
+app.post(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
     var name = request.params.country;
-    console.log("WARNING: New POST request to /investmentseducation/" + name + ", sending 405...");
+    var year = request.params.year;
+    console.log("WARNING: New POST request to /investmentseducation/" + name + " and year " + year + ", sending 405...");
     response.sendStatus(405); // method not allowed
 });
+
+
 
 
 //PUT over a collection
