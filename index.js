@@ -64,21 +64,21 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
         console.log('INFO: Empty DB, loading initial data');
 
               var results = [{
-                "country": "spain",
+                "country": "Spain",
                 "year": "2012",
                 "science": "496",
                 "reading": "488",
                 "math": "484"
             },
             {
-                "country": "spain",
+                "country": "France",
                 "year": "2015",
                 "science": "493",
                 "reading": "496",
                 "math": "486"
             },
             {
-                "country": "finland",
+                "country": "Finland",
                 "year": "2015",
                 "science": "531",
                 "reading": "526",
@@ -236,7 +236,7 @@ app.post(BASE_API_PATH + "/results", function (request, response) {
         console.log("INFO: New POST request to /results with body: " + JSON.stringify(newResult, 2, null));
         if (!newResult.country || !newResult.year || !newResult.science || !newResult.math || !newResult.reading) {
             console.log("WARNING: The contact " + JSON.stringify(newResult, 2, null) + " is not well-formed, sending 400...");
-            response.sendStatus(400); // unprocessable entity
+            response.sendStatus(400); // bad request
         } else {
             dbRuben.find({country:newResult.country, $and:[{year:newResult.year}]}).toArray(function (err, results) {
                 if (err) {
