@@ -325,9 +325,9 @@ app.put(BASE_API_PATH + "/results/:country/:year", function (request, response) 
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New PUT request to /results/" + country + " with data " + JSON.stringify(updatedResult, 2, null));
-        if (!updatedResult.country || !updatedResult.year || !updatedResult.science || !updatedResult.math || !updatedResult.reading) {
+        if (!updatedResult.country || !updatedResult.year || !updatedResult.science || !updatedResult.math || !updatedResult.reading || updatedResult.country !== country || updatedResult.year !== year) {
             console.log("WARNING: The result " + JSON.stringify(updatedResult, 2, null) + " is not well-formed, sending 400...");
-            response.sendStatus(400); // unprocessable entity
+            response.sendStatus(400); // bad request
         } else {
             dbRuben.find({country:country, $and:[{year:year}]}).toArray(function (err, results) {
                 if (err) {
