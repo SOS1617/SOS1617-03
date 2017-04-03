@@ -89,7 +89,7 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
 
             if (limit && offset) {
 
-                dbRuben.find({}).skip(offset).limit(limit).toArray(function(err, results) {
+                dbRuben.find({}).skip(offset).limit(limit).toArray(function(err, results) {    
                     if (err) {
                         console.error('ERROR from database');
                         response.sendStatus(500); // internal server error
