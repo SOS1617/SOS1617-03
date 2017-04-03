@@ -36,6 +36,27 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
                 "science": "531",
                 "reading": "526",
                 "math": "511"
+            },
+            {
+                "country": "Germany",
+                "year": "2016",
+                "science": "581",
+                "reading": "333",
+                "math": "519"
+            },
+            {
+                "country": "United Kingdom",
+                "year": "2011",
+                "science": "231",
+                "reading": "426",
+                "math": "544"
+            },
+            {
+                "country": "Turkey",
+                "year": "2010",
+                "science": "331",
+                "reading": "426",
+                "math": "431"
             }];
         
     dbRuben.insert(results);
@@ -60,17 +81,71 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /results");
-    dbRuben.find({}).toArray(function (err, results) {
-        if (err) {
-            console.error('WARNING: Error getting data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            console.log("INFO: Sending contacts: " + JSON.stringify(results, 2, null));
-            response.send(results);
-        }
-    });
+            var limit = parseInt(request.query.limit);
+            var offset = parseInt(request.query.offset);
+            var from = request.query.from;
+            var to = request.query.to;
+            var aux = [];
+
+            if (limit && offset) {
+
+                dbRuben.find({}).skip(offset).limit(limit).toArray(function(err, results) {
+                    if (err) {
+                        console.error('ERROR from database');
+                        response.sendStatus(500); // internal server error
+                    }
+                    else {
+                        if (results.length === 0) {
+                            response.sendStatus(404);
+                        }
+                        console.log("INFO: Sending contacts: " + JSON.stringify(results, 2, null));
+                        if (from && to) {
+
+                            aux = buscador(results, aux, from, to);
+                            if (aux.length > 0) {
+                                response.send(aux);
+                            }
+                            else {
+                                response.sendStatus(404); // No encuentra nada con esos filtros
+                            }
+                        }
+                        else {
+                            response.send(results);
+                        }
+                    }
+                });
+            }
+            else {
+
+                dbRuben.find({}).toArray(function(err, results) {
+                    if (err) {
+                        console.error('ERROR from database');
+                        response.sendStatus(500); // internal server error
+                    }
+                    else {
+                        if (results.length === 0) {
+                            response.sendStatus(404);
+                        }
+                        console.log("INFO: Sending contacts: " + JSON.stringify(results, 2, null));
+                        if (from && to) {
+
+                            aux = buscador(results, aux, from, to);
+                            if (aux.length > 0) {
+                                response.send(aux);
+                            }
+                            else {
+                                response.sendStatus(404); //Está el from y el to pero está mal hecho
+                            }
+                        }
+                        else {
+                            response.send(results);
+                        }
+                    }
+                });
+            }
 });
 
+            
 // GET a collection de un mismo año 
 
 app.get(BASE_API_PATH + "/results/:year", function (request, response) {
@@ -307,6 +382,26 @@ app.put(BASE_API_PATH + "/results/:country/:year", function (request, response) 
         }
     });
 
+
+// Funcion auxiliar
+
+var buscador = function(base, conjuntoauxiliar, desde, hasta) {
+
+    var from = parseInt(desde);
+    var to = parseInt(hasta);
+
+    for (var j = 0; j < base.length; j++) {
+        var anyo = base[j].year;
+        if (to >= anyo && from <= anyo) {
+
+            conjuntoauxiliar.push(base[j]);
+        }
+    }
+
+    return conjuntoauxiliar;
+
+};
+
 //DELETE a una coleccion
 app.delete(BASE_API_PATH + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
@@ -328,3 +423,5 @@ app.delete(BASE_API_PATH + "/results", function (request, response) {
     });
 });
 };
+
+
