@@ -77,45 +77,51 @@ app.get("/", function (request, response) {
 */
 
 // GET a collection
+
+
 app.get(BASE_API_PATH + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /results");
-            var limit = parseInt(request.query.limit);
-            var offset = parseInt(request.query.offset);
-            var from = request.query.from;
-            var to = request.query.to;
+           var limit = parseInt(request.query.limit);
+          var offset = parseInt(request.query.offset);
+
+            var from = parseInt(request.query.from);
+            var to = parseInt(request.query.to);
             var aux = [];
-
-            if (limit && offset) {
-
+            if (limit && offset>=0) {
+             //   aux= buscador(dbRuben.find({}).toArray(), aux, from, to);
                 dbRuben.find({}).skip(offset).limit(limit).toArray(function(err, results) {    
                     if (err) {
                         console.error('ERROR from database');
                         response.sendStatus(500); // internal server error
-                    }
-                    else {
+                    }else {
                         if (results.length === 0) {
                             response.sendStatus(404);
+
                         }
-                        console.log("INFO: Sending contacts: " + JSON.stringify(results, 2, null));
                         if (from && to) {
 
-                            aux = buscador(results, aux, from, to);
+                           aux = buscador(results, aux, from, to);
                             if (aux.length > 0) {
                                 response.send(aux);
+                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux, 2, null));
+                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(results, 2, null));
+                            
+
+
                             }
                             else {
                                 response.sendStatus(404); // No encuentra nada con esos filtros
                             }
-                        }
-                        else {
+                        }else {
                             response.send(results);
+                          console.log("INFO: Sending results without from and to: " + JSON.stringify(results, 2, null));
+
                         }
                     }
                 });
-            }
-            else {
+            } else {
 
                 dbRuben.find({}).toArray(function(err, results) {
                     if (err) {
@@ -126,12 +132,13 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
                         if (results.length === 0) {
                             response.sendStatus(404);
                         }
-                        console.log("INFO: Sending contacts: " + JSON.stringify(results, 2, null));
                         if (from && to) {
 
                             aux = buscador(results, aux, from, to);
                             if (aux.length > 0) {
                                 response.send(aux);
+                             console.log("INFO: Sending results with from and to but without limit and offset: " + JSON.stringify(results, 2, null));
+
                             }
                             else {
                                 response.sendStatus(404); //Está el from y el to pero está mal hecho
@@ -139,6 +146,8 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
                         }
                         else {
                             response.send(results);
+                            console.log("INFO: Sending results: " + JSON.stringify(results, 2, null));
+
                         }
                     }
                 });
@@ -389,6 +398,7 @@ var buscador = function(base, conjuntoauxiliar, desde, hasta) {
 
     var from = parseInt(desde);
     var to = parseInt(hasta);
+
 
     for (var j = 0; j < base.length; j++) {
         var anyo = base[j].year;
