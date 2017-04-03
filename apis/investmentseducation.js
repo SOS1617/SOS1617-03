@@ -44,6 +44,12 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
             "riskpoverty":"19.9",
             "inveducation": "67799.8"
             },
+            {"country": "brasil",
+            "year":"2012",
+            "population": "80.00",
+            "riskpoverty":"30",
+            "inveducation": "76994.8"
+            },
             {
                 "country": "germany",
                 "year":"2014",
@@ -66,6 +72,72 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
 app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New GET request to /investmentseducation");
+    
+         /*PRUEBA DE BUSQUEDA */
+
+            var limit = parseInt(request.query.limit);
+            var offset = parseInt(request.query.offset);
+            var from = request.query.from;
+            var to = request.query.to;
+            var aux = [];
+            
+            if (limit && offset) {
+            dbIvan.find({}).skip(offset).limit(limit).toArray(function(err, countries) {
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                     response.sendStatus(500); // internal server error
+                } else {
+                     if (countries.length === 0) {
+                            response.sendStatus(404);
+                        }
+                    console.log("INFO: Sending countries: " + JSON.stringify(countries, 2, null));
+                    if (from && to) {
+
+                            aux = buscador(countries, aux, from, to);
+                            if (aux.length > 0) {
+                                response.send(aux);
+                            }
+                            else {
+                                response.sendStatus(404); // No encuentra nada con esos filtros
+                            }
+                        }
+                        else {
+                            response.send(countries);
+                        }
+                    response.send(countries);
+                }
+            });
+            
+            }
+            else {
+
+                dbIvan.find({}).toArray(function(err, countries) {
+                    if (err) {
+                        console.error('ERROR from database');
+                        response.sendStatus(500); // internal server error
+                    }
+                    else {
+                        if (countries.length === 0) {
+                            response.sendStatus(404);
+                        }
+                        console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
+                        if (from && to) {
+
+                            aux = buscador(countries, aux, from, to);
+                            if (aux.length > 0) {
+                                response.send(aux);
+                            }
+                            else {
+                                response.sendStatus(404); //Está el from y el to pero está mal hecho
+                            }
+                        }
+                        else {
+                            response.send(countries);
+                        }
+                    }
+                });
+            }
+    /*    
     dbIvan.find({}).toArray( function (err, countries) {
         if (err) {
             console.error('WARNING: Error getting data from DB');
@@ -74,8 +146,28 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
             console.log("INFO: Sending countries: " + JSON.stringify(countries, 2, null));
             response.send(countries);
         }
-    });
+    });*/
 });
+
+
+// SEARCH FUNCTION
+
+var buscador = function(base, conjuntoauxiliar, desde, hasta) {
+
+    var from = parseInt(desde);
+    var to = parseInt(hasta);
+
+    for (var j = 0; j < base.length; j++) {
+        var anyo = base[j].year;
+        if (to >= anyo && from <= anyo) {
+
+            conjuntoauxiliar.push(base[j]);
+        }
+    }
+
+    return conjuntoauxiliar;
+
+};
 
 // GET a collection de un mismo año 
 
