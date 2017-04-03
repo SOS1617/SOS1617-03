@@ -25,7 +25,7 @@ var dbIvan;
 
 
 /////////////
-var API_KEY = "secret";
+var API_KEY = "apisupersecreta";
 
 // Helper method to check for apikey
 var checkApiKeyFunction = function(request, response) {

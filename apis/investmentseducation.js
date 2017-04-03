@@ -6,7 +6,7 @@ exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 //Load initial data
 
 app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request, response) {
-    
+    if (!checkApiKeyFunction(request, response)) return;
     dbIvan.find({}).toArray(function(err,countries){
         
          if (err) {
@@ -64,6 +64,7 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
 
 // GET a collection
 app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New GET request to /investmentseducation");
     dbIvan.find({}).toArray( function (err, countries) {
         if (err) {
@@ -79,6 +80,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
 // GET a collection de un mismo año 
 
 app.get(BASE_API_PATH + "/investmentseducation/:year", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     var year = request.params.year;
     var country = request.params.year;
 
@@ -133,6 +135,7 @@ app.get(BASE_API_PATH + "/investmentseducation/:year", function (request, respon
 
 // Get a un recurso concreto
 app.get(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -161,6 +164,7 @@ app.get(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
 
 //POST over a collection
 app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     var newCountrie = request.body;
     if (!newCountrie) {
         console.log("WARNING: New POST request to /investmentseducation/ without countrie, sending 400...");
@@ -197,6 +201,7 @@ app.post(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 //POST over a single resource
 app.post(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     var name = request.params.country;
     var year = request.params.year;
     console.log("WARNING: New POST request to /investmentseducation/" + name + " and year " + year + ", sending 405...");
@@ -208,6 +213,7 @@ app.post(BASE_API_PATH + "/investmentseducation/:country/:year", function (reque
 
 //PUT over a collection
 app.put(BASE_API_PATH + "/investmentseducation", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /countriesIvn, sending 405...");
     response.sendStatus(405); // method not allowed
 });
@@ -215,6 +221,7 @@ app.put(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 //PUT over a single resource
 app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     var updatedCountry = request.body;
     var country = request.params.country;
 	var year = request.params.year;
@@ -248,6 +255,7 @@ app.put(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
 
 //DELETE over a collection
 app.delete(BASE_API_PATH + "/investmentseducation", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /investmentseducation");
     dbIvan.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
@@ -269,6 +277,7 @@ app.delete(BASE_API_PATH + "/investmentseducation", function (request, response)
 
 //DELETE over a single resource
 app.delete(BASE_API_PATH + "/investmentseducation/:country/:year", function (request, response) {
+    if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
