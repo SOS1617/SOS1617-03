@@ -104,7 +104,6 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                         else {
                             response.send(countries);
                         }
-                    response.send(countries);
                 }
             });
             
