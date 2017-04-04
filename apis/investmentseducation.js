@@ -120,7 +120,6 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                         }
                         console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
                         if (from && to) {
-
                             aux = search(countries, aux, from, to);
                             if (aux.length > 0) {
                                 response.send(aux);
