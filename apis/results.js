@@ -89,9 +89,10 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
             var from = parseInt(request.query.from);
             var to = parseInt(request.query.to);
             var aux = [];
+            var aux2= [];
             if (limit && offset>=0) {
              //   aux= buscador(dbRuben.find({}).toArray(), aux, from, to);
-                dbRuben.find({}).skip(offset).limit(limit).toArray(function(err, results) {    
+                dbRuben.find({}).toArray(function(err, results) {    // .skip(offset).limit(limit)
                     if (err) {
                         console.error('ERROR from database');
                         response.sendStatus(500); // internal server error
@@ -104,9 +105,13 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
 
                            aux = buscador(results, aux, from, to);
                             if (aux.length > 0) {
-                                response.send(aux);
+                        aux2 = aux.slice(offset, offset+limit);
+                            
                                 console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux, 2, null));
                                 console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(results, 2, null));
+                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux2, 2, null));
+                                response.send(aux2);
+
                             
 
 
