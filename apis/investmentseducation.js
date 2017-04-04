@@ -81,7 +81,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
             var to = request.query.to;
             var aux = [];
             
-            if (limit && offset) {
+            if (limit && offset >=0) {
             dbIvan.find({}).skip(offset).limit(limit).toArray(function(err, countries) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
