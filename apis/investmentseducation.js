@@ -122,7 +122,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                     }
                     else {
                         if (countries.length === 0) {
-                            response.sendStatus(404);
+                            response.sendStatus(404); // not found
                         }
                         console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
                         if (from && to) {
