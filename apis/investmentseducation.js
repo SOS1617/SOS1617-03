@@ -97,7 +97,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                                 response.send(aux);
                             }
                             else {
-                                response.sendStatus(404); // No encuentra nada con esos filtros
+                                response.sendStatus(404); // No content 
                             }
                         }
                         else {
@@ -126,7 +126,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                                 response.send(aux);
                             }
                             else {
-                                response.sendStatus(404); //Está el from y el to pero está mal hecho
+                                response.sendStatus(404); //No content
                             }
                         }
                         else {
@@ -150,20 +150,20 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 // SEARCH FUNCTION
 
-var search = function(base, conjuntoauxiliar, desde, hasta) {
+var search = function(base, cjaux, from, to) {
 
-    var from = parseInt(desde);
-    var to = parseInt(hasta);
+    var from = parseInt(from);
+    var to = parseInt(to);
 
     for (var j = 0; j < base.length; j++) {
         var anyo = base[j].year;
         if (to >= anyo && from <= anyo) {
 
-            conjuntoauxiliar.push(base[j]);
+            cjaux.push(base[j]);
         }
     }
 
-    return conjuntoauxiliar;
+    return cjaux;
 
 };
 
