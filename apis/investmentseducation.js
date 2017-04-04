@@ -150,20 +150,20 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 // SEARCH FUNCTION
 
-var search = function(base, cjaux, from, to) {
+var search = function(resources, res, from, to) {
 
     var from = parseInt(from);
     var to = parseInt(to);
 
-    for (var j = 0; j < base.length; j++) {
-        var year = base[j].year;
-        if (to >= year && from <= year) {
+    for (var j = 0; j < resources.length; j++) {
+        var auxyear = resources[j].year;
+        if (to >= auxyear && from <= auxyear) {
 
-            cjaux.push(base[j]);
+            res.push(resources[j]);
         }
     }
 
-    return cjaux;
+    return res;
 
 };
 
