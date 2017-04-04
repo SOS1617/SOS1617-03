@@ -156,8 +156,8 @@ var search = function(base, cjaux, from, to) {
     var to = parseInt(to);
 
     for (var j = 0; j < base.length; j++) {
-        var anyo = base[j].year;
-        if (to >= anyo && from <= anyo) {
+        var year = base[j].year;
+        if (to >= year && from <= year) {
 
             cjaux.push(base[j]);
         }
