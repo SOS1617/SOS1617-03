@@ -79,6 +79,8 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
             var from = request.query.from;
             var to = request.query.to;
             var aux = [];
+            var aux2= [];
+
             
             if (limit && offset >=0) {
             dbIvan.find({}).skip(offset).limit(limit).toArray(function(err, countries) {
@@ -94,7 +96,11 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
                             aux = search(countries, aux, from, to);
                             if (aux.length > 0) {
-                                response.send(aux);
+                                aux2 = aux.slice(offset, offset+limit);
+                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux, 2, null));
+                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(countries, 2, null));
+                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux2, 2, null));
+                                response.send(aux2);
                             }
                             else {
                                 response.sendStatus(404); // No content 
