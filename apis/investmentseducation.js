@@ -74,7 +74,6 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
     console.log("INFO: New GET request to /investmentseducation");
     
          /*PRUEBA DE BUSQUEDA */
-
             var limit = parseInt(request.query.limit);
             var offset = parseInt(request.query.offset);
             var from = request.query.from;
@@ -122,7 +121,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                         console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
                         if (from && to) {
 
-                            aux = buscador(countries, aux, from, to);
+                            aux = search(countries, aux, from, to);
                             if (aux.length > 0) {
                                 response.send(aux);
                             }
@@ -151,7 +150,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
 
 // SEARCH FUNCTION
 
-var buscador = function(base, conjuntoauxiliar, desde, hasta) {
+var search = function(base, conjuntoauxiliar, desde, hasta) {
 
     var from = parseInt(desde);
     var to = parseInt(hasta);
@@ -229,6 +228,7 @@ app.get(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
     if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
+    
     if (!country || !year) {
         console.log("WARNING: New GET request to /investmentseducation/:country without name or without year, sending 400...");
         response.sendStatus(400); // bad request
