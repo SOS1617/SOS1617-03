@@ -73,6 +73,26 @@ app.get(BASE_API_PATH + "/earlyleavers", function (request, response) {
     });
 });
 
+// Búsqueda
+
+var buscador = function(base, conjuntoauxiliar, desde, hasta) {
+
+    var from = parseInt(desde);
+    var to = parseInt(hasta);
+
+
+    for (var j = 0; j < base.length; j++) {
+        var anyo = base[j].year;
+        if (to >= anyo && from <= anyo) {
+
+            conjuntoauxiliar.push(base[j]);
+        }
+    }
+
+    return conjuntoauxiliar;
+
+};
+
 // GET a collection de un mismo año 
 
 app.get(BASE_API_PATH + "/earlyleavers/:year", function (request, response) {
