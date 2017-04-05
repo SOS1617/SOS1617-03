@@ -58,10 +58,10 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "inveducation": "136.487.3"
             }];
         dbIvan.insert(countr);
-        response.sendStatus(200); //Ok
+        response.sendStatus(201); //Created
     } else {
         console.log('INFO: DB has ' + countries.length + ' countries ');
-        response.sendStatus(200); //Ok
+        response.sendStatus(409); //Conflict
     }
 });
 });
