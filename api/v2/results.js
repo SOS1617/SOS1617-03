@@ -172,7 +172,7 @@ app.get(BASE_API_PATH + "/results/:year", function (request, response) {
         
 
             if (!country) {
-        console.log("WARNING: New GET request to /results/:country without name, sending 400...");
+        console.log("WARNING: New GET request to /results/:country without name, sending 400..");
         response.sendStatus(400); // bad request
     } else {
         console.log("INFO: New GET request to /results/" + country);
