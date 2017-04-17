@@ -59,6 +59,9 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
     
     resultsAPI.register(app, dbRuben, BASE_API_PATH, checkApiKeyFunction);
     
+    resultsAPI.register(app, dbRuben, BASE_API_PATH2, checkApiKeyFunction);
+
+    
     earlyleaversAPI.register(app, dbRaul, BASE_API_PATH, checkApiKeyFunction);
 
     earlyleaversAPI.register(app, dbRaul, BASE_API_PATH2, checkApiKeyFunction);
