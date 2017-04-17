@@ -6,9 +6,9 @@ var helmet = require("helmet");
 var path = require('path');
 var publicFolder = path.join(__dirname, 'public');
 
-var earlyleaversAPI = require('./apis/earlyleavers.js');
-var resultsAPI = require('./apis/results.js');
-var investmentseducationAPI = require('./apis/investmentseducation.js');
+var earlyleaversAPI = require('./api/v2/earlyleavers.js');
+var resultsAPI = require('./api/v1/results.js');
+var investmentseducationAPI = require('./api/v1/investmentseducation.js');
 
 var app = express();
 
@@ -18,6 +18,7 @@ var mdbURL = "mongodb://admin:admin@ds137230.mlab.com:37230/sos03";
 
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
+var BASE_API_PATH2 = "/api/v2";
 var dbRuben;
 var dbRaul;
 var dbIvan;
@@ -57,8 +58,10 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
     dbIvan = database.collection("investmentseducation");
     
     resultsAPI.register(app, dbRuben, BASE_API_PATH, checkApiKeyFunction);
-
+    
     earlyleaversAPI.register(app, dbRaul, BASE_API_PATH, checkApiKeyFunction);
+
+    earlyleaversAPI.register(app, dbRaul, BASE_API_PATH2, checkApiKeyFunction);
 
     investmentseducationAPI.register(app, dbIvan, BASE_API_PATH, checkApiKeyFunction);
 
