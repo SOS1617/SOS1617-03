@@ -17,7 +17,7 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
       if (countries.length === 0) {
         console.log('INFO: Empty DB, loading initial data');
 
-              var countries = [{
+              var countr = [{
                 "country": "spain", 
                 "year":"2014", 
                 "population": "46.48",
@@ -57,11 +57,11 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "riskpoverty":"16.7",
                 "inveducation": "136.487.3"
             }];
-        dbIvan.insert(countries);
-        response.sendStatus(200); //Created
+        dbIvan.insert(countr);
+        response.sendStatus(201); //Created
     } else {
         console.log('INFO: DB has ' + countries.length + ' countries ');
-        response.sendStatus(200); //Conflict
+        response.sendStatus(409); //Conflict
     }
 });
 });
@@ -123,14 +123,12 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                     else {
                         if (countries.length === 0) {
                             response.sendStatus(404); // not found
-                            return;
                         }
-
+                        console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
                         if (from && to) {
                             aux = search(countries, aux, from, to);
                             if (aux.length > 0) {
                                 response.send(aux);
-                                console.log("INFO: Sending investments eduaction with from and to but without limit and offset: " + JSON.stringify(countries, 2, null));
                             }
                             else {
                                 response.sendStatus(404); //No content
@@ -138,7 +136,6 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                         }
                         else {
                             response.send(countries);
-                            console.log("INFO: Sending earlyleavers: " + JSON.stringify(countries, 2, null));
                         }
                     }
                 });
