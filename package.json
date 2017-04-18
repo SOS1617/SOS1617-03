@@ -1,7 +1,7 @@
 {
-  "name": "SOS1617-03",
+  "name": "lab10",
   "version": "1.0.0",
-  "description": "",
+  "description": "- **Team members**   - [Rubén Ramos Márquez](https://github.com/unfricapore)   - [Iván Rondán García](https://github.com/IvanRG21)   - [Raúl Vizuete Sánchez](https://github.com/byRuly) - **Project description**: Analysis and comparison of the investment in education of each country with the results in the PISA reports and the early school leaving rates in those countries. - **Repository**: [SOS1617/SOS1617-03](https://github.com/SOS1617/SOS1617-03) - **URL**: [TBD](#)",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -14,5 +14,14 @@
     "express": "^4.15.2",
     "helmet": "^3.5.0",
     "mongodb": "^2.2.25"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SOS1617/SOS1617-03.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SOS1617/SOS1617-03/issues"
+  },
+  "homepage": "https://github.com/SOS1617/SOS1617-03#readme"
 }
