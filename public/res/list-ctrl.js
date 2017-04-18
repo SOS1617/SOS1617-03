@@ -4,7 +4,7 @@
 var previousPage;
 var nextPage;
 var setPage;
-
+var aux;
 angular.module("ResultsManagerApp").
 controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Controller initialized");
@@ -106,11 +106,13 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 //console.log("Data count: " + response.data.length);
                 //console.log("Max pages: " + maxPages);
                 //console.log("Current page: " + currentPage);
+               aux = 1;
             }, function(response) {
-                Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
+                $scope.data = {};
+                aux = 0;
             });
     };
-    
     /*var refresh = function refresh() {
         $http
             .get("api/v1/earlyleavers"+$scope.apikey)
@@ -208,8 +210,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     };
 
     $scope.loadInitialData = function() {
-        refresh();
-        if ($scope.data.length == 0) {
+        if (aux==0) {
             $http
                 .get("../api/v2/results/loadInitialData" + "?" + "apikey=" + $scope.apikey)
                 .then(function(response) {
@@ -221,10 +222,11 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 });
         }
         else {
-            Materialize.toast('<i class="material-icons">error_outline</i> List must be empty to add initial data!', 4000);
+            Materialize.toast('<i class="material-icons">error_outline</i> There are already data in the DB', 4000);
             console.log("List must be empty!");
         }
     };
+
 
     refresh();
 
