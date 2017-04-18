@@ -1,20 +1,20 @@
 <html ng-app="InvestmentsEducationApp">
 
 <head>
-    <title>Investments in Education </title>
+    <title>Investments in education </title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/bower_components/materialize/dist/css/materialize.min.css" type="text/css" />
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
     <script type="text/javascript" src="/bower_components/materialize/dist/js/materialize.min.js"></script>
-    <script type="text/javascript" src="inve-manager-app.js"></script>
+    <script type="text/javascript" src="esl-manager-app.js"></script>
     <script type="text/javascript" src="list-ctrl.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
     <header>
-        <h2>Investment data</h2>
+        <h2>Investments in education</h2>
         <!--<nav>
             <div class="nav-wrapper blue">
                 <a href="#!" class="brand-logo center"><i class="material-icons left">list</i>Earlyleavers Data</a>
@@ -49,8 +49,9 @@
                             <th>Country</th>
                             <th>Year</th>
                             <th>Population</th>
-                            <th>Poverty risk</th>
-                            <th>Investment in education</th>
+                            <th>Year</th>
+                            <th>Risk of poverty</th>
+                            <th>Investments in education</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,21 +59,25 @@
                             <td><input class="form-control" ng-model="newData.country" /></td>
                             <td><input class="form-control" ng-model="newData.year" /></td>
                             <td><input class="form-control" ng-model="newData['population']" /></td>
+                            <td><input class="form-control" ng-model="newData['year']" /></td>
                             <td><input class="form-control" ng-model="newData['riskpoverty']" /></td>
                             <td><input class="form-control" ng-model="newData['inveducation']" /></td>
                             
-                            <td><button class="btn waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
+
+                            <td><button class="btn-floating waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
                         </tr>
                         <tr ng-repeat="dataUnit in data">
                             <td>{{dataUnit.country}}</td>
                             <td>{{dataUnit.year}}</td>
                             <td>{{dataUnit["population"]}}</td>
+                            <td>{{dataUnit["year"]}}</td>
                             <td>{{dataUnit["riskpoverty"]}}</td>
                             <td>{{dataUnit["inveducation"]}}</td>
-                            
+
+
                             <td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
-                            </tr>
+                        </tr>
                         <tr>
                             <td></td>
                             <td></td>
@@ -80,7 +85,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                             <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
+                            <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
                                 <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete<i class="material-icons left">warning</i></button></td>
                             <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
                             <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
@@ -111,7 +116,7 @@
                                 </div>
                                 <div class="input-field col s3">
                                     <input class="form-control" type="text" id="risk" ng-model="editDataUnit.riskpoverty">
-                                    <label for="risk"> Risk poverty </label>
+                                    <label for="rsik"> Risk poverty </label>
                                 </div>
                                 <div class="input-field col s3">
                                     <input class="form-control" type="text" id="inved" ng-model="editDataUnit.inveducation">
