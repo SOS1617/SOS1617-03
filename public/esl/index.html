@@ -64,7 +64,7 @@
                             <td><input class="form-control" ng-model="newData['esltotal']" /></td>
                             <td><input class="form-control" ng-model="newData['eslobjective']" /></td>
                             
-                            <td><button class="btn waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
+                            <td><button class="btn-floating waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
                         </tr>
                         <tr ng-repeat="dataUnit in data">
                             <td>{{dataUnit.country}}</td>
@@ -74,8 +74,8 @@
                             <td>{{dataUnit["esltotal"]}}</td>
                             <td>{{dataUnit["eslobjective"]}}</td>
                             
-                            <td><button class="btn waves-effect waves-light" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
-                            <button class="btn waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
+                            <td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
+                            <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -84,8 +84,10 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td ng-show="data.length==0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons left">recent_actors</i>Load Initial Data </button></td>
-                            <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons left">warning</i>Remove all</button></td>
+                            <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
+                                <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete<i class="material-icons left">warning</i></button></td>
+                            <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
+                            <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
                         </tr>
                     </tbody>
                 </table>
