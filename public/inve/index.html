@@ -69,10 +69,10 @@
                             <td>{{dataUnit["population"]}}</td>
                             <td>{{dataUnit["riskpoverty"]}}</td>
                             <td>{{dataUnit["inveducation"]}}</td>
-
-                            <td><button class="btn waves-effect waves-light" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
-                            <button class="btn waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
-                        </tr>
+                            
+                            <td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
+                            <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
+                            </tr>
                         <tr>
                             <td></td>
                             <td></td>
@@ -80,7 +80,7 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
+                             <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
                                 <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete<i class="material-icons left">warning</i></button></td>
                             <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
                             <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
@@ -115,7 +115,7 @@
                                 </div>
                                 <div class="input-field col s3">
                                     <input class="form-control" type="text" id="inved" ng-model="editDataUnit.inveducation">
-                                    <label for="inved"> ESLTotal </label>
+                                    <label for="inved"> Investments in education </label>
                                 </div>
                                 
                             </div>
