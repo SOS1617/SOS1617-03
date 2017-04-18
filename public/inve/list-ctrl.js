@@ -4,6 +4,7 @@
 var previousPage;
 var nextPage;
 var setPage;
+var aux;
 
 angular.module("InvestmentsEducationApp").
 controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
@@ -106,8 +107,11 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 //console.log("Data count: " + response.data.length);
                 //console.log("Max pages: " + maxPages);
                 //console.log("Current page: " + currentPage);
+                aux = 1;
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                $scope.data = {};
+                aux = 0;
             });
     };
     
@@ -209,7 +213,8 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
 
     $scope.loadInitialData = function() {
         refresh();
-        if ($scope.data.length == 0) {
+        if (//$scope.data.length == -1
+                aux==0) {
             $http
                 .get("../api/v2/investmentseducation/loadInitialData" + "?" + "apikey=" + $scope.apikey)
                 .then(function(response) {
@@ -221,7 +226,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 });
         }
         else {
-            Materialize.toast('<i class="material-icons">error_outline</i> List must be empty to add initial data!', 4000);
+            Materialize.toast('<i class="material-icons">error_outline</i> There are already data in the DB', 4000);
             console.log("List must be empty!");
         }
     };
