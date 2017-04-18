@@ -212,7 +212,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     };
 
     $scope.loadInitialData = function() {
-        refresh();
+        //refresh();
         if (//$scope.data.length == -1
                 aux==0) {
             $http
