@@ -109,7 +109,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 //console.log("Current page: " + currentPage);
                 aux = 1;
             }, function(response) {
-                Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
                 $scope.data = {};
                 aux = 0;
             });
@@ -212,7 +212,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     };
 
     $scope.loadInitialData = function() {
-        refresh();
+        //refresh();
         if (//$scope.data.length == -1
                 aux==0) {
             $http

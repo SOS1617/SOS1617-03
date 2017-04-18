@@ -74,16 +74,16 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
     console.log("INFO: New GET request to /investmentseducation");
     
          /*PRUEBA DE BUSQUEDA */
-            var limit = parseInt(request.query.limit);
-            var offset = parseInt(request.query.offset);
-            var from = request.query.from;
-            var to = request.query.to;
+            var limit = parseInt(request.query.limit, 10);
+            var offset = parseInt(request.query.offset, 10);
+            var from = parseInt(request.query.from, 10);
+            var to = parseInt(request.query.to, 10);
             var aux = [];
             var aux2= [];
 
             
             if (limit && offset >=0) {
-            dbIvan.find({}).skip(offset).limit(limit).toArray(function(err, countries) {
+            dbIvan.find({}).toArray(function(err, countries) {    // .skip(offset).limit(limit)
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                      response.sendStatus(500); // internal server error
@@ -97,9 +97,9 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                             aux = search(countries, aux, from, to);
                             if (aux.length > 0) {
                                 aux2 = aux.slice(offset, offset+limit);
-                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux, 2, null));
-                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(countries, 2, null));
-                                console.log("INFO: Sending results with from and to and limit and offset: " + JSON.stringify(aux2, 2, null));
+                                console.log("INFO: Sending investmentseducation with from and to and limit and offset: " + JSON.stringify(aux, 2, null));
+                                console.log("INFO: Sending investmentseducation with from and to and limit and offset: " + JSON.stringify(countries, 2, null));
+                                console.log("INFO: Sending investmentseducation with from and to and limit and offset: " + JSON.stringify(aux2, 2, null));
                                 response.send(aux2);
                             }
                             else {
@@ -123,12 +123,14 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                     else {
                         if (countries.length === 0) {
                             response.sendStatus(404); // not found
+                            return;
                         }
-                        console.log("INFO: Sending contacts: " + JSON.stringify(countries, 2, null));
+                        
                         if (from && to) {
                             aux = search(countries, aux, from, to);
                             if (aux.length > 0) {
                                 response.send(aux);
+                                console.log("INFO: Sending earlyleavers with from and to but without limit and offset: " + JSON.stringify(countries, 2, null));
                             }
                             else {
                                 response.sendStatus(404); //No content
@@ -136,6 +138,7 @@ app.get(BASE_API_PATH + "/investmentseducation", function (request, response) {
                         }
                         else {
                             response.send(countries);
+                            console.log("INFO: Sending investmentseducation: " + JSON.stringify(countries, 2, null));
                         }
                     }
                 });
