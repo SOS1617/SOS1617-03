@@ -17,7 +17,7 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
       if (countries.length === 0) {
         console.log('INFO: Empty DB, loading initial data');
 
-              var countr = [{
+              var countries = [{
                 "country": "spain", 
                 "year":"2014", 
                 "population": "46.48",
@@ -57,11 +57,11 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "riskpoverty":"16.7",
                 "inveducation": "136.487.3"
             }];
-        dbIvan.insert(countr);
-        response.sendStatus(201); //Created
+        dbIvan.insert(countries);
+        response.sendStatus(200); //Created
     } else {
         console.log('INFO: DB has ' + countries.length + ' countries ');
-        response.sendStatus(409); //Conflict
+        response.sendStatus(200); //Conflict
     }
 });
 });
