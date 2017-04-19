@@ -8,7 +8,7 @@ var publicFolder = path.join(__dirname, 'public');
 
 var earlyleaversAPI = require('./api/v2/earlyleavers.js');
 var resultsAPI = require('./api/v2/results.js');
-var investmentseducationAPI = require('./api/v1/investmentseducation.js');
+var investmentseducationAPI = require('./api/v2/investmentseducation.js');
 
 var app = express();
 
