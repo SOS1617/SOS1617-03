@@ -179,7 +179,14 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
                 Materialize.toast('<i class="material-icons">done</i> ' + $scope.newData.country + ' has been added succesfully!', 4000);
                 refresh();
             }, function(response) {
-                Materialize.toast('<i class="material-icons">error_outline</i> Error adding data!', 4000);
+                switch (response.status) {
+                    case 409:
+                        Materialize.toast('<i class="material-icons">error_outline</i> This element already exist!', 4000);
+                        break;
+                    default:
+                        Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                        break;
+                }
             });
     };
 
