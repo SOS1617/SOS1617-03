@@ -11,7 +11,7 @@ angular
             .get("/api/v1/results/"+$routeParams.country + "/" + $routeParams.year+ "?" + "apikey=" + $scope.apikey)
             .then(function (response){
                 console.log("Data received " + JSON.stringify(response.data,null,2));
-                $scope.updatedEarlyleaver = response.data;
+                $scope.updatedResult = response.data;
             }); 
         }
         
