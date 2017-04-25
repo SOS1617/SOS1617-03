@@ -3,11 +3,11 @@ angular.module("InvestmentsEducationApp",["ngRoute"]).config(function($routeProv
     $routeProvider
     .when("/",{
         templateUrl : "list.html",
-        controller : "ListCtrl"
+        controller : "InveListCtrl"
     })
     .when("/investmentseducation/:country/:year",{
         templateUrl : "edit.html",
-        controller : "EditCtrl"
+        controller : "InveEditCtrl"
     });
     
     

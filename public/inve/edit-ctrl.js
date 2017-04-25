@@ -1,6 +1,6 @@
 angular
     .module("InvestmentsEducationApp")
-    .controller("EditCtrl",["$scope","$http","$routeParams","$location",function ($scope, $http, $routeParams, $location){
+    .controller("InveEditCtrl",["$scope","$http","$routeParams","$location",function ($scope, $http, $routeParams, $location){
         
         console.log("Edit Controller initialized");
         $scope.apikey = "apisupersecreta";

@@ -8,7 +8,7 @@ var setPage;
 var aux;
 
 angular.module("InvestmentsEducationApp").
-controller("ListCtrl", ["$scope", "$http", "$rootScope",function($scope, $http, $rootScope) {
+controller("InveListCtrl", ["$scope", "$http", "$rootScope",function($scope, $http, $rootScope) {
     console.log("Controller initialized");
     
     if (!$rootScope.apikey) $rootScope.apikey = "apisupersecreta";
