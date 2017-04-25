@@ -7,10 +7,10 @@ var setPage;
 var aux;
 
 angular.module("EarlyleaverManagerApp").
-controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope) {
-    console.log("Controller initialized");
+    controller("EslListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope) {
+        console.log("Controller initialized");
 
-   if (!$rootScope.apikey) $rootScope.apikey = "apisupersecreta";
+        if (!$rootScope.apikey) $rootScope.apikey = "apisupersecreta";
 
     $scope.search = {};
     $scope.searchAdd = {};
@@ -103,23 +103,6 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
 
     var refresh = $scope.refresh = function() {
 
-        /*var modifier = "";
-        var properties = "";
-        if ($scope.search.country && $scope.search.year) {
-            modifier = "/" + $scope.search.country + "/" + $scope.search.year;
-        }
-        else if ($scope.search.country) {
-            modifier = "/" + $scope.search.country;
-        }
-        else if ($scope.search.year) {
-            modifier = "/" + $scope.search.year;
-        }
-        for (var prop in $scope.searchAdd) {
-            if ($scope.searchAdd.hasOwnProperty(prop) && prop) {
-                properties += prop + "=" + $scope.searchAdd[prop] + "&";
-            }
-        }*/
-
         $http
             .get("../api/v2/earlyleavers" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties)
             .then(function(response) {
@@ -127,49 +110,32 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
                 dataCache = response.data;
                 //console.log(JSON.stringify(dataCache, null, 2));
                 $scope.refreshPage();
-                aux = 1;
+                aux =1;
             }, function(response) {
-                $scope.maxPages = 1;
-                dataCache = {};
-                $scope.refreshPage();
-                Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                /*Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                $scope.data = {};*/
-                aux = 0;
-            });
-    };
-    
-    /*var refresh = function refresh() {
-        $http
-            .get("api/v1/earlyleavers"+$scope.apikey)
-            .then(function(response) {
-                if (!response.data) {
-                    console.log("They aren't stat");
+                switch (response.status) {
+                    case 401:
+                        dataCache = {};
+                        $scope.refreshPage();
+                        Materialize.toast('<i class="material-icons">error_outline</i> Api key not defined. Cannot get data', 4000);
+                        break;
+                    case 403:
+                        dataCache = {};
+                        $scope.refreshPage();
+                        Materialize.toast('<i class="material-icons">error_outline</i> Api key incorrect. Cannot get data', 4000);
+                        break;
+                    case 404:
+                        $scope.maxPages = 1;
+                        dataCache = {};
+                        $scope.refreshPage();
+                        Materialize.toast('<i class="material-icons">error_outline</i> No data found!', 4000);
+                        break;
+                    default:
+                        Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                        break;
                 }
-                $scope.data = response.data;
-                res();
+                aux=0;
             });
     };
-    
-    function res() {
-        var i;
-        for (i = 0; i < $scope.stats.length; i++) {
-            $scope.items.push($scope.data[i]);
-        }
-
-    }*/
-    
-    /*function refresh(){
-        var modifier = "";
-        var properties = "";
-        $http
-            .get("../api/v1/earlyleavers" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties)
-            .then(function (response){
-                console.log("Data received " + JSON.stringify(response.data,null,2));
-                $scope.data = response.data;
-            }); 
-        }*/
-
 
     $scope.addData = function() {
         $http
@@ -197,27 +163,15 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
         $('#editModal').modal('open');
     };
 
-    /*$scope.editData = function(data) {
-
-        var oldCountry = data.oldCountry;
-        var oldYear = data.oldYear;
-        delete data._id;
-        delete data.oldCountry;
-        delete data.oldYear;
-
-        //data.year = Number(data.year);
+    $scope.searches = function(){
         $http
-            .put("../api/v2/earlyleavers/" + oldCountry + "/" + oldYear + "?" + "apikey=" + $scope.apikey, data)
+            .get("../api/v2/earlyleavers" + "?" + "apikey=" + $scope.apikey + "&from=" + $scope.newData.from + "&to=" + $scope.newData.to)
             .then(function(response) {
-                console.log("Data " + data.country + " edited!");
-                Materialize.toast('<i class="material-icons">done</i> ' + oldCountry + ' has been edited succesfully!', 4000);
-                refresh();
-            }, function(response) {
-                Materialize.toast('<i class="material-icons">error_outline</i> Error editing data!', 4000);
-                refresh();
+                console.log("The between year: " + $scope.newData.from + " and year " + $scope.newData.to + " works correctly.");
+                $scope.data = response.data;
             });
-    };*/
-
+    };
+    
     $scope.deleteData = function(data) {
         $http
             .delete("../api/v2/earlyleavers/" + data.country + "/" + data.year + "?" + "apikey=" + $scope.apikey)
@@ -261,6 +215,37 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
             console.log("List must be empty!");
         }
     };
+    
+    $('#apikeyModal').modal({
+        complete: function() {
+            $rootScope.apikey = $scope.apikey;
+
+            $http
+                .get("../api/v1/education" + modifier + "?" + "apikey=" + $rootScope.apikey + "&" + properties)
+                .then(function(response) {
+                    Materialize.toast('<i class="material-icons">done</i> Api key changed successfully!', 4000);
+                    $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+                    dataCache = response.data;
+                    $scope.refreshPage();
+                }, function(response) {
+                    $scope.maxPages = 1;
+                    dataCache = {};
+                    $scope.refreshPage();
+                    switch (response.status) {
+                        case 401:
+                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key missing!', 4000);
+                            break;
+                        case 403:
+                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key incorrect!', 4000);
+                            break;
+                        default:
+                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                            break;
+                    }
+                });
+            console.log("Api key changed!");
+        }
+    });
 
     refresh();
 

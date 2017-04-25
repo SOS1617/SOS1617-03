@@ -3,11 +3,11 @@ angular.module("EarlyleaverManagerApp",["ngRoute"]).config(function($routeProvid
     $routeProvider
         .when("/",{
             templateUrl : "list.html",
-            controller : "ListCtrl"
+            controller : "EslListCtrl"
         })
-        .when("/earlyleaver/:country/:year",{
+        .when("/:country/:year",{
             templateUrl : "edit.html",
-            controller : "EditCtrl"
+            controller : "EslEditCtrl"
         });
     console.log("App initialized");
 });

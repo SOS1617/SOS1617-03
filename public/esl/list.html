@@ -20,7 +20,7 @@
         </nav>-->
     </header>
     <main>
-        <div ng-controller="ListCtrl">
+        <div ng-controller="EslListCtrl">
             <div class="container">
                 <div class="row">
                     <div class="col s12 center-align">
@@ -81,7 +81,7 @@
                             <!--<td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>-->
                             
-                            <td style="text-align:center"><a href="#!/earlyleaver/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
+                            <td style="text-align:center"><a href="#!/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
                         </tr>
                         <tr>
@@ -96,11 +96,47 @@
                             <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
                             <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
                         </tr>
+                        <tr>
+                            <td>
+                                <div id="searches" class="modal">
+                                    <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
+                                    <td>Introduce TO<input class="form-control" ng-model="newData.to"></td>
+                                    <td><button class="btn-floating waves-effect waves-light" ng-click="searches()"><i class="material-icons">search</i></button></td>
+                                    <td><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></td>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn waves-effect waves-light blue darken-1" onClick="$('#apikeyModal').modal('open');"><i class="material-icons left">vpn_key</i>Change apikey</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
             <div id="searchModal" class="modal">
+                <div class="modal-content">
+                    <h4>Search</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="sfrom" ng-model="searchAdd['from']">
+                                    <label for="sfrom">FROM</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="sto" ng-model="searchAdd['to']">
+                                    <label for="sto"> TO </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
+                </div>
+            </div>
+            
+            <!--<div id="searchModal" class="modal">
                 <div class="modal-content">
                     <h4>Search</h4>
                     <div class="row">
@@ -136,26 +172,26 @@
                 <div class="modal-footer">
                     <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
                 </div>
-            </div>
+            </div>-->
 
             <div id="apikeyModal" class="modal">
-                <div class="modal-content">
-                    <h4>Set apikey</h4>
+        <div class="modal-content">
+            <h4>Set apikey</h4>
+            <div class="row">
+                <form class="col s12">
                     <div class="row">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input class="form-control" type="text" id="apikey" ng-model="apikey">
-                                    <label for="apikey">Apikey</label>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="input-field col s12">
+                            <input class="form-control" type="text" id="apikey" ng-model="apikey">
+                            <label for="apikey" class="active">Apikey</label>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">Set</a>
-                </div>
+                </form>
             </div>
+        </div>
+        <div class="modal-footer">
+            <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Set</a>
+        </div>
+    </div>
 
         </div>
     </main>

@@ -1,42 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>SOS1617-03</title>
-        <h1>SOS1617-03</h1>
-    </head>
-    
-    <body>
-        <ul>
-            <li><h3>Team</h3></li>
-            <ul>
-                <li><a href="https://github.com/unfricapore">Rubén Ramos Márquez</a></br></li>
-                <li><a href="https://github.com/IvanRG21">Iván Rondán García</a></br></li>
-                <li><a href="https://github.com/byRuly">Raúl Vizuete Sánchez</a></br></li>
-            </ul>
-            <li><h3>Analysis of education:</h3> Analysis and comparison of the investment in education of each country with the results in the PISA reports and the early school leaving rates in those countries.</li>
-            <li><h3>Repository:</h3> <a href="https://github.com/SOS1617/SOS1617-03">SOS1617/SOS1617-03</a></li>
-            <li><h3>URL:</h3></li>
-            <ul>
-                <li><h4>Backends:</h4></li>
-                <u1>
-                    <li><a href="http://sos1617-03.herokuapp.com/api/v1/results/?apikey=apisupersecreta">Pisa Results (Rubén)</a>
-                        Pisa results of european countries in different years. These tests have results about math, reading and science.</br></li>
-                    <li><a href="http://sos1617-03.herokuapp.com/api/v1/investmentseducation/?apikey=apisupersecreta">Investments Education: (Iván)</a>
-                        Relation between investment in education of each country and poverty risk of each country.</br></li>
-                    <li><a href="https://sos1617-03.herokuapp.com/api/v1/earlyleavers/?apikey=apisupersecreta">Early School Leavers (Raúl)</a>
-                        Relation between the dropout rates measured regarding different factors in european countries.</br></li>
-                    <li><a href="https://sos1617-03.herokuapp.com/api/v1/tests">Tests de POSTMAN</a></br></li>
-                </u1>
-                <li><h4>Frontends:</h4></li>
-                <u1>
-                    <li><a href="https://sos1617-03.herokuapp.com/esl/">Early School Leavers (Raúl)</a></li>
-                    <li><a href="https://sos1617-03.herokuapp.com/res/index.html">PISA Results (Rubén)</a></li>
-                    <li><a href="https://sos1617-03.herokuapp.com/inve/index.html">Investments Education (Iván)</a></li>
+<html ng-app="GroupThreeApp">
 
-                </u1>
-            </ul>
-        </ul>
-        
-        
-    </body>
+<head>
+    <title>Group Three APP</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/bower_components/materialize/dist/css/materialize.min.css" type="text/css" />
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/bower_components/materialize/dist/js/materialize.min.js"></script>
+    
+    <script type="text/javascript" src="group-three-app.js"></script>
+    <script type="text/javascript" src="/esl/esl-manager-app.js"></script>
+    <script type="text/javascript" src="/inve/inve-manager-app.js"></script>
+    <script type="text/javascript" src="/res/res-manager-app.js"></script>
+    
+    <script type="text/javascript" src="/esl/list-ctrl.js"></script>
+    <script type="text/javascript" src="/esl/edit-ctrl.js"></script>
+    
+    <script type="text/javascript" src="/inve/list-ctrl.js"></script>
+    <script type="text/javascript" src="/inve/edit-ctrl.js"></script>
+    
+    <script type="text/javascript" src="/res/list-ctrl.js"></script>
+    <script type="text/javascript" src="/res/edit-ctrl.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div ng-view>
+
+        </div>
+</body>
+
 </html>
