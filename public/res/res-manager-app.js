@@ -7,7 +7,7 @@ angular.module("ResultsManagerApp",["ngRoute"]).config(function($routeProvider){
         })
         .when("/results/:country/:year",{
             templateUrl : "edit.html",
-            controller : "EditCtrl"
+            controller : "ResEditCtrl"
         });
     console.log("App initialized");
 });
