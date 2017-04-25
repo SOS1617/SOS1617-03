@@ -1,6 +1,28 @@
- <h1> Data </h1>
- <div class="container">
-                 <div class="row">
+<header>
+        <h3 style="text-align:center">Data</h3>
+        <!--<nav>
+            <div class="nav-wrapper blue">
+                <a href="#!" class="brand-logo center"><i class="material-icons left">list</i>Earlyleavers Data</a>
+                <a href="#" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#" ng-click="refresh()"><i class="material-icons left">refresh</i>Refresh</a></li>
+                    <li><a href="#apikeyModal"><i class="material-icons left">vpn_key</i>Apikey</a></li>
+                    <li><a href="#searchModal"><i class="material-icons left">search</i>Search</a></li>
+                    <li><a href="../index.html"><i class="material-icons left">dashboard</i>Front page</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile">
+                    <li><a href="../index.html"><i class="material-icons left">dashboard</i>Front page</a></li>
+                    <li><a href="#searchModal"><i class="material-icons left">search</i>Search</a></li>
+                    <li><a href="#apikeyModal"><i class="material-icons left">vpn_key</i>Apikey</a></li>
+                    <li><a href="#" ng-click="refresh()"><i class="material-icons left">refresh</i>Refresh</a></li>
+                </ul>
+            </div>
+        </nav>-->
+    </header>
+    <main>
+        <div ng-controller="InveListCtrl">
+            <div class="container">
+                <div class="row">
                     <div class="col s12 center-align">
                         <div class="pagination">
                     <li class="disabled" ng-show="currentPage == 1"><a href=""><i class="material-icons">chevron_left</i></a></li>
@@ -22,37 +44,41 @@
                     <li class="disabled" ng-show="currentPage == maxPages"><a href=""><i class="material-icons">chevron_right</i></a></li>
                     <li class="waves-effect" ng-show="currentPage != maxPages"><a href="" ng-click="nextPage()"><i class="material-icons">chevron_right</i></a></li>
                 </div>
+                        </ul>
+                    </div>
+                </div>
                 <table class="highlight">
                     <thead>
                         <tr>
-                            <th>Country</th>
-                            <th>Year</th>
-                            <th>Population</th>
-                            <th>Risk of poverty</th>
-                            <th>Investments in education</th>
-                            <th>Actions</th>
+                            <th style="text-align:center">Country</th>
+                            <th style="text-align:center">Year</th>
+                            <th style="text-align:center">Population/th>
+                            <th style="text-align:center">Risk poverty</th>
+                            <th style="text-align:center">Investment in eduaction</th>
+                            <th style="text-align:center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input class="form-control" ng-model="newData.country" /></td>
-                            <td><input class="form-control" ng-model="newData.year" /></td>
-                            <td><input class="form-control" ng-model="newData['population']" /></td>
-                            <td><input class="form-control" ng-model="newData['riskpoverty']" /></td>
-                            <td><input class="form-control" ng-model="newData['inveducation']" /></td>
-                            
+                            <td><input class="form-control" ng-model="newData.country" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData.year" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData['population']" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData['riskpoverty']" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData['inveducation']" style="text-align:center"/></td>
 
-                            <td><button class="btn-floating waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
+                            <td style="text-align:center"><button class="btn-floating waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
                         </tr>
                         <tr ng-repeat="dataUnit in data">
-                            <td>{{dataUnit.country}}</td>
-                            <td>{{dataUnit.year}}</td>
-                            <td>{{dataUnit["population"]}}</td>
-                            <td>{{dataUnit["riskpoverty"]}}</td>
-                            <td>{{dataUnit["inveducation"]}}</td>
+                            <td style="text-align:center">{{dataUnit.country}}</td>
+                            <td style="text-align:center">{{dataUnit.year}}</td>
+                            <td style="text-align:center">{{dataUnit["population"]}}</td>
+                            <td style="text-align:center">{{dataUnit["riskpoverty"]}}</td>
+                            <td style="text-align:center">{{dataUnit["inveducation"]}}</td>
 
-
-                            <td style="text-align:center"><a href="#!/investmentseducation/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
+                            <!--<td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
+                            <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>-->
+                            
+                            <td style="text-align:center"><a href="#!/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
                         </tr>
                         <tr>
@@ -64,61 +90,50 @@
                             <td></td>
                             <td style="text-align:center"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
                                 <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete<i class="material-icons left">warning</i></button></td>
-                            
-                             <tr  <td>  <div id="searches" class="modal">
-                  
-                        <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
-                        <td>Introduce TO<input class="form-control" ng-model="newData.to"></td>
-                        <td class="text-center"><button class="btn btn-success" ng-click="searches()">SEARCH</button></td>
-                                                
-             </div></td></tr>
                             <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
                             <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="searches" class="modal">
+                                    <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
+                                    <td>Introduce TO<input class="form-control" ng-model="newData.to"></td>
+                                    <td><button class="btn-floating waves-effect waves-light" ng-click="searches()"><i class="material-icons">search</i></button></td>
+                                    <td><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></td>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn waves-effect waves-light blue darken-1" onClick="$('#apikeyModal').modal('open');"><i class="material-icons left">vpn_key</i>Change apikey</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div id="editModal" class="modal">
+            <div id="searchModal" class="modal">
                 <div class="modal-content">
-                    <h4>Edit {{editDataUnit.oldCountry}} ({{editDataUnit.oldYear}})</h4>
+                    <h4>Search</h4>
                     <div class="row">
                         <form class="col s12">
                             <div class="row">
-                                <div class="input-field col s6">
-                                    <input class="form-control" type="text" id="country" ng-model="editDataUnit.country">
-                                    <label for="country">Country</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input class="form-control" type="text" id="year" ng-model="editDataUnit.year">
-                                    <label for="year"> Year </label>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="popu" ng-model="editDataUnit.population">
-                                    <label for="popu"> Population </label>
+                                    <input class="form-control" type="text" id="sfrom" ng-model="searchAdd['from']">
+                                    <label for="sfrom">FROM</label>
                                 </div>
                                 <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="risk" ng-model="editDataUnit.riskpoverty">
-                                    <label for="rsik"> Riskpoverty </label>
+                                    <input class="form-control" type="text" id="sto" ng-model="searchAdd['to']">
+                                    <label for="sto"> TO </label>
                                 </div>
-                                <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="inved" ng-model="editDataUnit.inveducation">
-                                    <label for="inved"> Investmentseducation </label>
-                                </div>
-                                
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
-                    <a href="#" ng-click="editData(editDataUnit)" class="modal-action modal-close waves-effect waves-green btn-flat ">Apply</a>
+                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
                 </div>
             </div>
-
-            <div id="searchModal" class="modal">
+            
+            <!--<div id="searchModal" class="modal">
                 <div class="modal-content">
                     <h4>Search</h4>
                     <div class="row">
@@ -154,25 +169,26 @@
                 <div class="modal-footer">
                     <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
                 </div>
-            </div>
+            </div>-->
 
             <div id="apikeyModal" class="modal">
-                <div class="modal-content">
-                    <h4>Set apikey</h4>
+        <div class="modal-content">
+            <h4>Set apikey</h4>
+            <div class="row">
+                <form class="col s12">
                     <div class="row">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input class="form-control" type="text" id="apikey" ng-model="apikey">
-                                    <label for="apikey">Apikey</label>
-                                </div>
-                            </div>
-                        </form>
+                        <div class="input-field col s12">
+                            <input class="form-control" type="text" id="apikey" ng-model="apikey">
+                            <label for="apikey" class="active">Apikey</label>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">Set</a>
-                </div>
+                </form>
             </div>
+        </div>
+        <div class="modal-footer">
+            <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Set</a>
+        </div>
     </div>
-        
+
+        </div>
+    </main>
