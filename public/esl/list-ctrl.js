@@ -233,10 +233,10 @@ angular.module("EarlyleaverManagerApp").
                     $scope.refreshPage();
                     switch (response.status) {
                         case 401:
-                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key missing!', 4000);
+                            Materialize.toast('<i class="material-icons">error_outline</i> Api key not defined. Cannot get data', 4000);
                             break;
                         case 403:
-                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key incorrect!', 4000);
+                            Materialize.toast('<i class="material-icons">error_outline</i> Api key incorrect. Cannot get data', 4000);
                             break;
                         default:
                             Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
