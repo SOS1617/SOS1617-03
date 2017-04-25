@@ -109,13 +109,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
 
                 aux = 1;
             }, function(response) {
-              /*  $scope.maxPages = 1;
-                dataCache = {};
-                $scope.refreshPage();
-                Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                //Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-            //    $scope.data = {};
-                aux = 0; */
+
                     switch (response.status) {
                         case 401:
                             dataCache = {};
@@ -132,10 +126,12 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                             dataCache = {};
                             $scope.refreshPage();
                             Materialize.toast('<i class="material-icons">error_outline</i> No data found!', 4000);
-                        break;                        default:
+                        break;  
+                        default:
                             Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
                             break;
                     }
+                    aux = 0;
             });
     };
 
@@ -173,7 +169,6 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                             Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
                             break;
                     }
-                    aux = 0;
                 });
             console.log("Api key changed!");
         }
@@ -249,7 +244,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
             .delete("../api/v2/results" + "?" + "apikey=" + $scope.apikey)
             .then(function(response) {
                 console.log("All data deleted!");
-                Materialize.toast('<i class="material-icons">done</i> All data has been deleted succesfully!', 4000);
+                Materialize.toast('<i class="material-icons">done</i> All data has been deleted succesfully!!', 4000);
                 refresh();
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error deleting all data!', 4000);
