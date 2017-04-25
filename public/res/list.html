@@ -40,9 +40,9 @@
                         <tr>
                             <td><input class="form-control" ng-model="newData.country" /></td>
                             <td><input class="form-control" ng-model="newData.year" /></td>
-                            <td><input class="form-control" ng-model="newData['science']" /></td>
-                            <td><input class="form-control" ng-model="newData['reading']" /></td>
-                            <td><input class="form-control" ng-model="newData['math']" /></td>
+                            <td><input class="form-control" ng-model="newData.science" /></td>
+                            <td><input class="form-control" ng-model="newData.reading" /></td>
+                            <td><input class="form-control" ng-model="newData.math" /></td>
                             
                             <td><button class="btn waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
                         </tr>
@@ -65,7 +65,8 @@
                             <td></td>
                             <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Load Initial Data<i class="material-icons left">recent_actors</i></button>
                                 <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete All<i class="material-icons left">warning</i></button></td>
-                                        <tr  <td>  <div id="searches" class="modal">
+                        
+                          <tr  <td>  <div id="searches" class="modal">
                   
                         <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
                         <td>Introduce TO<input class="form-control" ng-model="newData.to"></td>

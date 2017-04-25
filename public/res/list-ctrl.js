@@ -8,7 +8,7 @@ var aux;
 angular.module("ResultsManagerApp").
 controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Controller initialized");
-
+    $scope.url = "/api/v2/results";
     $scope.apikey = "apisupersecreta";
     $scope.search = {};
     $scope.searchAdd = {};
@@ -163,12 +163,12 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
 
      $scope.searches = function(){
             $http
-                .get("?apikey="+$scope.apikey+"&from="+$scope.newData.from+"&to="+$scope.newData.to)
+                .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.newData.from+"&to="+$scope.newData.to)
                 .then(function(response){
-                    console.log("The btween year: "+$scope.newData.from +" and year "+ $scope.newData.to+ " works correctly");
-                    $scope.data = JSON.stringify(response.data, null, 2); // null,2 sirve para renderizar el JSON, que lo muestre bonito, etc...
-                    $scope.data  = response.data; 
+                    console.log("The between year: "+$scope.newData.from +" and year "+ $scope.newData.to+ " works correctly");
+                  $scope.data = response.data;
 
+              
                 });
         };
         
