@@ -1,0 +1,151 @@
+<div ng-controller="ListCtrl">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <ul id="pagination_div" class="pagination">
+                        </ul>
+                    </div>
+                </div>
+                <table class="highlight">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Year</th>
+                            <th>Science Result</th>
+                            <th>Reading Result</th>
+                            <th>Math Result</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="form-control" ng-model="newData.country" /></td>
+                            <td><input class="form-control" ng-model="newData.year" /></td>
+                            <td><input class="form-control" ng-model="newData['science']" /></td>
+                            <td><input class="form-control" ng-model="newData['reading']" /></td>
+                            <td><input class="form-control" ng-model="newData['math']" /></td>
+                            
+                            <td><button class="btn waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
+                        </tr>
+                        <tr ng-repeat="dataUnit in data">
+                            <td>{{dataUnit.country}}</td>
+                            <td>{{dataUnit.year}}</td>
+                            <td>{{dataUnit.science}}</td>
+                            <td>{{dataUnit.reading}}</td>
+                            <td>{{dataUnit.math}}</td>
+
+                            <td><button class="btn waves-effect waves-light" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
+                            <button class="btn waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Load Initial Data<i class="material-icons left">recent_actors</i></button>
+                                <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete All<i class="material-icons left">warning</i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <h4>Edit {{editDataUnit.oldCountry}} ({{editDataUnit.oldYear}})</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input class="form-control" type="text" id="country" ng-model="editDataUnit.country">
+                                    <label for="country">Country</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input class="form-control" type="text" id="year" ng-model="editDataUnit.year">
+                                    <label for="year"> Year </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="sci" ng-model="editDataUnit.science">
+                                    <label for="sci"> Science </label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="rea" ng-model="editDataUnit.reading">
+                                    <label for="rea"> Reading </label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="mat" ng-model="editDataUnit.math">
+                                    <label for="mat"> Math </label>
+                                </div>
+
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-action modal-close waves-effect waves-red btn-flat ">Cancel</a>
+                    <a href="#" ng-click="editData(editDataUnit)" class="modal-action modal-close waves-effect waves-green btn-flat ">Apply</a>
+                </div>
+            </div>
+
+            <div id="searchModal" class="modal">
+                <div class="modal-content">
+                    <h4>Search</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input class="form-control" type="text" id="country" ng-model="search.country">
+                                    <label for="country">Country</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <input class="form-control" type="text" id="year" ng-model="search.year">
+                                    <label for="year">Year</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="gdp" ng-model="searchAdd['gdp']">
+                                    <label for="gdp">%GDP</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="gdpg" ng-model="searchAdd['gdp_growth']">
+                                    <label for="gdpg"> %GDP_Growth </label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input class="form-control" type="text" id="gdpd" ng-model="searchAdd['gdp_deflator']">
+                                    <label for="gdpd"> %GDP_Deflator </label>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
+                </div>
+            </div>
+
+            <div id="apikeyModal" class="modal">
+                <div class="modal-content">
+                    <h4>Set apikey</h4>
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input class="form-control" type="text" id="apikey" ng-model="apikey">
+                                    <label for="apikey">Apikey</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">Set</a>
+                </div>
+            </div>
+
+        </div>

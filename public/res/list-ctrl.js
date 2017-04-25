@@ -17,7 +17,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
     var currentPage = 1;
     var maxPages = 1;
 
-    var elementsPerPage = 5;
+    var elementsPerPage = 8;
 
     function setPagination() {
         // TODO Refactor this into angular code
