@@ -221,7 +221,7 @@ angular.module("EarlyleaverManagerApp").
             $rootScope.apikey = $scope.apikey;
 
             $http
-                .get("../api/v1/education" + modifier + "?" + "apikey=" + $rootScope.apikey + "&" + properties)
+                .get("../api/v2/earlyleavers" + modifier + "?" + "apikey=" + $rootScope.apikey + "&" + properties)
                 .then(function(response) {
                     Materialize.toast('<i class="material-icons">done</i> Api key changed successfully!', 4000);
                     $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
