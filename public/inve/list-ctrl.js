@@ -13,7 +13,7 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope",function($scope, $http, 
     
     if (!$rootScope.apikey) $rootScope.apikey = "apisupersecreta";
 
-
+    $scope.url = "/api/v2/investmentseducation";
     $scope.search = {};
     $scope.searchAdd = {};
 
@@ -242,6 +242,17 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope",function($scope, $http, 
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error deleting all data!', 4000);
             });
+    };
+    
+    $scope.searches = function(){
+            $http
+                .get($scope.url+"?apikey="+$scope.apikey+"&from="+$scope.newData.from+"&to="+$scope.newData.to)
+                .then(function(response){
+                    console.log("The between year: "+$scope.newData.from +" and year "+ $scope.newData.to+ " works correctly");
+                  $scope.data = response.data;
+
+              
+                });
     };
 
     $scope.loadInitialData = function() {

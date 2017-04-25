@@ -64,6 +64,14 @@
                             <td></td>
                             <td style="text-align:center"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
                                 <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete<i class="material-icons left">warning</i></button></td>
+                            
+                             <tr  <td>  <div id="searches" class="modal">
+                  
+                        <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
+                        <td>Introduce TO<input class="form-control" ng-model="newData.to"></td>
+                        <td class="text-center"><button class="btn btn-success" ng-click="searches()">SEARCH</button></td>
+                                                
+             </div></td></tr>
                             <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
                             <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
                         </tr>
