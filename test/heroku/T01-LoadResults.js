@@ -1,6 +1,6 @@
 describe('Data is loaded', function () {
 	it('should show a bunch of data', function (){
-		browser.get('http://localhost:8080/#!/results');
+		browser.get('https://sos1617-03.herokuapp.com/res/index.html#!/');
 		var results = element.all(by.repeater('dataUnit in data'));
 
 		expect(results.count()).toBeGreaterThan(3);
