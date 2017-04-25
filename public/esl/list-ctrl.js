@@ -103,7 +103,7 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
 
     var refresh = $scope.refresh = function() {
 
-        var modifier = "";
+        /*var modifier = "";
         var properties = "";
         if ($scope.search.country && $scope.search.year) {
             modifier = "/" + $scope.search.country + "/" + $scope.search.year;
@@ -118,26 +118,23 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
             if ($scope.searchAdd.hasOwnProperty(prop) && prop) {
                 properties += prop + "=" + $scope.searchAdd[prop] + "&";
             }
-        }
+        }*/
 
         $http
             .get("../api/v2/earlyleavers" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties)
             .then(function(response) {
-                //console.log("GET: " + "../api/v2/earlyleavers" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties);
-                $scope.maxPages = Math.ceil(response.data.length / elementsPerPage);
-                if ($scope.currentPage <= 0) $scope.currentPage = 1;
-                if ($scope.currentPage > $scope.maxPages) $scope.currentPage = $scope.maxPages;
-                setPagination();
+                $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
                 dataCache = response.data;
-                $scope.data = dataCache.slice(Number(($scope.currentPage - 1) * elementsPerPage), Number(($scope.currentPage) * elementsPerPage));
-                //$scope.data = response.data;
-                //console.log("Data count: " + response.data.length);
-                //console.log("Max pages: " + maxPages);
-                //console.log("Current page: " + currentPage);
+                //console.log(JSON.stringify(dataCache, null, 2));
+                $scope.refreshPage();
                 aux = 1;
             }, function(response) {
+                $scope.maxPages = 1;
+                dataCache = {};
+                $scope.refreshPage();
                 Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                $scope.data = {};
+                /*Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
+                $scope.data = {};*/
                 aux = 0;
             });
     };
