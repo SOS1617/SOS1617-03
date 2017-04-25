@@ -1,6 +1,6 @@
 angular
-    .module("EarlyleaverManagerApp")
-    .controller("EditCtrl",["$scope","$http","$routeParams","$location",function ($scope, $http, $routeParams, $location){
+    .module("ResultsManagerApp")
+    .controller("ResEditCtrl",["$scope","$http","$routeParams","$location",function ($scope, $http, $routeParams, $location){
         
         console.log("Edit Controller initialized");
         //var url = "/api/v1/contacts";

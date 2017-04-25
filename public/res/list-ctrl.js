@@ -6,7 +6,7 @@ var nextPage;
 var setPage;
 var aux;
 angular.module("ResultsManagerApp").
-controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
+controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Controller initialized");
     $scope.url = "/api/v2/results";
     $scope.apikey = "apisupersecreta";
@@ -109,16 +109,62 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
 
                 aux = 1;
             }, function(response) {
-                $scope.maxPages = 1;
+              /*  $scope.maxPages = 1;
                 dataCache = {};
                 $scope.refreshPage();
                 Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                /*Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                $scope.data = {};*/
-                aux = 0;
+                //Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
+            //    $scope.data = {};
+                aux = 0; */
+                                switch (response.status) {
+                    case 401:
+                        Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key missing!', 4000);
+                        break;
+                    case 403:
+                        Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key incorrect!', 4000);
+                        break;
+                    case 404:
+                        $scope.maxPages = 1;
+                        dataCache = {};
+                        $scope.refreshPage();
+                        Materialize.toast('<i class="material-icons">error_outline</i> No data found!', 4000);
+                        break;
+                    default:
+                        Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                        break;
+                }
             });
     };
 
+        $('#apikeyModal').modal({
+        complete: function() {
+
+            $http
+                .get("../api/v1/results" + "?" + "apikey=" + $scope.apikey)
+                .then(function(response) {
+                    Materialize.toast('<i class="material-icons">done</i> Api key changed successfully!', 4000);
+                    $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+                    dataCache = response.data;
+                    $scope.refreshPage();
+                }, function(response) {
+                    $scope.maxPages = 1;
+                    dataCache = {};
+                    $scope.refreshPage();
+                    switch (response.status) {
+                        case 401:
+                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key missing!', 4000);
+                            break;
+                        case 403:
+                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key incorrect!', 4000);
+                            break;
+                        default:
+                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                            break;
+                    }
+                });
+            console.log("Api key changed!");
+        }
+    });
 
     $scope.addData = function() {
         $http
