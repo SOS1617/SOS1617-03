@@ -1,6 +1,6 @@
 describe('Add result', function () {
 	it('should add a new result', function (){
-		browser.get('https://sos1617-03.herokuapp.com/res/index.html#!/');
+		browser.get('http://localhost:8080/#!/results');
 
 		element.all(by.repeater('dataUnit in data')).then(function (initialResults){
 				browser.driver.sleep(2000);
