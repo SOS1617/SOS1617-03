@@ -251,7 +251,7 @@ app.get(BASE_API_PATH + "/investmentseducation/:country/:year", function (reques
                     console.log("INFO: Sending earlyleaver: " + JSON.stringify(investmentseducationP, 2, null));
                     response.send(investmentseducationP);
                 } else {
-                    console.log("WARNING: There are not any investment educarion with country " + country +  "and year " + year);
+                    console.log("WARNING: There are not any investment education with country " + country +  " and year " + year);
                     response.sendStatus(404); // not found
                 
                 }
