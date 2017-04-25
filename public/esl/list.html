@@ -9,13 +9,13 @@
                 <table class="highlight">
                     <thead>
                         <tr>
-                            <th>Country</th>
-                            <th>Year</th>
-                            <th>ESL Male</th>
-                            <th>ESL Female</th>
-                            <th>ESL Total</th>
-                            <th>ESL Objective</th>
-                            <th>Actions</th>
+                            <th style="text-align:center">Country</th>
+                            <th style="text-align:center">Year</th>
+                            <th style="text-align:center">ESL Male</th>
+                            <th style="text-align:center">ESL Female</th>
+                            <th style="text-align:center">ESL Total</th>
+                            <th style="text-align:center">ESL Objective</th>
+                            <th style="text-align:center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,12 +30,12 @@
                             <td><button class="btn-floating waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
                         </tr>
                         <tr ng-repeat="dataUnit in data">
-                            <td>{{dataUnit.country}}</td>
-                            <td>{{dataUnit.year}}</td>
-                            <td>{{dataUnit["eslmale"]}}</td>
-                            <td>{{dataUnit["eslfemale"]}}</td>
-                            <td>{{dataUnit["esltotal"]}}</td>
-                            <td>{{dataUnit["eslobjective"]}}</td>
+                            <td style="text-align:center">{{dataUnit.country}}</td>
+                            <td style="text-align:center">{{dataUnit.year}}</td>
+                            <td style="text-align:center">{{dataUnit["eslmale"]}}</td>
+                            <td style="text-align:center">{{dataUnit["eslfemale"]}}</td>
+                            <td style="text-align:center">{{dataUnit["esltotal"]}}</td>
+                            <td style="text-align:center">{{dataUnit["eslobjective"]}}</td>
                             
                             <!--<td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>-->
