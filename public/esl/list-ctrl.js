@@ -166,7 +166,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         $('#editModal').modal('open');
     };
 
-    $scope.editData = function(data) {
+    /*$scope.editData = function(data) {
 
         var oldCountry = data.oldCountry;
         var oldYear = data.oldYear;
@@ -185,7 +185,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error editing data!', 4000);
                 refresh();
             });
-    };
+    };*/
 
     $scope.deleteData = function(data) {
         $http
