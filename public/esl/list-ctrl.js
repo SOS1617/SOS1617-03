@@ -27,7 +27,7 @@ controller("ListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http,
     var modifier = "";
     var properties = "";
 
-    var elementsPerPage = 2;
+    var elementsPerPage = 5;
 
     function setPagination() {
         var pagesNearby = 2;
