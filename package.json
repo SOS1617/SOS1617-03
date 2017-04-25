@@ -13,7 +13,8 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "helmet": "^3.5.0",
-    "mongodb": "^2.2.26"
+    "mongodb": "^2.2.26",
+    "nedb": "^1.8.0"
   },
   "devDependencies": {},
   "repository": {
@@ -23,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/SOS1617/SOS1617-03/issues"
   },
-  "homepage": "https://github.com/SOS1617/SOS1617-03#readme"
+  "homepage": "https://github.com/SOS1617/SOS1617-03#readme",
+  "directories": {
+    "test": "test"
+  }
 }

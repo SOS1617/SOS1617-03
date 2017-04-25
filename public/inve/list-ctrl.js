@@ -1,3 +1,4 @@
+/*  ////////////////////////IVAN//////////////////////////// */
 /* global angular */
 /* global Materialize */
 /* global $ */
@@ -7,76 +8,101 @@ var setPage;
 var aux;
 
 angular.module("InvestmentsEducationApp").
-controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
+controller("ListCtrl", ["$scope", "$http", "$rootScope",function($scope, $http, $rootScope) {
     console.log("Controller initialized");
 
-    $scope.apikey = "apisupersecreta";
     $scope.search = {};
     $scope.searchAdd = {};
 
+    $scope.data = {};	
     var dataCache = {};
-    var currentPage = 1;
-    var maxPages = 1;
+    $scope.currentPage = 1;
+    $scope.maxPages = 1;
+    $scope.pages = [];
+    $scope.pagesLeft = [];
+    $scope.pagesMid = [];
+    $scope.pagesRight = [];
+	
+	var modifier = "";
+    var properties = "";
 
-    var elementsPerPage = 5;
+    var elementsPerPage = 2;
 
     function setPagination() {
-        // TODO Refactor this into angular code
-        var pagination_html = "";
-        if (currentPage == 1) {
-            pagination_html = '<li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>';
+        var pagesNearby = 2;
+        $scope.pagesLeft = [];
+        $scope.pagesMid = [];
+        $scope.pagesRight = [];
+        if ($scope.maxPages <= pagesNearby * 2) {
+            for (var i = 1; i <= $scope.maxPages; i++) $scope.pagesLeft.push(i);
+        }
+        else if ($scope.currentPage >= 0 && $scope.currentPage <= pagesNearby) {
+            //console.log("Left");
+            //only left and mid
+            for (var i = 1; i <= pagesNearby; i++) $scope.pagesLeft.push(i);
+            for (i = $scope.maxPages - pagesNearby + 1; i <= $scope.maxPages; i++) $scope.pagesMid.push(i);
+        }
+        else if ($scope.currentPage >= $scope.maxPages - pagesNearby + 1 && $scope.currentPage <= $scope.maxPages) {
+            //console.log("Right");
+            //only left and mid
+            for (var i = 1; i <= pagesNearby; i++) $scope.pagesMid.push(i);
+            for (i = $scope.maxPages - pagesNearby + 1; i <= $scope.maxPages; i++) $scope.pagesRight.push(i);
         }
         else {
-            pagination_html = '<li class="waves-effect"><a href="#" onclick="previousPage()"><i class="material-icons">chevron_left</i></a></li>';
-        }
-
-        for (var i = 1; i <= maxPages; i++) {
-            if (currentPage == i) {
-                pagination_html += '<li class="active"><a href="#" onclick="setPage(' + i + ')">' + i + '</a></li>';
+            //console.log("Mid");
+            for (var i = 1; i <= pagesNearby; i++) $scope.pagesLeft.push(i);
+            for (var i = Math.max($scope.currentPage - 1, pagesNearby + 1); i <= Math.min($scope.currentPage + 1, $scope.maxPages - pagesNearby); i++) $scope.pagesMid.push(i);
+            for (i = $scope.maxPages - pagesNearby + 1; i <= $scope.maxPages; i++) $scope.pagesRight.push(i);
+            if (($scope.pagesLeft[$scope.pagesLeft.length - 1] == $scope.pagesMid[0] - 1) && ($scope.pagesMid[$scope.pagesMid.length - 1] == $scope.pagesRight[0] - 1)) {
+                //console.log("JOIN BOTH");
+                $scope.pagesMid = $scope.pagesMid.concat($scope.pagesRight);
+                $scope.pagesLeft = $scope.pagesLeft.concat($scope.pagesMid);
+                $scope.pagesMid = [];
+                $scope.pagesRight = [];
             }
-            else {
-                pagination_html += '<li class="waves-effect"><a href="#" onclick="setPage(' + i + ')">' + i + '</a></li>';
+            else if ($scope.pagesLeft[$scope.pagesLeft.length - 1] == $scope.pagesMid[0] - 1) {
+                //console.log("JOIN MID INTO LEFT");
+                $scope.pagesLeft = $scope.pagesLeft.concat($scope.pagesMid);
+                $scope.pagesMid = [];
+            }
+            else if ($scope.pagesMid[$scope.pagesMid.length - 1] == $scope.pagesRight[0] - 1) {
+                //console.log("JOIN MID INTO RIGHT");
+                $scope.pagesRight = $scope.pagesMid.concat($scope.pagesRight);
+                $scope.pagesMid = [];
             }
         }
-
-        if (currentPage == maxPages) {
-            pagination_html += '<li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li>';
-        }
-        else {
-            pagination_html += '<li class="waves-effect"><a href="#" onclick="nextPage()"><i class="material-icons">chevron_right</i></a></li>';
-        }
-        $('#pagination_div').html(pagination_html);
     }
 
-    setPage = function(page) {
-        currentPage = page;
-        if (currentPage <= 0) currentPage = 1;
-        if (currentPage > maxPages) currentPage = maxPages;
+    $scope.setPage = function(page) {
+        $scope.currentPage = page;
         $scope.refreshPage();
     };
 
-    previousPage = function() {
-        currentPage--;
-        if (currentPage <= 0) currentPage = 1;
+    $scope.previousPage = function() {
+        $scope.currentPage--;
         $scope.refreshPage();
     };
 
-    nextPage = function() {
-        currentPage++;
-        if (currentPage > maxPages) currentPage = maxPages;
+    $scope.nextPage = function() {
+        $scope.currentPage++;
         $scope.refreshPage();
     };
 
     $scope.refreshPage = function() {
+        if ($scope.currentPage <= 0) $scope.currentPage = 1;
+        if ($scope.currentPage > $scope.maxPages) $scope.currentPage = $scope.maxPages;
         setPagination();
-        $scope.data = dataCache.slice(Number((currentPage - 1) * elementsPerPage), Number((currentPage) * elementsPerPage));
-        // This really should not be used...
-        $scope.$apply();
+        if (dataCache.length > elementsPerPage) {
+            $scope.data = dataCache.slice(Number(($scope.currentPage - 1) * elementsPerPage), Number(($scope.currentPage) * elementsPerPage));
+        }
+        else {
+            $scope.data = dataCache;
+        }
     };
 
     var refresh = $scope.refresh = function() {
 
-        var modifier = "";
+       /* var modifier = "";
         var properties = "";
         if ($scope.search.country && $scope.search.year) {
             modifier = "/" + $scope.search.country + "/" + $scope.search.year;
@@ -91,26 +117,23 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
             if ($scope.searchAdd.hasOwnProperty(prop) && prop) {
                 properties += prop + "=" + $scope.searchAdd[prop] + "&";
             }
-        }
+        }*/
 
         $http
             .get("../api/v2/investmentseducation" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties)
             .then(function(response) {
-                //console.log("GET: " + "../api/v2/investmentseducation" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties);
-                maxPages = Math.ceil(response.data.length / elementsPerPage);
-                if (currentPage <= 0) currentPage = 1;
-                if (currentPage > maxPages) currentPage = maxPages;
-                setPagination();
+                $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
                 dataCache = response.data;
-                $scope.data = dataCache.slice(Number((currentPage - 1) * elementsPerPage), Number((currentPage) * elementsPerPage));
-                //$scope.data = response.data;
-                //console.log("Data count: " + response.data.length);
-                //console.log("Max pages: " + maxPages);
-                //console.log("Current page: " + currentPage);
+                //console.log(JSON.stringify(dataCache, null, 2));
+                $scope.refreshPage();
                 aux = 1;
             }, function(response) {
+                $scope.maxPages = 1;
+                dataCache = {};
+                $scope.refreshPage();
                 Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
-                $scope.data = {};
+                /*Materialize.toast('<i class="material-icons">error_outline</i> There is no data available', 4000);
+                $scope.data = {};*/
                 aux = 0;
             });
     };
@@ -165,7 +188,8 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
         $scope.editDataUnit = data;
         $('#editModal').modal('open');
     };
-
+	
+	/*
     $scope.editData = function(data) {
 
         var oldCountry = data.oldCountry;
@@ -185,7 +209,7 @@ controller("ListCtrl", ["$scope", "$http", function($scope, $http) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error editing data!', 4000);
                 refresh();
             });
-    };
+    };*/
 
     $scope.deleteData = function(data) {
         $http
