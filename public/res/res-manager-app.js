@@ -5,7 +5,7 @@ angular.module("ResultsManagerApp",["ngRoute"]).config(function($routeProvider){
             templateUrl : "list.html",
             controller : "ResListCtrl"
         })
-        .when("/results/:country/:year",{
+        .when("/:country/:year",{
             templateUrl : "edit.html",
             controller : "ResEditCtrl"
         });

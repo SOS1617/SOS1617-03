@@ -5,7 +5,7 @@ var previousPage;
 var nextPage;
 var setPage;
 var aux;
-angular.module("ResultsManagerApp").
+angular.module("GroupThreeApp").
 controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Controller initialized");
     $scope.url = "/api/v2/results";
