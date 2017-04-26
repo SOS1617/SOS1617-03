@@ -62,18 +62,18 @@
                         <tr>
                             <td><input class="form-control" ng-model="newData.country" style="text-align:center"/></td>
                             <td><input class="form-control" ng-model="newData.year" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData['population']" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData['riskpoverty']" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData['inveducation']" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData.population" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData.riskpoverty" style="text-align:center"/></td>
+                            <td><input class="form-control" ng-model="newData.inveducation" style="text-align:center"/></td>
 
                             <td style="text-align:center"><button class="btn-floating waves-effect waves-light" ng-click="addData()"><i class="material-icons">add</i></button></td>
                         </tr>
                         <tr ng-repeat="dataUnit in data">
                             <td style="text-align:center">{{dataUnit.country}}</td>
                             <td style="text-align:center">{{dataUnit.year}}</td>
-                            <td style="text-align:center">{{dataUnit["population"]}}</td>
-                            <td style="text-align:center">{{dataUnit["riskpoverty"]}}</td>
-                            <td style="text-align:center">{{dataUnit["inveducation"]}}</td>
+                            <td style="text-align:center">{{dataUnit.population}}</td>
+                            <td style="text-align:center">{{dataUnit.riskpoverty}}</td>
+                            <td style="text-align:center">{{dataUnit.inveducation}}</td>
 
                             <!--<td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>-->
