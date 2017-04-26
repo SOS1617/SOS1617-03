@@ -6,7 +6,7 @@ var nextPage;
 var setPage;
 var aux;
 
-angular.module("EarlyleaverManagerApp").
+angular.module("GroupThreeApp").
     controller("EslListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope) {
         console.log("Controller initialized");
 

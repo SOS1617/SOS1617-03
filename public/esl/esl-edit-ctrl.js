@@ -1,5 +1,5 @@
 angular
-    .module("EarlyleaverManagerApp")
+    .module("GroupThreeApp")
     .controller("EslEditCtrl",["$scope","$http","$routeParams","$location",function ($scope, $http, $routeParams, $location){
         
         console.log("Edit Controller initialized");
