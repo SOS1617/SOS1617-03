@@ -1,33 +1,33 @@
- <h1> Edit data </h1>
- <div class="container">
-                <div class="row">
-                    <div class="col s12 center-align">
-                        <ul id="pagination_div" class="pagination">
-                        </ul>
-                    </div>
-                </div>
-                <table class="highlight">
-                    <thead>
-                        <tr>
-                            <th style="text-align:center">Country</th>
-                            <th style="text-align:center">Year</th>
+<div ng-controller="InveEditCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center-align">
+                <ul id="pagination_div" class="pagination">
+                </ul>
+            </div>
+        </div>
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Year</th>
                             <th style="text-align:center">Population</th>
                             <th style="text-align:center">Risk of poverty</th>
-                            <th style="text-align:center">Investments in education</th>
+                            <th style="text-align:center">Investment in education</th>
                             <th style="text-align:center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{updatedInvestmentsEducation.country}}</td>
-                            <td>{{updatedInvestmentsEducation.year}}</td>
-                            <td><input class="form-control" ng-model="updatedInvestmentsEducation.population" /></td>
-                            <td><input class="form-control" ng-model="updatedInvestmentsEducation.riskpoverty" /></td>
-                            <td><input class="form-control" ng-model="updatedInvestmentsEducation.inveducation" /></td>
-                            
+                            <td style="text-align:center">{{updatedInvestmentsEducation.country}}</td>
+                            <td style="text-align:center">{{updatedInvestmentsEducation.year}}</td>
+                            <td><input class="form-control" ng-model="updatedInvestmentsEducation.population" style="text-align:center;"/></td>
+                            <td><input class="form-control" ng-model="updatedInvestmentsEducation.riskpoverty" style="text-align:center;"/></td>
+                            <td><input class="form-control" ng-model="updatedInvestmentsEducation.inveducation" style="text-align:center;"/></td>
 
                             <td style="text-align:center"><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editData(updatedInvestmentsEducation)"><i class="material-icons">edit</i></button></td>
                         </tr>
                     </tbody>
-                </table>
-    </div>
+</table>
+<a href="#!/inve/">Back to contact list</a>
+</div>

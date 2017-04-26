@@ -6,7 +6,7 @@ var nextPage;
 var setPage;
 var aux;
 
-angular.module("InvestmentsEducationApp").
+angular.module("GroupThreeApp").
     controller("InveListCtrl", ["$scope", "$http", "$rootScope", function($scope, $http, $rootScope) {
         console.log("Controller initialized");
 

@@ -1,5 +1,5 @@
 angular
-    .module("InvestmentsEducationApp")
+    .module("GroupThreeApp")
     .controller("InveEditCtrl",["$scope","$http","$routeParams","$location",function ($scope, $http, $routeParams, $location){
         
         console.log("Edit Controller initialized");
@@ -33,7 +33,7 @@ angular
                 Materialize.toast('<i class="material-icons">error_outline</i> Error editing data!', 4000);
                 refresh();
             });
-            $location.path("/");
+            $location.path("/inve/");
     };
     refresh();
 
