@@ -34,7 +34,7 @@ angular
                 Materialize.toast('<i class="material-icons">error_outline</i> Error editing data!', 4000);
                 refresh();
             });
-            $location.path("/");
+            $location.path("/esl/");
     };
     refresh();
 
