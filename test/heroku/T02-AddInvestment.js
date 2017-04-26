@@ -1,6 +1,6 @@
 describe('Add data', function () {
 	it('should add a new data', function (){
-		browser.get('https://sos1617-03-irg-sanbox-sos161703irg.c9users.io/inve/index.html');
+		browser.get('https://sos1617-03.herokuapp.com/inve/index.html#!/');
 
 		element.all(by.repeater('dataUnit in data')).then(function (initialInvestmentsEducation){
 				browser.driver.sleep(2000);
