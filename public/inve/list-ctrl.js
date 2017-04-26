@@ -27,7 +27,7 @@ angular.module("InvestmentsEducationApp").
     var modifier = "";
     var properties = "";
 
-    var elementsPerPage = 5;
+    var elementsPerPage = 8;
 
     function setPagination() {
         var pagesNearby = 2;
