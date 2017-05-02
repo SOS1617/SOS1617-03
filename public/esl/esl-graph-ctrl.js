@@ -51,6 +51,7 @@ angular
                     backgroundColor: '#FFFFFF',
                     //align: 'left',
                     verticalAlign: 'top',
+                    align: 'right',
                     y: 60,
                     x: -60
                 },
