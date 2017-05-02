@@ -14,6 +14,11 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "/esl/edit.html",
             controller: "EslEditCtrl"
         })
+        .when("/esl/graph", {
+            templateUrl: "/esl/graph.html",
+            controller: "EslGraphCtrl"
+        })
+        
 
         .when("/inve", {
             templateUrl: "/inve/list.html",
