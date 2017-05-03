@@ -24,39 +24,38 @@
             <div class="container">
                 <div class="row">
                     <div class="col s12 center-align">
-                        <div class="pagination">
-                    <li class="disabled" ng-show="currentPage == 1"><a href=""><i class="material-icons">chevron_left</i></a></li>
-                    <li class="waves-effect" ng-hide="currentPage == 1"><a href="" ng-click="previousPage()"><i class="material-icons">chevron_left</i></a></li>
+                        <div class="pagination"><!--Color #2E2EFE, Old Color: #ee6e73-->
+                            <li class="disabled" ng-show="currentPage == 1"><a href=""><i class="material-icons">chevron_left</i></a></li>
+                            <li class="waves-effect" ng-hide="currentPage == 1"><a href="" ng-click="previousPage()"><i class="material-icons">chevron_left</i></a></li>
+                            <span ng-repeat="page in pagesLeft">
+                                <li class="waves-effect" ng-class="{active: page == currentPage}"><a href="" ng-click="setPage(page)">{{page}}</a></li>
+                            </span>
+                            <li ng-show="pagesLeft.length != 0 && pagesMid != 0">...</li>
+                            <span ng-repeat="page in pagesMid">
+                                <li class="waves-effect" ng-class="{active: page == currentPage}"><a href="" ng-click="setPage(page)">{{page}}</a></li>
+                            </span>
+                            <li ng-show="pagesMid.length != 0 && pagesRight != 0">...</li>
+                            <li ng-show="pagesLeft.length != 0 && pagesMid.length == 0 && pagesRight != 0">...</li>
+                            <span ng-repeat="page in pagesRight">
+                                <li class="waves-effect" ng-class="{active: page == currentPage}"><a href="" ng-click="setPage(page)">{{page}}</a></li>
+                            </span>
                     
-                    <span ng-repeat="page in pagesLeft">
-                        <li class="waves-effect" ng-class="{active: page == currentPage}"><a href="" ng-click="setPage(page)">{{page}}</a></li>
-                    </span>
-                    <li ng-show="pagesLeft.length != 0 && pagesMid != 0">...</li>
-                    <span ng-repeat="page in pagesMid">
-                        <li class="waves-effect" ng-class="{active: page == currentPage}"><a href="" ng-click="setPage(page)">{{page}}</a></li>
-                    </span>
-                    <li ng-show="pagesMid.length != 0 && pagesRight != 0">...</li>
-                    <li ng-show="pagesLeft.length != 0 && pagesMid.length == 0 && pagesRight != 0">...</li>
-                    <span ng-repeat="page in pagesRight">
-                        <li class="waves-effect" ng-class="{active: page == currentPage}"><a href="" ng-click="setPage(page)">{{page}}</a></li>
-                    </span>
-                    
-                    <li class="disabled" ng-show="currentPage == maxPages"><a href=""><i class="material-icons">chevron_right</i></a></li>
-                    <li class="waves-effect" ng-show="currentPage != maxPages"><a href="" ng-click="nextPage()"><i class="material-icons">chevron_right</i></a></li>
-                </div>
+                            <li class="disabled" ng-show="currentPage == maxPages"><a href=""><i class="material-icons">chevron_right</i></a></li>
+                            <li class="waves-effect" ng-show="currentPage != maxPages"><a href="" ng-click="nextPage()"><i class="material-icons">chevron_right</i></a></li>
+                        </div>
                         </ul>
                     </div>
                 </div>
                 <table class="highlight">
                     <thead>
                         <tr>
-                            <th style="text-align:center">Country</th>
-                            <th style="text-align:center">Year</th>
-                            <th style="text-align:center">ESL Male</th>
-                            <th style="text-align:center">ESL Female</th>
-                            <th style="text-align:center">ESL Total</th>
-                            <th style="text-align:center">ESL Objective</th>
-                            <th style="text-align:center">Actions</th>
+                            <th style="text-align:center" width="14%">Country</th>
+                            <th style="text-align:center" width="14%">Year</th>
+                            <th style="text-align:center" width="14%">ESL Male</th>
+                            <th style="text-align:center" width="14%">ESL Female</th>
+                            <th style="text-align:center" width="14%">ESL Total</th>
+                            <th style="text-align:center" width="14%">ESL Objective</th>
+                            <th style="text-align:center" width="14%">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,8 +80,10 @@
                             <!--<td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
                             <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>-->
                             
-                            <td style="text-align:center"><a href="#!/esl/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
-                            <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>
+                            <td style="text-align:center">
+                                <a href="#!/esl/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
+                                <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button>
+                            </td>
                         </tr>
                         <tr>
                             <td></td>
@@ -91,12 +92,9 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td style="text-align:center"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
-                                <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete<i class="material-icons left">warning</i></button></td>
-                            <!--<td ng-show="data.length!=0"><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()"><i class="material-icons">recent_actors</i></button></td>
-                            <td ng-show="data.length!=0"><button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()"><i class="material-icons">delete</i>Remove all</button></td>-->
+                            <td></td>
                         </tr>
-                        <tr>
+                        <!--<tr>
                             <td>
                                 <div id="searches" class="modal">
                                     <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
@@ -105,12 +103,35 @@
                                     <td><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></td>
                                 </div>
                             </td>
-                            <td>
-                                <button class="btn waves-effect waves-light blue darken-1" onClick="$('#apikeyModal').modal('open');"><i class="material-icons left">vpn_key</i>Change apikey</button>
-                            </td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
+                
+                <div id="searches" class="row">
+                    <div class="col s2"></div>
+                    <div class="col s3">Introduce FROM<input class="form-control" ng-model="newData.from"></div>
+                    <div class="col s3">Introduce TO<input class="form-control" ng-model="newData.to"></div>
+                    <div class="col s1"><button class="btn-floating waves-effect waves-light" ng-click="searches()"><i class="material-icons">search</i></button></div>
+                    <div class="col s1"><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col s3">
+                            <button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
+                        </div>
+                        <div class="col s3">
+                            <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Clear<i class="material-icons left">warning</i></button>
+                        </div>
+                        <div class="col s3">
+                            <button class="btn waves-effect waves-light pink darken-1" onClick="$('#apikeyModal').modal('open');">Apikey<i class="material-icons left">vpn_key</i></button>
+                        </div>
+                        <div class="col s3">
+                            <a href="#!/esl/graph" class="btn waves-effect waves-light blue darken-1">Graph<i class="material-icons left">trending_up</i></a>
+                        </div>
+                    </div>
+                </div>
+    
             </div>
 
             <div id="searchModal" class="modal">
@@ -136,43 +157,6 @@
                 </div>
             </div>
             
-            <!--<div id="searchModal" class="modal">
-                <div class="modal-content">
-                    <h4>Search</h4>
-                    <div class="row">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input class="form-control" type="text" id="country" ng-model="search.country">
-                                    <label for="country">Country</label>
-                                </div>
-                                <div class="input-field col s6">
-                                    <input class="form-control" type="text" id="year" ng-model="search.year">
-                                    <label for="year">Year</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="gdp" ng-model="searchAdd['gdp']">
-                                    <label for="gdp">%GDP</label>
-                                </div>
-                                <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="gdpg" ng-model="searchAdd['gdp_growth']">
-                                    <label for="gdpg"> %GDP_Growth </label>
-                                </div>
-                                <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="gdpd" ng-model="searchAdd['gdp_deflator']">
-                                    <label for="gdpd"> %GDP_Deflator </label>
-                                </div>
-                                
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
-                </div>
-            </div>-->
 
             <div id="apikeyModal" class="modal">
         <div class="modal-content">

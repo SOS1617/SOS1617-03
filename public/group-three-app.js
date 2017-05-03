@@ -5,6 +5,9 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/", {
             templateUrl: "main.html"
         })
+        .when("/analytics", {
+            templateUrl: "analytics.html"
+        })
 
         .when("/esl", {
             templateUrl: "/esl/list.html",
