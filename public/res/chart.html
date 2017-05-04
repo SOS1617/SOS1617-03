@@ -1,0 +1,58 @@
+<div ng-controller="ResChartCtrl">
+    <head>
+                <style>
+  .chart { width: 600px; height: 350px; }
+  .chart-container { overflow: hidden; }
+  #dygraphsScience { float: left; margin-left:10%;}
+  #dygraphsReading { float: left; margin-bottom:5%;}
+  #dygraphsMath { float: left; clear: left; margin-bottom: 10%; }
+    #mathLegend { float: left; clear: left; }
+
+
+</style>
+
+
+</head>
+
+<body ng-controller="ResChartCtrl">
+    <h1>Test</h1>
+    <div id="reschart" style="margin-bottom:5%"></div>
+    
+    <div id="dashboard" style="margin-left:5%">
+        <div id="filter"></div>
+        <div id="map"  style="width: 1500px; height: 700px;"></div>
+        
+        
+        <p>Zooming and panning on any of the charts will zoom and pan all the
+others. Selecting points on one will select points on the others.</p>
+<p>
+  Synchronize what?
+  <input type="checkbox" id="chk-zoom" checked=""><label for="chk-zoom"> Zoom</label>
+  <input type="checkbox" id="chk-selection" checked=""><label for="chk-selection"> Selection</label>
+</p>
+        
+
+<div class="chart-container">
+            <div id="readingLegend"></div>
+    <div id="reading-container">
+
+  <div id="dygraphsReading" class="chart"></div>
+  
+  </div>
+  <div id="science-container">
+  <div id="dygraphsScience" class="chart"></div>
+  <div id="scienceLegend"></div>
+  </div>
+  <div id="math-container">
+        <div id="mathLegend"></div>
+  <div id="dygraphsMath" class="chart"></div>
+
+  </div>
+</div>
+
+        
+        
+    </div>
+</body>
+
+</html>
