@@ -76,25 +76,95 @@ angular
                 }]
             });
             
-            google.charts.load('current', {
-                'packages': ['geochart']
+            //Google
+            /*google.charts.load('current', {
+                'packages': ['controls','geochart']
             });
             
             google.charts.setOnLoadCallback(drawRegionsMap);
                 function drawRegionsMap() {
-                    var myData = [['Country', 'ESLTotal']];
+                    var myData = [['Country', 'ESLTotal', 'Year']];
                     response.data.forEach(function (d){
-                        myData.push([capitalizeFirstLetter(d.country),Number(d.esltotal)]);
+                        myData.push([capitalizeFirstLetter(d.country),Number(d.esltotal),Number(d.year)]);
                     });
                     var data = google.visualization.arrayToDataTable(myData);
                     var options = {
-                        
+                        colorAxis: {colors: ['red', 'yellow' , 'green']}
                     };
+                    var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+
+                    var yearSelector = new google.visualization.ControlWrapper({
+                        controlType: 'CategoryFilter',
+                        containerId: 'filter',
+                        options: {
+                            filterColumnIndex: 2,
+                            ui: {
+                                allowTyping: false,
+                                allowMultiple: false,
+                                allowNone: false
+                            }
+                        }
+                    });
                     var chart = new google.visualization.GeoChart(document.getElementById('map'));
                     chart.draw(data, options);
-                }
+                    var chart = new google.visualization.ChartWrapper({
+                        chartType: 'GeoChart',
+                        containerId: 'map',
+                        options: {
+                            displayMode: 'regions',
+                            colorAxis: {colors: ['red', 'yellow' , 'green']}
+                        }
+                    });
+                    dashboard.bind(yearSelector, chart);
+                    dashboard.draw(data, options);
+                }*/
                 
+                
+            google.charts.load('current', {
+                'packages': ['controls','geochart']
+            });
+            google.charts.setOnLoadCallback(drawRegionsMap);
+                        
+        
+            function drawRegionsMap() {
+                var myData = [['Country','ESL Total', 'Year']];
+     
+                response.data.forEach(function (d){
+                    myData.push([d.country, Number(d.esltotal), Number(d.year)]);
+                });
+                    
+                var data = google.visualization.arrayToDataTable(myData);
+                var options = {
+                    colorAxis: {colors: ['red', 'yellow' , 'green']}
+                };
+                var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+
+                var yearSelector = new google.visualization.ControlWrapper({
+                    controlType: 'CategoryFilter',
+                    containerId: 'filter',
+                    options: {
+                        filterColumnIndex: 2,
+                        ui: {
+                            allowTyping: false,
+                            allowMultiple: false,
+                            allowNone: false
+                        }
+                    }
+                });
+                var chart = new google.visualization.ChartWrapper({
+                    chartType: 'GeoChart',
+                    containerId: 'map',
+                    options: {
+                        displayMode: 'regions',
+                        colorAxis: {colors: ['red', 'yellow' , 'green']}
+                    }
+                });
+                dashboard.bind(yearSelector, chart);
+                dashboard.draw(data, options);
+            }    
             
+            
+            //Echarts
             var myChart = echarts.init(document.getElementById('echarts'));
 
                 // specify chart configuration item and data
