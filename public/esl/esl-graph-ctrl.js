@@ -87,11 +87,12 @@ angular
                 var myData = [['Country','ESL Total', 'Year']];
      
                 response.data.forEach(function (d){
-                    myData.push([d.country, Number(d.esltotal), Number(d.year)]);
+                    myData.push([capitalizeFirstLetter(d.country), Number(d.esltotal), Number(d.year)]);
                 });
                     
                 var data = google.visualization.arrayToDataTable(myData);
                 var options = {
+                    region: '150',
                     colorAxis: {colors: ['green', 'yellow' , 'red']}
                 };
                 var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
@@ -113,6 +114,7 @@ angular
                     containerId: 'map',
                     options: {
                         displayMode: 'regions',
+                        region: '150',
                         colorAxis: {colors: ['green', 'yellow' , 'red']}
                     }
                 });
