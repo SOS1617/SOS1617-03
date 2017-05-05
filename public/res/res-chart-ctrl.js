@@ -232,21 +232,26 @@ var g1 = new Dygraph(document.getElementById("dygraphsScience"),sacoScience,
 {
     labels: ["Date","Spain","Finland"],
     title: "Comparative chart of Spain/Finland in Science",
-    labelsDiv: "scienceLegend"
+    labelsDiv: "scienceLegend",
+    fillGraph: true
               });
     
 var g2 = new Dygraph(document.getElementById("dygraphsReading"),sacoReading,
 {
     labels: ["Date","Spain","Finland"],
     title: "Comparative chart of Spain/Finland in Reading",
-    labelsDiv: "readingLegend"
+    labelsDiv: "readingLegend",
+    fillGraph: true
+
               });
               
 var g3 = new Dygraph(document.getElementById("dygraphsMath"),sacoMath,
 {
     labels: ["Date","Spain","Finland"],
     title: "Comparative chart of Spain/Finland in Math",
-    labelsDiv: "mathLegend"
+    labelsDiv: "mathLegend",
+    fillGraph: true
+
               });
     
      
