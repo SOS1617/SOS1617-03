@@ -50,7 +50,7 @@ angular
                                 yAxis: {
                                     min: 0,
                                     title: {
-                                        text: 'Pisa exam marks'
+                                        text: 'Comparison between countries'
                                     },
                                     stackLabels: {
                                         enabled: true,
