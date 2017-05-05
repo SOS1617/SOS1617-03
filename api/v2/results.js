@@ -1,10 +1,10 @@
 var exports = module.exports = {};
 
 // Register all the functions used in this module
-exports.register = function(app, dbRuben, BASE_API_PATH, checkApiKeyFunction) {
+exports.register = function(app, dbRuben, BASE_API_PATH2, checkApiKeyFunction) {
 
 //Load Initial Data
-app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
+app.get(BASE_API_PATH2 + "/results/loadInitialData",function(request, response) {
      if (!checkApiKeyFunction(request, response)) return;
     dbRuben.find({}).toArray(function(err,results){
        
@@ -22,42 +22,189 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
                 "science": "496",
                 "reading": "488",
                 "math": "484"
-            },
-            {
+              },
+              {
+                "country": "Belgium",
+                "year": "2012",
+                "math": "515",
+                "reading": "509",
+                "science": "505"
+              },
+              {
+                "country": "Switzerland",
+                "year": "2012",
+                "math": "531",
+                "reading": "509",
+                "science": "515"
+              },
+              {
+                "country": "Poland",
+                "year": "2012",
+                "math": "518",
+                "reading": "518",
+                "science": "526"
+              },
+              {
+                "country": "United Kingdom",
+                "year": "2012",
+                "math": "494",
+                "reading": "499",
+                "science": "514"
+              },
+              {
+                "country": "Finland",
+                "math": "519",
+                "reading": "524",
+                "science": "545",
+                "year": "2012"
+              },
+              {
+                "country": "Spain",
+                "math": "486",
+                "reading": "496",
+                "science": "493",
+                "year": "2015"
+              },
+              {
+                "country": "Finland",
+                "math": "511",
+                "reading": "526",
+                "science": "531",
+                "year": "2015"
+              },
+              {
+                "country": "Holland",
+                "year": "2012",
+                "science": "522",
+                "reading": "511",
+                "math": "523"
+              },
+              {
+                "country": "Switzerland",
+                "year": "2015",
+                "science": "506",
+                "reading": "492",
+                "math": "521"
+              },
+              {
+                "country": "Poland",
+                "year": "2015",
+                "science": "501",
+                "reading": "506",
+                "math": "504"
+              },
+              {
+                "country": "United Kingdom",
+                "year": "2015",
+                "science": "509",
+                "reading": "498",
+                "math": "492"
+              },
+              {
+                "country": "Spain",
+                "year": "2009",
+                "reading": "481",
+                "math": "483",
+                "science": "491"
+              },
+              {
+                "country": "Finland",
+                "year": "2009",
+                "reading": "532",
+                "math": "540",
+                "science": "553"
+              },
+              {
+                "country": "United Kingdom",
+                "year": "2009",
+                "reading": "495",
+                "math": "496",
+                "science": "514"
+              },
+              {
+                "country": "France",
+                "year": "2009",
+                "reading": "497",
+                "math": "498",
+                "science": "499"
+              },
+              {
+                "country": "Germany",
+                "year": "2009",
+                "reading": "499",
+                "math": "512",
+                "science": "521"
+              },
+              {
+                "country": "Holland",
+                "year": "2009",
+                "reading": "510",
+                "math": "526",
+                "science": "523"
+              },
+              {
+                "country": "Italy",
+                "year": "2009",
+                "reading": "485",
+                "math": "482",
+                "science": "492"
+              },
+              {
+                "country": "France",
+                "year": "2012",
+                "math": "495",
+                "reading": "505",
+                "science": "499"
+              },
+              {
+                "country": "Germany",
+                "year": "2012",
+                "math": "514",
+                "reading": "508",
+                "science": "524"
+              },
+              {
+                "country": "Italy",
+                "year": "2012",
+                "math": "485",
+                "reading": "490",
+                "science": "494"
+              },
+              {
+                "country": "Portugal",
+                "year": "2012",
+                "math": "487",
+                "reading": "488",
+                "science": "489"
+              },
+              {
+                "country": "Portugal",
+                "year": "2015",
+                "math": "492",
+                "reading": "498",
+                "science": "501"
+              },
+              {
                 "country": "France",
                 "year": "2015",
-                "science": "493",
-                "reading": "496",
-                "math": "486"
-            },
-            {
-                "country": "Finland",
-                "year": "2015",
-                "science": "531",
-                "reading": "526",
-                "math": "511"
-            },
-            {
+                "math": "493",
+                "reading": "499",
+                "science": "495"
+              },
+              {
                 "country": "Germany",
-                "year": "2016",
-                "science": "581",
-                "reading": "333",
-                "math": "519"
-            },
-            {
-                "country": "United Kingdom",
-                "year": "2011",
-                "science": "231",
-                "reading": "426",
-                "math": "544"
-            },
-            {
-                "country": "Turkey",
-                "year": "2010",
-                "science": "331",
-                "reading": "426",
-                "math": "431"
-            }];
+                "year": "2015",
+                "math": "506",
+                "reading": "509",
+                "science": "509"
+              },
+              {
+                "country": "Italy",
+                "year": "2015",
+                "math": "490",
+                "reading": "485",
+                "science": "481"
+  }];
         
     dbRuben.insert(results);
     response.sendStatus(200); //Ok
@@ -72,14 +219,14 @@ app.get(BASE_API_PATH + "/results/loadInitialData",function(request, response) {
 //Base GET
 app.get("/", function (request, response) {
     console.log("INFO: Redirecting to /results");
-    response.redirect(301, BASE_API_PATH + "/results");
+    response.redirect(301, BASE_API_PATH2 + "/results");
 });
 */
 
 // GET a collection
 
 
-app.get(BASE_API_PATH + "/results", function (request, response) {
+app.get(BASE_API_PATH2 + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /results");
@@ -163,7 +310,7 @@ app.get(BASE_API_PATH + "/results", function (request, response) {
             
 // GET a collection de un mismo año 
 
-app.get(BASE_API_PATH + "/results/:year", function (request, response) {
+app.get(BASE_API_PATH2 + "/results/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var year = request.params.year;
     var country = request.params.year;
@@ -218,7 +365,7 @@ app.get(BASE_API_PATH + "/results/:year", function (request, response) {
 }});
 
 // GET a collection de un pais
-/*app.get(BASE_API_PATH + "/results/:country", function (request, response) {
+/*app.get(BASE_API_PATH2 + "/results/:country", function (request, response) {
     var country = request.params.country;
     if (!country) {
         console.log("WARNING: New GET request to /results/:country without name, sending 400...");
@@ -245,7 +392,7 @@ app.get(BASE_API_PATH + "/results/:year", function (request, response) {
 */
 
 // Get a un recurso concreto
-app.get(BASE_API_PATH + "/results/:country/:year", function (request, response) {
+app.get(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
@@ -273,7 +420,7 @@ app.get(BASE_API_PATH + "/results/:country/:year", function (request, response) 
 
 //POST a una colección
 
-app.post(BASE_API_PATH + "/results", function (request, response) {
+app.post(BASE_API_PATH2 + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var newResult = request.body;
     if (!newResult) {
@@ -314,7 +461,7 @@ app.post(BASE_API_PATH + "/results", function (request, response) {
 
 //Post a un recurso (PROHIBIDO)
 
-app.post(BASE_API_PATH + "/results/:country/:year", function (request, response) {
+app.post(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
@@ -325,7 +472,7 @@ app.post(BASE_API_PATH + "/results/:country/:year", function (request, response)
 
 
 //Put a una coleccion (Prohibido)
-app.put(BASE_API_PATH + "/results", function (request, response) {
+app.put(BASE_API_PATH2 + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /results, sending 405...");
     response.sendStatus(405); // method not allowed
@@ -334,7 +481,7 @@ app.put(BASE_API_PATH + "/results", function (request, response) {
 
 // Delete a un recurso concreto
 
-app.delete(BASE_API_PATH + "/results/:country/:year", function (request, response) {
+app.delete(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
@@ -366,7 +513,7 @@ app.delete(BASE_API_PATH + "/results/:country/:year", function (request, respons
 //PUT sobre un recurso concreto
 
 
-app.put(BASE_API_PATH + "/results/:country/:year", function (request, response) {
+app.put(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var updatedResult = request.body;
     var country = request.params.country;
@@ -419,7 +566,7 @@ var buscador = function(base, conjuntoauxiliar, desde, hasta) {
 };
 
 //DELETE a una coleccion
-app.delete(BASE_API_PATH + "/results", function (request, response) {
+app.delete(BASE_API_PATH2 + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /results");
     dbRuben.remove({}, {multi: true}, function (err, result) {
