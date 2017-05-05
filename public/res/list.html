@@ -1,7 +1,13 @@
+<header>
+        <h3 style="text-align:center">PISA Results</h3>
+
+    </header>
+
 <div ng-controller="ResListCtrl">
             <div class="container">
                 <div class="row">
                     <div class="col s12 center-align">
+                        
                         <div class="pagination">
                     <li class="disabled" ng-show="currentPage == 1"><a href=""><i class="material-icons">chevron_left</i></a></li>
                     <li class="waves-effect" ng-hide="currentPage == 1"><a href="" ng-click="previousPage()"><i class="material-icons">chevron_left</i></a></li>
@@ -86,8 +92,9 @@
         </div></td>
                             <td><button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Load Initial Data<i class="material-icons left">recent_actors</i></button>
                                 <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Delete All<i class="material-icons left">warning</i></button></br>
-                                <button class="btn waves-effect waves-light orange darken-1" onClick="$('#apikeyModal').modal('open');">Change apikey<i class="material-icons left"></i></button></td>
-                                
+                                <button class="btn waves-effect waves-light orange darken-1" onClick="$('#apikeyModal').modal('open');">Change apikey<i class="material-icons left"></i></button>
+                                <a href="#!/res/reschart" class="btn waves-effect waves-light purple darken-1">Graph<i class="material-icons left">trending_up</i></a></td>
+
                           <tr  <td>  <div id="searches" class="modal">
                   
                         <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
