@@ -156,11 +156,13 @@ angular
                         
  $(document).ready(function () {
      
-
+     var saco2009Science = [2009];
      var saco2012Science = [2012];
      var saco2015Science = [2015];
+     var saco2009Reading = [2009];
      var saco2012Reading = [2012];
      var saco2015Reading = [2015];
+     var saco2009Math = [2009];
      var saco2012Math = [2012];
      var saco2015Math = [2015];
      var sacoScience =[];
@@ -170,7 +172,16 @@ angular
       
       
       
+          
+      
           response.data.forEach(function (d){
+                          if(Number(d.year) == 2009 && (d.country == "Spain")){
+              
+              saco2009Science.push(Number(d.science));
+              saco2009Reading.push(Number(d.reading));
+              saco2009Math.push(Number(d.math));
+              
+            }
             if(Number(d.year) == 2012 && (d.country == "Spain")){
               
               saco2012Science.push(Number(d.science));
@@ -191,6 +202,11 @@ angular
           });
           
           response.data.forEach(function(d){
+                                       if(Number(d.year) == 2009  && (d.country == "Finland")){
+                saco2009Science.push(Number(d.science));
+                 saco2009Reading.push(Number(d.reading));
+              saco2009Math.push(Number(d.math));
+            }
                          if(Number(d.year) == 2012  && (d.country == "Finland")){
                 saco2012Science.push(Number(d.science));
                  saco2012Reading.push(Number(d.reading));
@@ -202,9 +218,10 @@ angular
                 saco2015Math.push(Number(d.math));
             } 
           });
-          sacoScience.push(saco2012Science, saco2015Science);
-          sacoReading.push(saco2012Reading, saco2015Reading);
-          sacoMath.push(saco2012Math,saco2015Math);
+          
+          sacoScience.push(saco2009Science,saco2012Science, saco2015Science);
+          sacoReading.push(saco2009Reading,saco2012Reading, saco2015Reading);
+          sacoMath.push(saco2009Math,saco2012Math,saco2015Math);
 
               
        console.log(sacoScience);
@@ -216,7 +233,6 @@ var g1 = new Dygraph(document.getElementById("dygraphsScience"),sacoScience,
     labels: ["Date","Spain","Finland"],
     title: "Comparative chart of Spain/Finland in Science",
     labelsDiv: "scienceLegend"
-             // xRangePad : 250.0
               });
     
 var g2 = new Dygraph(document.getElementById("dygraphsReading"),sacoReading,
@@ -224,7 +240,6 @@ var g2 = new Dygraph(document.getElementById("dygraphsReading"),sacoReading,
     labels: ["Date","Spain","Finland"],
     title: "Comparative chart of Spain/Finland in Reading",
     labelsDiv: "readingLegend"
-             // xRangePad : 250.0
               });
               
 var g3 = new Dygraph(document.getElementById("dygraphsMath"),sacoMath,
@@ -232,7 +247,6 @@ var g3 = new Dygraph(document.getElementById("dygraphsMath"),sacoMath,
     labels: ["Date","Spain","Finland"],
     title: "Comparative chart of Spain/Finland in Math",
     labelsDiv: "mathLegend"
-             // xRangePad : 250.0
               });
     
      
