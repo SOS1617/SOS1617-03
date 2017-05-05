@@ -20,42 +20,42 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
               var countr = [{
                 "country": "spain", 
                 "year":"2014", 
-                "population": "46.48",
-                "riskpoverty":"22.2", 
-                "inveducation": "46789.6"
+                "population": "46",
+                "riskpoverty":"22", 
+                "inveducation": "46"
             },
             {
                 "country": "unitedkingdom",
                 "year": "2014",
-                "population": "64.613", 
-                "riskpoverty": "20.8",
-                "inveducation": "117116.4"
+                "population": "64", 
+                "riskpoverty": "20",
+                "inveducation": "117"
             },
             {
                 "country": "unitedstates",
                 "year":"2014", 
-                "population": "318.907",
-                "riskpoverty":"13.5",
-                "inveducation": "582356"
+                "population": "318",
+                "riskpoverty":"13",
+                "inveducation": "582"
             },
             {"country": "italy",
             "year":"2014",
-            "population": "60.789,",
-            "riskpoverty":"19.9",
-            "inveducation": "67799.8"
+            "population": "60",
+            "riskpoverty":"19",
+            "inveducation": "67"
             },
             {"country": "brasil",
             "year":"2012",
-            "population": "80.00",
+            "population": "200",
             "riskpoverty":"30",
-            "inveducation": "76994.8"
+            "inveducation": "113"
             },
             {
                 "country": "germany",
                 "year":"2014",
-                "population": "80.982",
-                "riskpoverty":"16.7",
-                "inveducation": "136.487.3"
+                "population": "80",
+                "riskpoverty":"16",
+                "inveducation": "136"
             }];
         dbIvan.insert(countr);
         response.sendStatus(201); //Created
