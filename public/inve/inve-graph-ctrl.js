@@ -13,7 +13,7 @@ angular
          $scope.inveducation = [];
          
          
-         //////////// HIGHCHARTS ////////////////////
+        
          
          
          
@@ -34,6 +34,8 @@ angular
 
 
          });
+         
+          //////////// HIGHCHARTS ////////////////////
          
                 console.log("Controller intialized");
                 $http
