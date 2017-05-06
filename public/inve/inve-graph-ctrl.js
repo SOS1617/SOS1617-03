@@ -55,13 +55,13 @@ angular
                             yAxis: {
                                 min: 0,
                                 title: {
-                                    text: 'Rainfall (mm)'
+                                    text: 'Comparisons of figures'
                                 }
                             },
                             tooltip: {
                                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                                    '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
                                 footerFormat: '</table>',
                                 shared: true,
                                 useHTML: true
@@ -90,21 +90,21 @@ angular
                    
                         
             /////// GEOCHART //////////
-                        
+                       
              google.charts.load('current', {
                             'packages': ['controls','geochart']
                         });
-                        google.charts.setOnLoadCallback(drawRegionsMap);
+             google.charts.setOnLoadCallback(drawRegionsMap);
                         
         
             function drawRegionsMap() {
                 
                  var myData = [['Country','Mark', 'Year']];
                  
-                 response.data.forEach(function (x){
-                          myData.push([x.country, Number(x.population)+ Number(x.riskpoverty) + Number(x.inveducation), Number(d.year)]);
-                                 });
-                                
+                 response.data.forEach(function (d){
+                    myData.push([d.country, Number(d.reading)+ Number(d.science) + Number(d.math), Number(d.year)]);
+                     });
+                 
                  var data = google.visualization.arrayToDataTable(myData);
                  var options = {
                     colorAxis: {colors: ['red', 'orange' , 'green']}
