@@ -11,6 +11,8 @@ angular
          $scope.population = [];
          $scope.riskpoverty = [];
          $scope.inveducation = [];
+         $scope.d3inveducation = [];
+         $scope.countries = [];
          
          
         
@@ -20,13 +22,14 @@ angular
          $http.get("../api/v2/investmentseducation?apikey=" + $scope.apikey).then(function(response){
              dataCache = response.data;
              $scope.data = dataCache;
+             $scope.d3data = dataCache;
              
              for(var i=0; i<response.data.length; i++){
                  $scope.categorias.push($scope.data[i].country + " " +  $scope.data[i].year);
                  $scope.population.push(Number($scope.data[i].population));
                  $scope.riskpoverty.push(Number($scope.data[i].riskpoverty));
                  $scope.inveducation.push(Number($scope.data[i].inveducation));
-
+                 $scope.d3inveducation.push(Number($scope.data[i].inveducation));
 
                  console.log($scope.data[i].country);
              }
@@ -41,7 +44,7 @@ angular
                 $http
                     .get("../api/v2/investmentseducation?apikey=" + $scope.apikey).then(function(response) {
                      
-                        Highcharts.chart('container', {
+                        Highcharts.chart('container1', {
                             
                             chart: {
                                 type: 'column'
@@ -74,18 +77,18 @@ angular
                             },
                             series: [{
                                 name: 'Population',
-                                data: $scope.population
+                                data: $scope.population 
                         
                             }, {
                                 name: 'Risk of poverty',
-                                data: $scope.riskpoverty
+                                data: $scope.riskpoverty 
                         
                             }, {
                                 name: 'Investment in eduaction',
                                 data: $scope.inveducation
                         
                             }]
-                        })});
+                        })
                    
                    
                         
@@ -100,14 +103,13 @@ angular
             function drawRegionsMap() {
                 
                  var myData = [['Country','Mark', 'Year']];
-                 
-                 response.data.forEach(function (d){
-                    myData.push([d.country, Number(d.reading)+ Number(d.science) + Number(d.math), Number(d.year)]);
+                 response.data.forEach(function (x){
+                    myData.push([x.country, Number(x.riskpoverty), Number(x.year)]);
                      });
                  
                  var data = google.visualization.arrayToDataTable(myData);
                  var options = {
-                    colorAxis: {colors: ['red', 'orange' , 'green']}
+                    colorAxis: {colors: ['green', 'orange' , 'red']}
                  };
                    var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
             
@@ -128,22 +130,27 @@ angular
                 containerId: 'map',
                 options: {
                     displayMode: 'regions',
-                    colorAxis: {colors: ['red', 'orange' , 'green']}
+                    colorAxis: {colors: ['green', 'orange' , 'red']}
                 }
               });
                  dashboard.bind(yearSelector, chart);
                  dashboard.draw(data, options);
             }
                         
+            });        
                         
-                        
-            
-            
-            
-            //////// D3 ///////////////      
-                        
-                        
-                        
+        
+  ///////////////////////////////////////////////////         
                         
                      
-        }]);
+        
+             
+             
+             
+             
+             
+         }]);
+         
+         
+         
+         

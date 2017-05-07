@@ -20,9 +20,9 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
               var countr = [{
                 "country": "spain", 
                 "year":"2014", 
-                "population": "46",
-                "riskpoverty":"22", 
-                "inveducation": "46"
+                "population": 46,
+                "riskpoverty":22, 
+                "inveducation": 46
             },
             {
                 "country": "unitedkingdom",
