@@ -36,6 +36,11 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "/inve/graph.html",
             controller: "InveGraphCtrl"
         })
+        
+        .when("/inve/d3graph", {
+            templateUrl: "/inve/d3graph.html",
+            controller: "InveD3GraphCtrl"
+        })
 
     .when("/res", {
             templateUrl: "/res/list.html",
