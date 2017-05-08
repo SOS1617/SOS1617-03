@@ -20,8 +20,8 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
               var countr = [{
                 "country": "spain", 
                 "year":"2014", 
-                "population": 46,
-                "riskpoverty":22, 
+                "population": "46",
+                "riskpoverty":"22", 
                 "inveducation": 46
             },
             {
@@ -29,33 +29,33 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "year": "2014",
                 "population": "64", 
                 "riskpoverty": "20",
-                "inveducation": "117"
+                "inveducation": 117
             },
             {
                 "country": "unitedstates",
                 "year":"2014", 
                 "population": "318",
                 "riskpoverty":"13",
-                "inveducation": "582"
+                "inveducation": 582
             },
             {"country": "italy",
             "year":"2014",
             "population": "60",
             "riskpoverty":"19",
-            "inveducation": "67"
+            "inveducation": 67
             },
             {"country": "brasil",
             "year":"2012",
             "population": "200",
             "riskpoverty":"30",
-            "inveducation": "113"
+            "inveducation": 113
             },
             {
                 "country": "germany",
                 "year":"2014",
                 "population": "80",
                 "riskpoverty":"16",
-                "inveducation": "136"
+                "inveducation": 136
             }];
         dbIvan.insert(countr);
         response.sendStatus(201); //Created
