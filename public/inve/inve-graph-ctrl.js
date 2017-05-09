@@ -203,7 +203,7 @@ angular
             var paises = datospaises;
             var datosD3 = auxd3;
             
-            /*
+            
             
             var r = 300;
             
@@ -236,10 +236,10 @@ angular
             arcs.append("text")
                 .attr("transform", function(d){ return "translate(" + arc.centroid(d) + ")";})
                 .text(function (d){ return d.data;});
-            */
+            
             ////////////2ª Forma/////////////////////
              
-                                
+                      /*          
                     var pie = d3.layout.pie()
                       .value(function(d) { return d; })
                     
@@ -279,7 +279,7 @@ angular
                               .text(function(d) { return '• ' + d.data; })
                               .attr('fill', function(d) { return color(d.data); })
                               .attr('y', function(d, i) { return 20 * (i + 1); })
-            
+            */
             ///////////3ª Forma ///////////////////////
             /*
             var datos = auxauxd3;
