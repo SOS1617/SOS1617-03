@@ -186,6 +186,7 @@ angular
                 containerId: 'map',
                 options: {
                     displayMode: 'regions',
+                    region: '150',
                     colorAxis: {colors: ['green', 'orange' , 'red']}
                 }
               });
