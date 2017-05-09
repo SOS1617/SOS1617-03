@@ -158,7 +158,7 @@ angular
         
             function drawRegionsMap() {
                 
-                 var myData = [['Country','Mark', 'Year']];
+                 var myData = [['Country','Risk of poverty', 'Year']];
                  response.data.forEach(function (x){
                     myData.push([x.country, Number(x.riskpoverty), Number(x.year)]);
                      });
