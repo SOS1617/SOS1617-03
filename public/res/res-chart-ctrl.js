@@ -116,6 +116,8 @@ angular
                     
      var data = google.visualization.arrayToDataTable(myData);
      var options = {
+                 
+
         colorAxis: {colors: ['red', 'yellow' , 'green']}
      };
        var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
@@ -136,7 +138,8 @@ angular
     chartType: 'GeoChart',
     containerId: 'map',
     options: {
-        displayMode: 'regions',
+    
+
         colorAxis: {colors: ['red', 'yellow' , 'green']}
     }
   });
