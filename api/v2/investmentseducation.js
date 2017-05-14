@@ -10,9 +10,23 @@ app.get("/proxy", (req, res) => {
     var http = require('http');
     
     var options = {
-        host:'sos1617-03.herokuapp.com',
-        path:'/api/v2/investmentseducation/?apikey=apisupersecreta'
+        host:'sos1617-03-irg-sanbox-sos161703irg.c9users.io/#!/',  //////  sos1617-03.herokuapp.com
+        path:'api/v2/investmentseducation/?apikey=apisupersecreta' ///
     };
+    
+    callback = function(response){
+        var str = '';
+        
+        response.on('data', function(chunk){
+           str += chunk; 
+        });
+        
+        response.on('end', function(){
+           res.send(str); 
+        });
+    };
+    
+    http.request(options, callback).end();
 });
 
 
