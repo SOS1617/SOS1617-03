@@ -3,6 +3,20 @@ var exports = module.exports = {};
 // Register all the functions used in this module
 exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 
+
+// Proxy 
+
+app.get("/proxy", (req, res) => {
+    var http = require('http');
+    
+    var options = {
+        host:'sos1617-03.herokuapp.com',
+        path:'/api/v2/investmentseducation/?apikey=apisupersecreta'
+    };
+});
+
+
+
 //Load initial data
 
 app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request, response) {
@@ -50,6 +64,13 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "population": "10",
                 "riskpoverty":"22",
                 "inveducation": 7
+            },
+            {
+                "country": "france",
+                "year":"2012",
+                "population": "30",
+                "riskpoverty":"10",
+                "inveducation": 30
             }];
         dbIvan.insert(countr);
         response.sendStatus(201); //Created
