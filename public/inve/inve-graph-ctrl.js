@@ -24,7 +24,7 @@ angular
          
         
          
-         
+       /*  
          
          $http.get("../api/v2/investmentseducation?apikey=" + $scope.apikey).then(function(response){
              dataCache = response.data;
@@ -64,12 +64,47 @@ angular
 
 
          });
-         
+         */
           //////////// HIGHCHARTS ////////////////////
          
                 console.log("Controller intialized");
                 $http
                     .get("../api/v2/investmentseducation?apikey=" + $scope.apikey).then(function(response) {
+                     
+                      dataCache = response.data;
+             $scope.data = dataCache;
+
+             for(var i=0; i<response.data.length; i++){
+                 $scope.categorias.push($scope.data[i].country + " " +  $scope.data[i].year);
+                 $scope.population.push(Number($scope.data[i].population));
+                 $scope.riskpoverty.push(Number($scope.data[i].riskpoverty));
+                 $scope.inveducation.push(Number($scope.data[i].inveducation));
+
+                 console.log($scope.data[i].country);
+             }
+             
+             ////aux for /////
+             for(var i=0; i<response.data.length; i++){
+                 $scope.d3inveducation.push($scope.data[i].inveducation);
+                 $scope.d3data.push($scope.data[i].country + " " +  $scope.data[i].year);
+                 datosinversiones = $scope.d3inveducation;
+                 datospaises = $scope.d3data;
+                 auxd3 = (datospaises,datosinversiones);
+                 auxauxd3 = $scope.data[i];
+             }
+             
+             //aux////
+             for(var i=0; i<response.data.length; i++){
+                pais1 = $scope.data[0].country;
+                pais2 = $scope.data[1].country;
+                pais3 = $scope.data[2].country;
+                pais4 = $scope.data[3].country;
+                inve1 = Number($scope.data[0].inveducation);
+                inve2 = Number($scope.data[1].inveducation);
+                inve3 = Number($scope.data[2].inveducation);
+                inve4 = Number($scope.data[3].inveducation); 
+             }
+             
                      
                        $(document).ready(function () {
 
