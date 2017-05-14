@@ -4,14 +4,14 @@ var exports = module.exports = {};
 exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 
 
-// Proxy 
-/*
-app.get("/proxy", (req, res) => {
+// Proxy gallardo
+
+app.get("/proxyIvan", (req, res) => {
     var http = require('http');
     
     var options = {
-        host:'sos1617-03-irg-sanbox-sos161703irg.c9users.io/#!/',  //////  sos1617-03.herokuapp.com
-        path:'api/v2/investmentseducation/?apikey=apisupersecreta' ///
+        host:'sos1617-02.herokuapp.com',   
+        path:'/api/v1/smi-stats?apikey=rXD8D2b1vP' 
     };
     
     callback = function(response){
@@ -29,7 +29,7 @@ app.get("/proxy", (req, res) => {
     http.request(options, callback).end();
 });
 
-*/
+
 
 //Load initial data
 

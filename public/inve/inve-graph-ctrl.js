@@ -6,6 +6,7 @@ angular
     
         $scope.apikey = "apisupersecreta";
         $scope.data = {};
+        $scope.dataMinimum = {};
         var dataCache = {};
          $scope.categorias = [];
          $scope.population = [];
@@ -388,6 +389,19 @@ angular
            });
                                   
             });        
+            
+            //////////////////API Minimum Salary Highchart ///////////////
+                        
+            console.log("Controller intialized");
+                $http
+                    .get("/proxyIvan").then(function(response) {
+                    
+                        
+                        
+                        
+                    });
+                    
+                    
                         
         
   ///////////////////////////////////////////////////         
