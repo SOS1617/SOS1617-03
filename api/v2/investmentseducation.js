@@ -5,7 +5,7 @@ exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 
 
 // Proxy 
-
+/*
 app.get("/proxy", (req, res) => {
     var http = require('http');
     
@@ -29,7 +29,7 @@ app.get("/proxy", (req, res) => {
     http.request(options, callback).end();
 });
 
-
+*/
 
 //Load initial data
 
