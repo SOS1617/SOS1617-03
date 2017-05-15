@@ -83,3 +83,4 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
 app.use("/",express.static(publicFolder));
 
 app.use("/api/v1/tests", express.static(path.join(__dirname , "public/tests.html")));
+

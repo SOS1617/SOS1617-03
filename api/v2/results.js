@@ -565,6 +565,31 @@ var buscador = function(base, conjuntoauxiliar, desde, hasta) {
 
 };
 
+app.get("/resProxy", (req, res) => {
+
+    var http = require('http');
+    
+    var options = {
+        host:'sos1617-01.herokuapp.com',   
+        path:'/api/v2/youthunemploymentstats?apikey=sos161701' 
+    };
+    
+    callback = function(response){
+        var str = '';
+        
+        response.on('data', function(chunk){
+           str += chunk; 
+        });
+        
+        response.on('end', function(){
+           res.send(str); 
+        });
+    };
+    
+    http.request(options, callback).end();
+});
+
+
 //DELETE a una coleccion
 app.delete(BASE_API_PATH2 + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;

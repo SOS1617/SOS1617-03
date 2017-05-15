@@ -70,7 +70,10 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "/res/chart.html",
             controller: "ResChartCtrl"
         })
-        
+        .when("/res/resproxychart",{
+            templateUrl: "/res/proxychart.html",
+            controller:"ResProxyChartCtrl"
+        })
         .when("/res/resexternalchart",{
             templateUrl:"/res/resexternalchart.html",
             controller: "ResExternalChartCtrl"
