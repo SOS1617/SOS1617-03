@@ -45,6 +45,11 @@ angular
                 xAxis: {
                     categories: $scope.categorias
                 },
+                yAxis: {
+                    title: {
+                        text: 'Ratio in %'
+                    }
+                },
                 legend: {
                     layout: 'vertical',
                     floating: true,

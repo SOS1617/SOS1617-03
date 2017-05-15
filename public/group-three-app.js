@@ -21,6 +21,14 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "/esl/graph.html",
             controller: "EslGraphCtrl"
         })
+        .when("/esl/graphcors", {
+            templateUrl: "/esl/graphcors.html",
+            controller: "EslCorsGraphCtrl"
+        })
+        .when("/esl/graphproxy", {
+            templateUrl: "/esl/graphproxy.html",
+            controller: "EslProxyGraphCtrl"
+        })
         
 
         .when("/inve", {

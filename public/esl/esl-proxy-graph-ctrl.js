@@ -35,30 +35,30 @@ angular
         $http.get("/api/v2/earlyleavers/"+ "?" + "apikey=" + $scope.apikey).then(function(response){
             
             
-            Highcharts.chart('container',{
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'line'
+                },
                 title: {
                     text: 'Highcharts'
                 },
-                chart: {
-                    type: 'bar'
+                subtitle: {
+                    text: 'Source: Group 6'
                 },
                 xAxis: {
                     categories: $scope.categorias
                 },
-                legend: {
-                    layout: 'vertical',
-                    floating: true,
-                    backgroundColor: '#FFFFFF',
-                    //align: 'left',
-                    verticalAlign: 'top',
-                    align: 'right',
-                    y: 60,
-                    x: -60
+                yAxis: {
+                    title: {
+                        text: 'Ratio in %'
+                    }
                 },
-                tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.series.name + '</b><br/>' +
-                            capitalizeFirstLetter(this.x) + ': ' + this.y;
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
                     }
                 },
                 series:[{
@@ -73,7 +73,13 @@ angular
                 }, {
                     name: 'ESL Objective',
                     data: $scope.eslobjective
-                }]
+                }/*,{
+                    name: 'Income Ratio',
+                    data: $scope.incomeratio
+                },{
+                    name: 'Income Million',
+                    data: $scope.incomemillion
+                }*/]
             });
             
         });
