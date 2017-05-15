@@ -590,6 +590,7 @@ app.get("/resProxy", (req, res) => {
 });
 
 
+
 //DELETE a una coleccion
 app.delete(BASE_API_PATH2 + "/results", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;

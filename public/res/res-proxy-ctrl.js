@@ -7,7 +7,7 @@ angular
         $scope.apikey = "apisupersecreta";
         $scope.data = {};
         var dataCache = {};
-         $scope.categorias = [];
+         $scope.comuncountries = [];
          $scope.reading = [];
          $scope.science = [];
          $scope.math = [];
