@@ -411,4 +411,30 @@ app.delete(BASE_API_PATH + "/earlyleavers", function (request, response) {
     });
 });
 
+
+// Proxy
+
+app.get(BASE_API_PATH + "/earlyleavers/proxy", (req, res) => {
+    var http = require('http');
+    
+    var options = {
+        host:'sos1617-06.herokuapp.com',   
+        path:'/api/v1/education?apikey=secret' 
+    };
+    
+    callback = function(response){
+        var str = '';
+        
+        response.on('data', function(chunk){
+           str += chunk; 
+        });
+        
+        response.on('end', function(){
+           res.send(str); 
+        });
+    };
+    
+    http.request(options, callback).end();
+});
+
 };
