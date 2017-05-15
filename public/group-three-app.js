@@ -51,6 +51,11 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/res/reschart",{
             templateUrl: "/res/chart.html",
             controller: "ResChartCtrl"
+        })
+        
+        .when("/res/resexternalchart",{
+            templateUrl:"/res/resexternalchart.html",
+            controller: "ResExternalChartCtrl"
         });
 
     console.log("App initialized and configured");
