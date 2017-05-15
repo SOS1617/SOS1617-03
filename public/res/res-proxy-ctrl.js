@@ -19,7 +19,7 @@ angular
       
          
          
-         $http.get("../resproxy").then(function(response){
+    $http.get("/resproxy").then(function(response){
              dataCache = response.data;
              $scope.data = dataCache;
              
@@ -59,7 +59,7 @@ angular
 
                 console.log("Controller intialized");
                 $http
-                    .get("https://sos1617-01.herokuapp.com/api/v2/youthunemploymentstats?apikey=sos161701")
+                    .get("/resProxy")
                     .then(function(response) {
                         console.log("hola" + response.data);
 Highcharts.chart('reschartproxy', {
