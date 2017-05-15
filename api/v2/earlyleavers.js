@@ -414,7 +414,7 @@ app.delete(BASE_API_PATH + "/earlyleavers", function (request, response) {
 
 // Proxy
 
-app.get(BASE_API_PATH + "/earlyleavers/proxy", (req, res) => {
+app.get("/proxyRaul", (req, res) => {
     var http = require('http');
     
     var options = {
