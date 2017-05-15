@@ -7,7 +7,8 @@ angular
         $scope.apikey = "apisupersecreta";
         $scope.data = {};
         var dataCache = {};
-         $scope.comuncountries = [];
+         $scope.countriesext = [];
+         $scope.mycountries= [];
          $scope.reading = [];
          $scope.science = [];
          $scope.math = [];
@@ -23,15 +24,15 @@ angular
              dataCache = response.data;
              $scope.data = dataCache;
              
-             for(var i=0; i<response.data.length; i++){
-                 $scope.categorias.push($scope.data[i].country + " " +  $scope.data[i].year);
+             for(var i=0; i<4; i++){
+                 $scope.countriesext.push($scope.data[i].country);
                 $scope.male_unemployment_ratio.push(Number($scope.data[i].male_unemployment_ratio));
               $scope.female_unemployment_ratio.push(Number($scope.data[i].female_unemployment_ratio));
 
 
 
 
-                 console.log($scope.data[i]);
+                 console.log($scope.data[i].country);
              }
              
 
@@ -43,14 +44,43 @@ angular
              $scope.data = response.data;
              
              for(var i=0; i<response.data.length; i++){
+                 if($scope.data[i].country == "Germany"){
+                 $scope.mycountries.push($scope.data[i].country);
                  $scope.reading.push(Number($scope.data[i].reading));
                  $scope.science.push(Number($scope.data[i].science));
                  $scope.math.push(Number($scope.data[i].math));
+                 break;
+                 }
+                 }
+                              for(var i=0; i<response.data.length; i++){
+                 if($scope.data[i].country == "Spain"){
+                   $scope.mycountries.push($scope.data[i].country);
+                    $scope.reading.push(Number($scope.data[i].reading));
+                 $scope.science.push(Number($scope.data[i].science));
+                 $scope.math.push(Number($scope.data[i].math));
+                 break;
+                 }
+                 }
+                              for(var i=0; i<response.data.length; i++){
+                 if($scope.data[i].country == "Italy"){
+                $scope.mycountries.push($scope.data[i].country);
+                 $scope.reading.push(Number($scope.data[i].reading));
+                 $scope.science.push(Number($scope.data[i].science));
+                 $scope.math.push(Number($scope.data[i].math));
+                 break;
+                 }
+                 }
+                              for(var i=0; i<response.data.length; i++){
+                 if($scope.data[i].country == "France"){
+                 $scope.mycountries.push($scope.data[i].country);
+                 $scope.reading.push(Number($scope.data[i].reading));
+                 $scope.science.push(Number($scope.data[i].science));
+                 $scope.math.push(Number($scope.data[i].math));
+                 break;
+                 }
+                 }
 
-
-
-             }
-             
+             console.log($scope.female_unemployment_ratio);
 
 
          });
@@ -64,44 +94,35 @@ angular
                         console.log("hola" + response.data);
 Highcharts.chart('reschartproxy', {
     colorAxis: {
-        minColor: '#FFFFFF',
-        maxColor: Highcharts.getOptions().colors[0]
+        minColor: '#00FF00',
+        maxColor: '#FF0000'
     },
     series: [{
         type: 'treemap',
         layoutAlgorithm: 'squarified',
         data: [{
-            name: 'A',
-            value: 6,
-            colorValue: 1
+            name: 'Germany',
+            value: $scope.reading[0]+$scope.math[0]+$scope.science[0],
+            colorValue:  ($scope.male_unemployment_ratio[0] + $scope.female_unemployment_ratio[0]) / 2
         }, {
-            name: 'B',
-            value: 6,
-            colorValue: 2
+            name: 'Spain',
+            value:  $scope.reading[1]+$scope.math[1]+$scope.science[1],
+            colorValue: ($scope.male_unemployment_ratio[1] + $scope.female_unemployment_ratio[1]) /2
         }, {
-            name: 'C',
-            value: 4,
-            colorValue: 3
+            name: 'Italy',
+            value:  $scope.reading[2]+$scope.math[2]+$scope.science[2],
+            colorValue: ($scope.male_unemployment_ratio[2] + $scope.female_unemployment_ratio[2]) /2
         }, {
-            name: 'D',
-            value: 3,
-            colorValue: 4
-        }, {
-            name: 'E',
-            value: 2,
-            colorValue: 5
-        }, {
-            name: 'F',
-            value: 2,
-            colorValue: 6
-        }, {
-            name: 'G',
-            value: 1,
-            colorValue: 7
+            name: 'France',
+            value:  $scope.reading[3]+$scope.math[3]+$scope.science[3],
+            colorValue: ($scope.male_unemployment_ratio[3] + $scope.female_unemployment_ratio[3]) /2
         }]
     }],
     title: {
-        text: 'Highcharts Treemap'
+        text: 'Chart unemployment and PISA results'
+    },
+        subtitle:{
+        text: 'Big square = better marks in PISA exams  ||   Color = High/Low Unemployment'
     }
 });
 
