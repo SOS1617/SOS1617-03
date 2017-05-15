@@ -45,6 +45,16 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             controller: "InveGraphCtrl"
         })
         
+        .when("/inve/cors-graph",{
+            templateUrl: "/inve/cors-graph.html",
+            controller: "InveCorsGraphCtrl"
+        })
+        
+        .when("/inve/proxy-graph",{
+            templateUrl: "/inve/proxy-graph.html",
+            controller: "InveProxyGraphCtrl"
+        })
+        
      
 
     .when("/res", {
