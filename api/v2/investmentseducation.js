@@ -4,7 +4,7 @@ var exports = module.exports = {};
 exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 
 
-// Proxy gallardo
+// Proxy g09
 
 app.get(BASE_API_PATH + "/investmentseducation/proxy", (req, res) => {
     if (!checkApiKeyFunction(req, res)) return;
@@ -87,6 +87,13 @@ app.get(BASE_API_PATH + "/investmentseducation/loadInitialData",function(request
                 "population": "30",
                 "riskpoverty":"10",
                 "inveducation": 30
+            },
+            {
+                "country": "spain",
+                "year":"2016",
+                "population": "50",
+                "riskpoverty":"20",
+                "inveducation": 20
             }];
         dbIvan.insert(countr);
         response.sendStatus(201); //Created

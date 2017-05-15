@@ -11,6 +11,11 @@ angular
         $scope.esltotal = [];
         $scope.eslobjective = [];
         
+        $scope.educationgdpperc = [];
+        $scope.educationprimarypercapita = [];
+        $scope.educationsecondarypercapita = [];
+        $scope.educationtertiarypercapita = [];
+        
         function capitalizeFirstLetter(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
             }
@@ -26,18 +31,51 @@ angular
                 $scope.eslfemale.push(Number($scope.data[i].eslfemale));
                 $scope.esltotal.push(Number($scope.data[i].esltotal));
                 $scope.eslobjective.push(Number($scope.data[i].eslobjective));
+                $scope.educationgdpperc.push(null);
+                $scope.educationprimarypercapita.push(null);
+                $scope.educationsecondarypercapita.push(null);
+                $scope.educationtertiarypercapita.push(null);
                 
                 console.log($scope.data[i].country);
             }
-        });    
+        });
+        
+        $http.get("/proxyRaul").then(function(response){
+            
+            dataCache = response.data;
+            $scope.data = dataCache;
+            
+            for(var i=0; i<7; i++){
+                if($scope.categorias.indexOf(capitalizeFirstLetter($scope.data[i].country) + " " + $scope.data[i].year)==-1){
+                    $scope.categorias.push(capitalizeFirstLetter($scope.data[i].country) + " " + $scope.data[i].year);
+                    $scope.eslmale.push(null);
+                    $scope.eslfemale.push(null);
+                    $scope.esltotal.push(null);
+                    $scope.eslobjective.push(null);
+                    $scope.educationgdpperc.push(Number($scope.data[i]["education-gdp-perc"]));
+                    $scope.educationprimarypercapita.push(Number($scope.data[i]["education-primary-per-capita"]));
+                    $scope.educationsecondarypercapita.push(Number($scope.data[i]["education-secondary-per-capita"]));
+                    $scope.educationtertiarypercapita.push(Number($scope.data[i]["education-tertiary-per-capita"]));
+                
+                console.log($scope.data[i].country); 
+                }else{
+                    var index = $scope.categorias.indexOf(capitalizeFirstLetter(capitalizeFirstLetter($scope.data[i].country) + " " + $scope.data[i].year));
+                    $scope.educationgdpperc.splice(index,1,Number($scope.data[index]["education-gdp-perc"]));
+                    $scope.educationprimarypercapita.splice(index,1,Number($scope.data[index]["education-primary-per-capita"]));
+                    $scope.educationsecondarypercapita.splice(index,1,Number($scope.data[index]["education-secondary-per-capita"]));
+                    $scope.educationtertiarypercapita.splice(index,1,Number($scope.data[index]["education-tertiary-per-capita"]));
+                }
+                
+            }
+        });
             
         console.log("Controller initialized");
-        $http.get("/api/v2/earlyleavers/"+ "?" + "apikey=" + $scope.apikey).then(function(response){
+        $http.get("/proxyRaul").then(function(response){
             
             
             Highcharts.chart('container', {
                 chart: {
-                    type: 'line'
+                    type: 'area'
                 },
                 title: {
                     text: 'Highcharts'
@@ -58,7 +96,11 @@ angular
                         dataLabels: {
                             enabled: true
                         },
-                        enableMouseTracking: false
+                        enableMouseTracking: true
+                    },
+                    series: {
+                        connectNulls: true,
+                        fillOpacity: 0.20
                     }
                 },
                 series:[{
@@ -73,12 +115,20 @@ angular
                 }, {
                     name: 'ESL Objective',
                     data: $scope.eslobjective
-                }/*,{
-                    name: 'Income Ratio',
-                    data: $scope.incomeratio
                 },{
-                    name: 'Income Million',
-                    data: $scope.incomemillion
+                    name: 'Education GDP',
+                    data: $scope.educationgdpperc
+                },{
+                    name: 'Education Primary Per Capita',
+                    data: $scope.educationprimarypercapita
+                }
+                ,{
+                    name: 'Education Secondary Per Capita',
+                    data: $scope.educationsecondarypercapita
+                }
+                /*,{
+                    name: 'Education Tertiary Per Capita',
+                    data: $scope.educationtertiarypercapita
                 }*/]
             });
             

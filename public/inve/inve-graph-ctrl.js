@@ -72,7 +72,7 @@ angular
                 $http
                     .get("../api/v2/investmentseducation?apikey=" + $scope.apikey).then(function(response) {
                      
-                      dataCache = response.data;
+             dataCache = response.data;
              $scope.data = dataCache;
 
              for(var i=0; i<response.data.length; i++){
