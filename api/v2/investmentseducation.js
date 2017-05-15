@@ -6,12 +6,13 @@ exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 
 // Proxy gallardo
 
-app.get("/proxyIvan", (req, res) => {
+app.get(BASE_API_PATH + "/investmentseducation/proxy", (req, res) => {
+    if (!checkApiKeyFunction(req, res)) return;
     var http = require('http');
     
     var options = {
-        host:'sos1617-02.herokuapp.com',   
-        path:'/api/v1/smi-stats?apikey=rXD8D2b1vP' 
+        host:'sos1617-09.herokuapp.com',   
+        path:'/api/v1/hiv-stats?apikey=manuel' 
     };
     
     callback = function(response){
@@ -27,6 +28,7 @@ app.get("/proxyIvan", (req, res) => {
     };
     
     http.request(options, callback).end();
+    
 });
 
 
