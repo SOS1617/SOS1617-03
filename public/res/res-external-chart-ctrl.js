@@ -39,8 +39,7 @@ angular
              $scope.data = dataCache;
              
              for(var i=0; i<response.data.length; i++){
-                 if(($scope.data[i].country == "Poland" && $scope.data[i].year == "2015" )|| ($scope.data[i].country == "Spain" && $scope.data[i].year == "2015") ||
-                 ($scope.data[i].country == "France" && $scope.data[i].year == "2015" )){
+                 if(($scope.data[i].country == "Poland" && $scope.data[i].year == "2015" )|| ($scope.data[i].country == "Spain" && $scope.data[i].year == "2015")){
                  $scope.reading.push(Number($scope.data[i].reading));
                  $scope.science.push(Number($scope.data[i].science));
                  $scope.math.push(Number($scope.data[i].math));
@@ -136,7 +135,7 @@ Highcharts.chart('reschartexternal', {
         name: 'PISA results',
         type: 'spline',
         yAxis: 1,
-        data: $scope.reading,
+        data: $scope.science,
 
 
     }, {

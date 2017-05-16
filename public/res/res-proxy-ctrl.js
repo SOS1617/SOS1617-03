@@ -122,7 +122,7 @@ Highcharts.chart('reschartproxy', {
         text: 'Chart unemployment and PISA results'
     },
         subtitle:{
-        text: 'Big square = better marks in PISA exams  ||   Color = High/Low Unemployment'
+        text: 'Big square = better marks in PISA exams (Total)  ||   Color = High/Low Unemployment (%)'
     }
 });
 
