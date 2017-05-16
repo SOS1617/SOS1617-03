@@ -76,7 +76,7 @@ angular
                     text: 'Highcharts'
                 },
                 subtitle: {
-                    text: 'Source: G01: Education'
+                    text: 'Source: G01 - GVG'
                 },
                 xAxis: {
                     categories: $scope.categorias
