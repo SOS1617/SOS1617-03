@@ -55,6 +55,11 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             controller: "InveProxyGraphCtrl"
         })
         
+        .when("/inve/externals-graphs",{
+            templateUrl: "/inve/externals-graphs.html",
+            controller: "InveExternalsGraphsCtrl"
+        })
+        
      
 
     .when("/res", {
