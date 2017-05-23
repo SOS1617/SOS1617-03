@@ -18,7 +18,8 @@
     "helmet": "^3.5.0",
     "highcharts": "^5.0.11",
     "mongodb": "^2.2.26",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "taucharts": "^1.2.0"
   },
   "devDependencies": {},
   "repository": {

@@ -14,6 +14,7 @@ angular
         var dataCacheAPI1 = {};
         var dataCacheAPI2 = {};
         var dataCacheIE = {};
+        var res = {};
         $scope.categorias = [];
         $scope.categorias1 = [];
         $scope.population = [];
@@ -63,6 +64,8 @@ angular
                      $scope.inveducation.push(Number($scope.data[i].inveducation));
                 }
 
+            /////////API2//////////////////////
+                
             $http.get("https://numbersapi.p.mashape.com/6/21/date?fragment=true&json=true&mashape-key=oz6U9F2JarmshGsOl9ZxXvOG8CEsp1DFgAmjsnmEE7ChuL3GIB")
                 .then(function(response){
                     $scope.number.push(Number(response.data.number));
@@ -156,6 +159,51 @@ angular
                                     }]
                                 }]
                             });
+                            
+                            
+                            //////dygraphs //////////////
+
+                          var fila1 = [1,Number($scope.inveducation[0]),Number($scope.latitude[0])];
+                          var fila2 = [2,Number($scope.inveducation[1]),Number($scope.latitude[1])];
+                             var g = new Dygraph(
+
+                                // containing div
+                                document.getElementById("graph"),
+                                [
+                            fila1,
+                            fila2,
+                              ],
+                              {
+                                labels: [ "country", "inveducation" , "latitude"]
+                              });    
+                              
+                              
+                /////////////TAUCHART //////////////////////////////              
+                              
+                $scope.sta = [];
+                
+                            $http
+                .get("https://numbersapi.p.mashape.com/6/21/date?fragment=true&json=true&mashape-key=oz6U9F2JarmshGsOl9ZxXvOG8CEsp1DFgAmjsnmEE7ChuL3GIB")
+                .then(function(response) {
+                    $scope.sta.push(Number(response.data.number));
+                         var chart = new tauCharts.Chart({
+                            type: 'scatterplot',
+                            x: 'importS',
+                            y: 'exportS',
+                            color: 'provinces',
+                            data: $scope.sta,
+                            plugins: [
+                                tauCharts.api.plugins.get('tooltip')({
+                                    fields: ["country", "year"]
+                                }),
+                                tauCharts.api.plugins.get('legend')()
+                            ]
+                        });
+                        chart.renderTo('#scatter');
+                    },
+                    function(response) {
+                        $scope.sta = [];
+                    });              
                 
                 });
                 
