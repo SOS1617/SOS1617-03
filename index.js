@@ -72,7 +72,7 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
     
     investmentseducationAPI.register(app, dbIvan, BASE_API_PATH2, checkApiKeyFunction);
 
-    investmentseducationAPI.register(app, dbIvan, BASE_API_PATH3, checkApiKeyFunction);
+    investmentseducationAPI.register(app, dbIvan, BASE_API_PATH3);
 
 
 
