@@ -19,6 +19,7 @@ var mdbURL = "mongodb://admin:admin@ds137230.mlab.com:37230/sos03";
 var port = (process.env.PORT || 10000);
 var BASE_API_PATH = "/api/v1";
 var BASE_API_PATH2 = "/api/v2";
+var BASE_API_PATH3 = "/api/v3"
 var dbRuben;
 var dbRaul;
 var dbIvan;
@@ -70,6 +71,8 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
     investmentseducationAPI.register(app, dbIvan, BASE_API_PATH, checkApiKeyFunction);
     
     investmentseducationAPI.register(app, dbIvan, BASE_API_PATH2, checkApiKeyFunction);
+
+    investmentseducationAPI.register(app, dbIvan, BASE_API_PATH3, checkApiKeyFunction);
 
 
 
