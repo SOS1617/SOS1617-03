@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "chart.js": "^2.5.0",
     "cors": "^2.8.3",
     "d3": "^4.8.0",
     "dygraphs": "^2.0.0",

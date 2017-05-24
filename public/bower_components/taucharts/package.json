@@ -97,7 +97,7 @@
   },
   "_id": "taucharts@1.2.0",
   "_shasum": "9fbc379a462dc643f9913d50093670f62dbf8980",
-  "_from": "taucharts@latest",
+  "_from": "taucharts@>=1.2.0 <2.0.0",
   "_npmVersion": "4.1.1",
   "_nodeVersion": "6.9.1",
   "_npmUser": {
@@ -131,5 +131,6 @@
     "tmp": "tmp/taucharts-1.2.0.tgz_1495529335147_0.785733719356358"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/taucharts/-/taucharts-1.2.0.tgz"
+  "_resolved": "https://registry.npmjs.org/taucharts/-/taucharts-1.2.0.tgz",
+  "readme": "ERROR: No README data found!"
 }
