@@ -221,36 +221,6 @@ angular
             });
             
             
-            //////dygraphs /////////////
-            $(document).ready(function() {
-                var myData2 = [];
-                    res.data.forEach(function(d) {
-                        myData2.push([Number(d.year), Number(d.gdp), Number(d.debt)]);
-                    });
-                    
-                    var g = new Dygraph(document.getElementById("graph"), myData2, {
-
-                        labels: ["year", "gdp", "dbt"],
-                        legend: 'always',
-                        title: "Comparative chart of gdp and debt in Spain\n",
-                        showRoller: true,
-                        rollPeriod: 1,
-                        animatedZooms: true,
-                        ylabel: 'Euros',
-                        fillGraph: false
-                    });
-                    function restorePositioning(g) {
-                        g.updateOptions({
-                        dateWindow: null,
-                        valueRange: null
-                    });
-                    }
-                    document.getElementById("restore").onclick = function() {
-                            restorePositioning(g);
-                      };
-                    
-            });
-
             
             
     }]);
