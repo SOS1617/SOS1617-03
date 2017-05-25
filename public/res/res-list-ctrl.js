@@ -14,126 +14,76 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
     $scope.searchAdd = {};
     $scope.data = {};
     var dataCache = {};
-    $scope.currentPage = 1;
-    $scope.maxPages = 1;
-    $scope.pages = [];
-    $scope.pagesLeft = [];
-    $scope.pagesMid = [];
-    $scope.pagesRight = [];
-
+    var limit;
+    var offset;
     var modifier = "";
     var properties = "";
 
     var dataCache = {};
-    var currentPage = 1;
-    var maxPages = 1;
-
+    $scope.offset = 0;
     var elementsPerPage = 8;
 
-    function setPagination() {
-        var pagesNearby = 2;
-        $scope.pagesLeft = [];
-        $scope.pagesMid = [];
-        $scope.pagesRight = [];
-        if ($scope.maxPages <= pagesNearby * 2) {
-            for (var i = 1; i <= $scope.maxPages; i++) $scope.pagesLeft.push(i);
-        }
-        else if ($scope.currentPage >= 0 && $scope.currentPage <= pagesNearby) {
-            for (var i = 1; i <= pagesNearby; i++) $scope.pagesLeft.push(i);
-            for (i = $scope.maxPages - pagesNearby + 1; i <= $scope.maxPages; i++) $scope.pagesMid.push(i);
-        }
-        else if ($scope.currentPage >= $scope.maxPages - pagesNearby + 1 && $scope.currentPage <= $scope.maxPages) {
-            for (var i = 1; i <= pagesNearby; i++) $scope.pagesMid.push(i);
-            for (i = $scope.maxPages - pagesNearby + 1; i <= $scope.maxPages; i++) $scope.pagesRight.push(i);
-        }
-        else {
-            
-            for (var i = 1; i <= pagesNearby; i++) $scope.pagesLeft.push(i);
-            for (var i = Math.max($scope.currentPage - 1, pagesNearby + 1); i <= Math.min($scope.currentPage + 1, $scope.maxPages - pagesNearby); i++) $scope.pagesMid.push(i);
-            for (i = $scope.maxPages - pagesNearby + 1; i <= $scope.maxPages; i++) $scope.pagesRight.push(i);
-            if (($scope.pagesLeft[$scope.pagesLeft.length - 1] == $scope.pagesMid[0] - 1) && ($scope.pagesMid[$scope.pagesMid.length - 1] == $scope.pagesRight[0] - 1)) {
-                $scope.pagesMid = $scope.pagesMid.concat($scope.pagesRight);
-                $scope.pagesLeft = $scope.pagesLeft.concat($scope.pagesMid);
-                $scope.pagesMid = [];
-                $scope.pagesRight = [];
+        $scope.siguiente = function() {
+            $scope.offset = (parseInt($scope.offset) + parseInt($scope.limit));
+
+            $scope.paginacion();
+        };
+        $scope.anterior = function() {
+            if($scope.offset-$scope.limit>=0){
+            $scope.offset = $scope.offset - $scope.limit;
             }
-            else if ($scope.pagesLeft[$scope.pagesLeft.length - 1] == $scope.pagesMid[0] - 1) {
-                $scope.pagesLeft = $scope.pagesLeft.concat($scope.pagesMid);
-                $scope.pagesMid = [];
-            }
-            else if ($scope.pagesMid[$scope.pagesMid.length - 1] == $scope.pagesRight[0] - 1) {
-                $scope.pagesRight = $scope.pagesMid.concat($scope.pagesRight);
-                $scope.pagesMid = [];
-            }
-        }
-    }
+            $scope.paginacion();
+        };
 
 
-    $scope.setPage = function(page) {
-        $scope.currentPage = page;
-        $scope.refreshPage();
-    };
+        $scope.paginacion = function() {
+            $scope.data = {};
 
-    $scope.previousPage = function() {
-        $scope.currentPage--;
-        $scope.refreshPage();
-    };
-
-    $scope.nextPage = function() {
-        $scope.currentPage++;
-        $scope.refreshPage();
-    };
-
-    $scope.refreshPage = function() {
-        if ($scope.currentPage <= 0) $scope.currentPage = 1;
-        if ($scope.currentPage > $scope.maxPages) $scope.currentPage = $scope.maxPages;
-        setPagination();
-        if (dataCache.length > elementsPerPage) {
-            $scope.data = dataCache.slice(Number(($scope.currentPage - 1) * elementsPerPage), Number(($scope.currentPage) * elementsPerPage));
-        }
-        else {
-            $scope.data = dataCache;
-        }
-    };
-    var refresh = $scope.refresh = function() {
-
-
-
-        $http
-            .get("../api/v2/results" + modifier + "?" + "apikey=" + $scope.apikey + "&" + properties)
-            .then(function(response) {
-                $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
-
-                dataCache = response.data;
-                 $scope.refreshPage();
-
-                aux = 1;
-            }, function(response) {
-
-                    switch (response.status) {
-                        case 401:
-                            dataCache = {};
-                            $scope.refreshPage();
-                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key missing!', 4000);
-                            break;
-                        case 403:
-                             dataCache = {};
-                            $scope.refreshPage();
-                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data - api key incorrect!', 4000);
-                            break;
-                        case 404:
-                            $scope.maxPages = 1;
-                            dataCache = {};
-                            $scope.refreshPage();
-                            Materialize.toast('<i class="material-icons">error_outline</i> No data found!', 4000);
-                        break;  
-                        default:
-                            Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
-                            break;
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey + "&from=2010&to=2017&limit=" + $scope.limit + "&offset=" + $scope.offset)
+                .then(function(response) {
+                    console.log("offset" + $scope.offset);
+                    console.log("limit" + $scope.limit);
+                    limit = $scope.limit;
+                    offset = $scope.offset;
+                    $scope.data = response.data;
+                }, function error(response) {
+                    if (response.apikey != $scope.apikey & response.status == 403) {
+                        console.log("Incorrect apikey. Error ->" + response.status);
+                        sweetAlert("Incorrect apikey!!!");
                     }
-                    aux = 0;
-            });
-    };
+                    else if (response.status == 401) {
+                        console.log("Empty Apikey. Error ->" + response.status);
+                        sweetAlert("Empty apikey!!!");
+
+                    }
+
+                });
+        };
+
+        $scope.refresh = function() {
+            $http
+                .get($scope.url + "?apikey=" + $scope.apikey)
+                .then(function(response) {
+                    console.log("Data received:" + JSON.stringify(response.data, null, 2));
+                    $scope.data = response.data;
+                }, function error(response) {
+                    if (response.apikey != $scope.apikey & response.status == 403) {
+                        console.log("Incorrect apikey. Error ->" + response.status);
+                        sweetAlert("Incorrect Apikey!!");
+                    }
+                    else if (response.status == 200) {
+                        console.log("Correct Apikey." + response.status);
+                        sweetAlert("Correct Apikey!!");
+
+                    }
+                    else if (response.status == 401) {
+                        console.log("Empty Apikey. Error ->" + response.status);
+                        sweetAlert("Empty Apikey!!");
+                    }
+
+                });
+        };
 
         $('#apikeyModal').modal({
         complete: function() {
@@ -180,7 +130,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
             .then(function(response) {
                 console.log("Data added!");
                 Materialize.toast('<i class="material-icons">done</i> ' + $scope.newData.country + ' has been added succesfully!', 4000);
-                refresh();
+                $scope.refresh();
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error adding data!', 4000);
             });
@@ -207,10 +157,10 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
             .then(function(response) {
                 console.log("Data " + data.country + " edited!");
                 Materialize.toast('<i class="material-icons">done</i> ' + oldCountry + ' has been edited succesfully!', 4000);
-                refresh();
+                $scope.refresh();
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error editing data!', 4000);
-                refresh();
+                $scope.refresh();
             });
     };
 
@@ -233,7 +183,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
             .then(function(response) {
                 console.log("Data " + data.country + " deleted!");
                 Materialize.toast('<i class="material-icons">done</i> ' + data.country + ' has been deleted succesfully!', 4000);
-                refresh();
+                $scope.refresh();
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error deleting data!', 4000);
             });
@@ -245,7 +195,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
             .then(function(response) {
                 console.log("All data deleted!");
                 Materialize.toast('<i class="material-icons">done</i> All data has been deleted succesfully!!', 4000);
-                refresh();
+                $scope.refresh();
             }, function(response) {
                 Materialize.toast('<i class="material-icons">error_outline</i> Error deleting all data!', 4000);
             });
@@ -258,7 +208,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                 .then(function(response) {
                     console.log("Initial data loaded");
                     Materialize.toast('<i class="material-icons">done</i> Loaded inital data succesfully!', 4000);
-                    refresh();
+                    $scope.refresh();
                 }, function(response) {
                     Materialize.toast('<i class="material-icons">error_outline</i> Error adding initial data!', 4000);
                 });
@@ -270,7 +220,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
     };
 
 
-    refresh();
+    $scope.refresh();
 
     $(document).ready(function() {
         $('.modal').modal({
@@ -278,7 +228,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                 Materialize.updateTextFields();
             },
             complete: function() {
-                refresh();
+                $scope.refresh();
             }
         });
         $(".button-collapse").sideNav();
