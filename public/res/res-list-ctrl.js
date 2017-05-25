@@ -70,24 +70,25 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                     aux =1;
 
                 },  function(response) {
+                     aux=0;
                 switch (response.status) {
                     case 401:
-                        dataCache = {};
+                        $scope.data = {};
                         Materialize.toast('<i class="material-icons">error_outline</i> Api key not defined. Cannot get data', 4000);
                         break;
                     case 403:
-                        dataCache = {};
+                        $scope.data = {};
                         Materialize.toast('<i class="material-icons">error_outline</i> Api key incorrect. Cannot get data', 4000);
                         break;
                     case 404:
-                        dataCache = {};
+                        $scope.data = {};
                         Materialize.toast('<i class="material-icons">error_outline</i> No data found!', 4000);
                         break;
                     default:
                         Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
                         break;
                 }
-                aux=0;
+               
             });
     };
 
