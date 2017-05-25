@@ -8,6 +8,10 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
         .when("/integrations", {
             templateUrl: "integrations.html"
         })
+        
+        .when("/governance", {
+            templateUrl: "governance.html"
+        })
 
         .when("/esl", {
             templateUrl: "/esl/list.html",
