@@ -63,27 +63,33 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
 
         $scope.refresh = function() {
             $http
-                .get($scope.url + "?apikey=" + $scope.apikey)
+                .get("../api/v2/results" + "?" + "apikey=" + $scope.apikey)
                 .then(function(response) {
                     console.log("Data received:" + JSON.stringify(response.data, null, 2));
                     $scope.data = response.data;
-                }, function error(response) {
-                    if (response.apikey != $scope.apikey & response.status == 403) {
-                        console.log("Incorrect apikey. Error ->" + response.status);
-                        sweetAlert("Incorrect Apikey!!");
-                    }
-                    else if (response.status == 200) {
-                        console.log("Correct Apikey." + response.status);
-                        sweetAlert("Correct Apikey!!");
+                    aux =1;
 
-                    }
-                    else if (response.status == 401) {
-                        console.log("Empty Apikey. Error ->" + response.status);
-                        sweetAlert("Empty Apikey!!");
-                    }
-
-                });
-        };
+                },  function(response) {
+                switch (response.status) {
+                    case 401:
+                        dataCache = {};
+                        Materialize.toast('<i class="material-icons">error_outline</i> Api key not defined. Cannot get data', 4000);
+                        break;
+                    case 403:
+                        dataCache = {};
+                        Materialize.toast('<i class="material-icons">error_outline</i> Api key incorrect. Cannot get data', 4000);
+                        break;
+                    case 404:
+                        dataCache = {};
+                        Materialize.toast('<i class="material-icons">error_outline</i> No data found!', 4000);
+                        break;
+                    default:
+                        Materialize.toast('<i class="material-icons">error_outline</i> Error getting data!', 4000);
+                        break;
+                }
+                aux=0;
+            });
+    };
 
         $('#apikeyModal').modal({
         complete: function() {
@@ -94,7 +100,7 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                     Materialize.toast('<i class="material-icons">done</i> Api key changed successfully!', 4000);
                     $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
                     dataCache = response.data;
-                    $scope.refreshPage();
+                    $scope.refresh();
                 }, function(response) {
                     $scope.maxPages = 1;
                     dataCache = {};

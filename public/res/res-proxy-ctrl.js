@@ -92,6 +92,15 @@ angular
                     .get("/resProxy")
                     .then(function(response) {
                         console.log("hola" + response.data);
+                        
+                        
+                        
+    var calculo1 = ($scope.male_unemployment_ratio[0] + $scope.female_unemployment_ratio[0]) / 2;
+    var calculo2 = ($scope.male_unemployment_ratio[1] + $scope.female_unemployment_ratio[1]) /2;
+    var calculo3 = ($scope.male_unemployment_ratio[2] + $scope.female_unemployment_ratio[2]) /2;
+    var calculo4 = ($scope.male_unemployment_ratio[3] + $scope.female_unemployment_ratio[3]) /2;
+    
+    
 Highcharts.chart('reschartproxy', {
     colorAxis: {
         minColor: '#00FF00',
@@ -103,19 +112,19 @@ Highcharts.chart('reschartproxy', {
         data: [{
             name: 'Germany',
             value: $scope.reading[0]+$scope.math[0]+$scope.science[0],
-            colorValue:  ($scope.male_unemployment_ratio[0] + $scope.female_unemployment_ratio[0]) / 2
+            colorValue:  calculo1
         }, {
             name: 'Spain',
             value:  $scope.reading[1]+$scope.math[1]+$scope.science[1],
-            colorValue: ($scope.male_unemployment_ratio[1] + $scope.female_unemployment_ratio[1]) /2
+            colorValue: calculo2
         }, {
             name: 'Italy',
             value:  $scope.reading[2]+$scope.math[2]+$scope.science[2],
-            colorValue: ($scope.male_unemployment_ratio[2] + $scope.female_unemployment_ratio[2]) /2
+            colorValue: calculo3
         }, {
             name: 'France',
             value:  $scope.reading[3]+$scope.math[3]+$scope.science[3],
-            colorValue: ($scope.male_unemployment_ratio[3] + $scope.female_unemployment_ratio[3]) /2
+            colorValue: calculo4
         }]
     }],
     title: {
