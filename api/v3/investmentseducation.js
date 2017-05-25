@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 
 // Register all the functions used in this module
-exports.register = function(app, dbIvan, BASE_API_PATH) {
+exports.register = function(app, dbIvan, BASE_API_PATH, checkApiKeyFunction) {
 
 
 // Proxy g09

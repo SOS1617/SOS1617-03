@@ -44,6 +44,23 @@ var checkApiKeyFunction = function(request, response) {
     return true;
 };
 
+
+///////NO APIKEY /////////////
+
+var checkNoApiKeyFunction = function(request, response) {return true;
+    if (!request.query.apikey) {
+        console.error('WARNING: No apikey was sent!');
+        response.sendStatus(401);
+        return false;
+    }
+    if (request.query.apikey !== API_KEY) {
+        console.error('WARNING: Incorrect apikey was used!');
+        response.sendStatus(403);
+        return false;
+    }
+    return true;
+};
+
 app.use(bodyParser.json()); 
 app.use(helmet());
 app.use(cors());
@@ -72,7 +89,7 @@ MongoClient.connect(mdbURL,{native_parser:true}, function(err,database){
     
     investmentseducationAPI.register(app, dbIvan, BASE_API_PATH2, checkApiKeyFunction);
 
-    investmentseducationAPI.register(app, dbIvan, BASE_API_PATH3);
+    investmentseducationAPI.register(app, dbIvan, BASE_API_PATH3, checkNoApiKeyFunction);
 
 
 
