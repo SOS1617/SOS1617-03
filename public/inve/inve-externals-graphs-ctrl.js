@@ -66,6 +66,50 @@ angular
                      $scope.riskpoverty.push(Number($scope.data[i].riskpoverty));
                      $scope.inveducation.push(Number($scope.data[i].inveducation));
                 }
+                
+                 google.charts.load('current', {
+                            'packages': ['controls','geochart']
+                        });
+             google.charts.setOnLoadCallback(drawRegionsMap);
+                        
+        
+            function drawRegionsMap() {
+                
+                 var myData = [['Country','Latitude + Risk poverty', 'Year']];
+                 response.data.forEach(function (x){
+                    myData.push([x.country,Number($scope.latitude[0]) + Number(x.riskpoverty), Number(x.year)]);
+                     });
+                 
+                 var data = google.visualization.arrayToDataTable(myData);
+                 var options = {
+                    colorAxis: {colors: ['green', 'orange' , 'red']}
+                 };
+                   var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+            
+                   var yearSelector = new google.visualization.ControlWrapper({
+                controlType: 'CategoryFilter',
+                containerId: 'filter',
+                options: {
+                        filterColumnIndex: 2,
+                  ui: {
+                    allowTyping: false,
+                    allowMultiple: false,
+                    allowNone: false
+                  }
+                }
+              });
+                 var chart = new google.visualization.ChartWrapper({
+                chartType: 'GeoChart',
+                containerId: 'map',
+                options: {
+                    displayMode: 'regions',
+                    region: '150',
+                    colorAxis: {colors: ['green', 'orange' , 'red']}
+                }
+              });
+                 dashboard.bind(yearSelector, chart);
+                 dashboard.draw(data, options);
+            }
 
             /////////API2//////////////////////
                 
@@ -73,100 +117,9 @@ angular
                 .then(function(response){
                     $scope.number.push(Number(response.data.number));
                     
-               
-
-
-                    ////HIGHCHARTs////
-                    /*
-                    Highcharts.chart('container',{
-                        title: {
-                            text: 'INVESTMENTS IN EDUCATION integrated with external API1'
-                        },
-                        chart: {
-                            type: 'area'
-                        },
-                        xAxis: {
-                            categories: $scope.categorias1
-                        },
-                        legend: {
-                            layout: 'vertical',
-                            floating: true,
-                            backgroundColor: '#FFFFFF',
-                            //align: 'left',
-                            verticalAlign: 'top',
-                            align: 'right',
-                            y: 20,
-                            x: 0
-                        },
-                        tooltip: {
-                            formatter: function () {
-                                return '<b>' + this.series.name + '</b><br/>' +
-                                   this.x + ': ' + this.y;
-                            }
-                        },
-                        series:[{
-                            name: 'Population',
-                            data: $scope.population,
-                        },
-                        {
-                            name: 'Risk poverty',
-                            data: $scope.riskpoverty,
-                        },
-                        {
-                            name: 'Investments in eduaction',
-                            data: $scope.inveducation,
-                        },
-                        {
-                            name: 'Latitude',
-                            data: $scope.latitude,
-                        }]
-                    });*/
-                
-                /*
-                Highcharts.chart('container2', {
-                                chart: {
-                                    plotBackgroundColor: null,
-                                    plotBorderWidth: null,
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Spain in 2014'
-                                },
-                                tooltip: {
-                                    pointFormat: '{series.name}: <b>{point.y:.1f}</b>'
-                                },
-                                plotOptions: {
-                                    pie: {
-                                        allowPointSelect: true,
-                                        cursor: 'pointer',
-                                        dataLabels: {
-                                            enabled: false
-                                        },
-                                        showInLegend: true
-                                    }
-                                },
-                                series: [{
-                                    name: $scope.data[0].country + " " +  $scope.data[0].year,
-                                    colorByPoint: true,
-                                    data: [{
-                                        name: 'Population (mm)',
-                                        y: Number($scope.population[0])
-                                    }, {
-                                        name: 'Inv education (mm)',
-                                        y: Number($scope.inveducation[0]),
-                                        sliced: true,
-                                        selected: true
-                                    }, {
-                                        name: 'Number',
-                                        y: Number($scope.number)
-                                    }]
-                                }]
-                            });
-                            */
                             
                             //////dygraphs //////////////
-
+                            /*
                           var fila1 = [2012,Number($scope.inveducation[0]),Number($scope.latitude[0])];
                           var fila2 = [2013,Number($scope.inveducation[1]),Number($scope.latitude[1])];
                           var fila3 = [2014,Number($scope.inveducation[2]),Number($scope.latitude[2])];
@@ -182,7 +135,7 @@ angular
                               {
                                 labels: [ "country", "inveducation" , "latitude"]
                               });    
-                              
+                              */
                               
                 /////////////CHART JS //////////////////////////////              
                 
