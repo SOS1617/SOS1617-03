@@ -1,12 +1,12 @@
 var exports = module.exports = {};
 
 // Register all the functions used in this module
-exports.register = function(app, dbRaul, BASE_API_PATH2, checkApiKeyFunction) {
+exports.register = function(app, dbRaul, BASE_API_PATH3, checkApiKeyFunction) {
 
 //Load Initial Data
 
-app.get(BASE_API_PATH2 + "/earlyleavers/loadInitialData",function(request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.get(BASE_API_PATH3 + "/earlyleavers/loadInitialData",function(request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     dbRaul.find({}).toArray(function(err,earlyleavers){
         
          if (err) {
@@ -86,8 +86,8 @@ app.get("/", function (request, response) {
 
 // GET Collection (WITH SEARCH)
 
-app.get(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.get(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /earlyleavers");
     var limit = parseInt(request.query.limit, 10);
@@ -165,25 +165,6 @@ app.get(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
 });
 
 
-
-/*ANTIGUO
-
-// GET a collection
-app.get(BASE_API_PATH + "/earlyleavers", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
-    console.log("INFO: New GET request to /earlyleavers");
-    dbRaul.find({}).toArray(function (err, earlyleavers) {
-        if (err) {
-            console.error('WARNING: Error getting data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            console.log("INFO: Sending earlyleavers: " + JSON.stringify(earlyleavers, 2, null));
-            response.send(earlyleavers);
-        }
-    });
-});*/
-
-
 // Search
 
 var buscador = function(base, conjuntoauxiliar, desde, hasta) {
@@ -204,10 +185,10 @@ var buscador = function(base, conjuntoauxiliar, desde, hasta) {
 
 // GET Items by year 
 
-app.get(BASE_API_PATH2 + "/earlyleavers/:year", function (request, response) {
+app.get(BASE_API_PATH3 + "/earlyleavers/:year", function (request, response) {
     var year = request.params.year;
     var country = request.params.year;
-    if (!checkApiKeyFunction(request, response)) return;
+    //if (!checkApiKeyFunction(request, response)) return;
     
     if(isNaN(request.params.year.charAt(0))){
         if (!country) {
@@ -261,8 +242,8 @@ app.get(BASE_API_PATH2 + "/earlyleavers/:year", function (request, response) {
 
 // GET Item by country and year
 
-app.get(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.get(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -289,8 +270,8 @@ app.get(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, resp
 
 //POST Collection
 
-app.post(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.post(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     var newEarlyleaver = request.body;
     if (!newEarlyleaver) {
         console.log("WARNING: New POST request to /earlyleavers/ without earlyleaver, sending 400...");
@@ -330,8 +311,8 @@ app.post(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
 
 //POST Item (FORBIDDEN)
 
-app.post(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.post(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     console.log("WARNING: New POST request to /earlyleavers/" + country + " and year " + year + ", sending 405...");
@@ -341,8 +322,8 @@ app.post(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, res
 
 
 //PUT Collection (FORBIDDEN)
-app.put(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.put(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /earlyleavers, sending 405...");
     response.sendStatus(405); // method not allowed
 });
@@ -350,8 +331,8 @@ app.put(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
 
 //DELETE Item
 
-app.delete(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.delete(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -382,8 +363,8 @@ app.delete(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, r
 //PUT Item
 
 
-app.put(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.put(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     var updatedEarlyleaver = request.body;
     var country = request.params.country;
     var year = request.params.year;
@@ -415,8 +396,8 @@ app.put(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, resp
     });
 
 //DELETE Collection
-app.delete(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+app.delete(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
+    //if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /earlyleavers");
     dbRaul.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
