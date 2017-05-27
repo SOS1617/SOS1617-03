@@ -1,27 +1,21 @@
 /* global angular */
 /* global Materialize */
 /* global $ */
-var previousPage;
-var nextPage;
-var setPage;
+
 var aux;
 angular.module("GroupThreeApp").
 controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
     console.log("Controller initialized");
     $scope.url = "/api/v2/results";
     $scope.apikey = "apisupersecreta";
-    $scope.search = {};
-    $scope.searchAdd = {};
+
+
     $scope.data = {};
     var dataCache = {};
     var limit;
     var offset;
-    var modifier = "";
-    var properties = "";
-
-    var dataCache = {};
     $scope.offset = 0;
-    var elementsPerPage = 8;
+
 
         $scope.siguiente = function() {
             $scope.offset = (parseInt($scope.offset) + parseInt($scope.limit));
@@ -99,13 +93,12 @@ controller("ResListCtrl", ["$scope", "$http", function($scope, $http) {
                 .get("../api/v1/results" + "?" + "apikey=" + $scope.apikey)
                 .then(function(response) {
                     Materialize.toast('<i class="material-icons">done</i> Api key changed successfully!', 4000);
-                    $scope.maxPages = Math.max(Math.ceil(response.data.length / elementsPerPage), 1);
+
                     dataCache = response.data;
                     $scope.refresh();
                 }, function(response) {
-                    $scope.maxPages = 1;
                     dataCache = {};
-                    $scope.refreshPage();
+                    $scope.refresh();
                     switch (response.status) {
                         case 401:
                             dataCache = {};

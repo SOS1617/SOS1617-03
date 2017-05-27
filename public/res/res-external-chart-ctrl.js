@@ -32,7 +32,7 @@ angular
              
 
 
-         })
+         });
          
                   $http.get("../api/v2/results?apikey=" + $scope.apikey).then(function(response){
              dataCache = response.data;
@@ -51,7 +51,7 @@ angular
              
 
 
-         })
+         });
          
          
 
