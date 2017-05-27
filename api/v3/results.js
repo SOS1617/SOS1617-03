@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 
 // Register all the functions used in this module
-exports.register = function(app, dbRuben, BASE_API_PATH3, checkApiKeyFunction) {
+exports.register = function(app, dbRuben, BASE_API_PATH3, checkNoApiKeyFunction) {
 
 //Load Initial Data
 app.get(BASE_API_PATH3 + "/results/loadInitialData",function(request, response) {
@@ -431,7 +431,7 @@ app.post(BASE_API_PATH3 + "/results", function (request, response) {
 //Post a un recurso (PROHIBIDO)
 
 app.post(BASE_API_PATH3 + "/results/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+   // if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     console.log("WARNING: New POST request to /country/" + country + " and year " + year + ", sending 405...");
@@ -442,7 +442,7 @@ app.post(BASE_API_PATH3 + "/results/:country/:year", function (request, response
 
 //Put a una coleccion (Prohibido)
 app.put(BASE_API_PATH3 + "/results", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+//    if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /results, sending 405...");
     response.sendStatus(405); // method not allowed
 });
