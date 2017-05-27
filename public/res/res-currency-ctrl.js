@@ -1,6 +1,6 @@
 angular
     .module("GroupThreeApp")
-    .controller("ResPopulationCtrl",["$scope","$http",function ($scope, $http){
+    .controller("ResCurrencyCtrl",["$scope","$http",function ($scope, $http){
         
         console.log("Chart Controller initialized");
     

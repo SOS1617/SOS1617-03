@@ -98,9 +98,9 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl:"/res/resweatherchart.html",
             controller: "ResWeatherCtrl"
         })
-        .when("/res/respopulationchart",{
-            templateUrl:"/res/respopulationchart.html",
-            controller: "ResPopulationCtrl"
+        .when("/res/rescurrencychart",{
+            templateUrl:"/res/rescurrencychart.html",
+            controller: "ResCurrencyCtrl"
         })
         .when("/res/resexternalchart",{
             templateUrl:"/res/resexternalchart.html",
