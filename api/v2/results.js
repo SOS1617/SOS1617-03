@@ -5,7 +5,7 @@ exports.register = function(app, dbRuben, BASE_API_PATH2, checkApiKeyFunction) {
 
 //Load Initial Data
 app.get(BASE_API_PATH2 + "/results/loadInitialData",function(request, response) {
-    // if (!checkApiKeyFunction(request, response)) return;
+     if (!checkApiKeyFunction(request, response)) return;
     dbRuben.find({}).toArray(function(err,results){
        
          if (err) {
@@ -227,7 +227,7 @@ app.get("/", function (request, response) {
 
 
 app.get(BASE_API_PATH2 + "/results", function (request, response) {
-   // if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /results");
            var limit = parseInt(request.query.limit);
@@ -311,7 +311,7 @@ app.get(BASE_API_PATH2 + "/results", function (request, response) {
 // GET a collection de un mismo año 
 
 app.get(BASE_API_PATH2 + "/results/:year", function (request, response) {
-  //  if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     var year = request.params.year;
     var country = request.params.year;
 
@@ -364,36 +364,11 @@ app.get(BASE_API_PATH2 + "/results/:year", function (request, response) {
     
 }});
 
-// GET a collection de un pais
-/*app.get(BASE_API_PATH2 + "/results/:country", function (request, response) {
-    var country = request.params.country;
-    if (!country) {
-        console.log("WARNING: New GET request to /results/:country without name, sending 400...");
-        response.sendStatus(400); // bad request
-    } else {
-        console.log("INFO: New GET request to /results/" + country);
-        db.find({country:country}).toArray(function (err, results) {
-            if (err) {
-                console.error('WARNING: Error getting data from DB');
-                response.sendStatus(500); // internal server error
-            } else if (results.length > 0) { 
-                    var result = results; //since we expect to have exactly ONE contact with this name
-                    console.log("INFO: Sending result: " + JSON.stringify(result, 2, null));
-                    response.send(result);
-                } else {
-                    console.log("WARNING: There are not any result with country " + country);
-                    response.sendStatus(404); // not found
-                
-                }
-        });
-}
-});
 
-*/
 
 // Get a un recurso concreto
 app.get(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
-   // if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -421,7 +396,7 @@ app.get(BASE_API_PATH2 + "/results/:country/:year", function (request, response)
 //POST a una colección
 
 app.post(BASE_API_PATH2 + "/results", function (request, response) {
-  //  if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     var newResult = request.body;
     if (!newResult) {
         console.log("WARNING: New POST request to /contacts/ without contact, sending 400...");
@@ -462,7 +437,7 @@ app.post(BASE_API_PATH2 + "/results", function (request, response) {
 //Post a un recurso (PROHIBIDO)
 
 app.post(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
-   // if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     console.log("WARNING: New POST request to /country/" + country + " and year " + year + ", sending 405...");
@@ -473,7 +448,7 @@ app.post(BASE_API_PATH2 + "/results/:country/:year", function (request, response
 
 //Put a una coleccion (Prohibido)
 app.put(BASE_API_PATH2 + "/results", function (request, response) {
- //   if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /results, sending 405...");
     response.sendStatus(405); // method not allowed
 });
@@ -482,7 +457,7 @@ app.put(BASE_API_PATH2 + "/results", function (request, response) {
 // Delete a un recurso concreto
 
 app.delete(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
-   // if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -514,7 +489,7 @@ app.delete(BASE_API_PATH2 + "/results/:country/:year", function (request, respon
 
 
 app.put(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
- //   if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     var updatedResult = request.body;
     var country = request.params.country;
     var year = request.params.year;
@@ -593,7 +568,7 @@ app.get("/resProxy", (req, res) => {
 
 //DELETE a una coleccion
 app.delete(BASE_API_PATH2 + "/results", function (request, response) {
-  //  if (!checkApiKeyFunction(request, response)) return;
+    if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /results");
     dbRuben.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
