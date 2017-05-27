@@ -33,6 +33,10 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "/esl/graphproxy.html",
             controller: "EslProxyGraphCtrl"
         })
+        .when("/esl/graphcountries", {
+            templateUrl: "/esl/graphcountries.html",
+            controller: "EslCountriesGraphCtrl"
+        })
         
 
         .when("/inve", {

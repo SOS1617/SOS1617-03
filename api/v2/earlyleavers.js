@@ -35,11 +35,35 @@ app.get(BASE_API_PATH + "/earlyleavers/loadInitialData",function(request, respon
             },
             {
                 "country": "france",
+                "year": "2014",
+                "eslmale": "10.2",
+                "eslfemale": "7.9",
+                "esltotal": "9",
+                "eslobjective": "9.5"
+            },
+            {
+                "country": "france",
                 "year": "2015",
                 "eslmale": "10.1",
                 "eslfemale": "8.5",
                 "esltotal": "9.3",
                 "eslobjective": "9.5"
+            },
+            {
+                "country": "italy",
+                "year": "2014",
+                "eslmale": "17.7",
+                "eslfemale": "12.2",
+                "esltotal": "15",
+                "eslobjective": "16"
+            },
+            {
+                "country": "italy",
+                "year": "2015",
+                "eslmale": "17.5",
+                "eslfemale": "11.8",
+                "esltotal": "14.7",
+                "eslobjective": "16"
             }];
         
     dbRaul.insert(earlyleavers);
