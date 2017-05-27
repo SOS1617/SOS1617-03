@@ -5,7 +5,7 @@ exports.register = function(app, dbRuben, BASE_API_PATH2, checkApiKeyFunction) {
 
 //Load Initial Data
 app.get(BASE_API_PATH2 + "/results/loadInitialData",function(request, response) {
-     if (!checkApiKeyFunction(request, response)) return;
+   //  if (!checkApiKeyFunction(request, response)) return;
     dbRuben.find({}).toArray(function(err,results){
        
          if (err) {
@@ -215,19 +215,13 @@ app.get(BASE_API_PATH2 + "/results/loadInitialData",function(request, response) 
 });
 });
 
-/*
-//Base GET
-app.get("/", function (request, response) {
-    console.log("INFO: Redirecting to /results");
-    response.redirect(301, BASE_API_PATH2 + "/results");
-});
-*/
+
 
 // GET a collection
 
 
 app.get(BASE_API_PATH2 + "/results", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+   // if (!checkApiKeyFunction(request, response)) return;
     
     console.log("INFO: New GET request to /results");
            var limit = parseInt(request.query.limit);
@@ -311,7 +305,7 @@ app.get(BASE_API_PATH2 + "/results", function (request, response) {
 // GET a collection de un mismo año 
 
 app.get(BASE_API_PATH2 + "/results/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+  //  if (!checkApiKeyFunction(request, response)) return;
     var year = request.params.year;
     var country = request.params.year;
 
@@ -368,7 +362,7 @@ app.get(BASE_API_PATH2 + "/results/:year", function (request, response) {
 
 // Get a un recurso concreto
 app.get(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+   // if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -396,7 +390,7 @@ app.get(BASE_API_PATH2 + "/results/:country/:year", function (request, response)
 //POST a una colección
 
 app.post(BASE_API_PATH2 + "/results", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+   // if (!checkApiKeyFunction(request, response)) return;
     var newResult = request.body;
     if (!newResult) {
         console.log("WARNING: New POST request to /contacts/ without contact, sending 400...");
@@ -457,7 +451,7 @@ app.put(BASE_API_PATH2 + "/results", function (request, response) {
 // Delete a un recurso concreto
 
 app.delete(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+   // if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
     if (!country || !year) {
@@ -489,7 +483,7 @@ app.delete(BASE_API_PATH2 + "/results/:country/:year", function (request, respon
 
 
 app.put(BASE_API_PATH2 + "/results/:country/:year", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+  //  if (!checkApiKeyFunction(request, response)) return;
     var updatedResult = request.body;
     var country = request.params.country;
     var year = request.params.year;
@@ -568,7 +562,7 @@ app.get("/resProxy", (req, res) => {
 
 //DELETE a una coleccion
 app.delete(BASE_API_PATH2 + "/results", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
+   // if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /results");
     dbRuben.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
