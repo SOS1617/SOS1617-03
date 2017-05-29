@@ -1,5 +1,6 @@
 /* global Highcharts */
 /* global angular */
+/* global google */
 angular
     .module("GroupThreeApp")
     .controller("EslVersionsGraphCtrl",["$scope","$http",function ($scope, $http){
@@ -13,8 +14,7 @@ angular
         $scope.esltotal = [];
         $scope.eslobjective = [];
         
-        $scope.incomemillion = [];
-        $scope.incomeratio = [];
+        $scope.versiones = [];
         
         function capitalizeFirstLetter(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
@@ -31,118 +31,60 @@ angular
                 $scope.eslfemale.push(Number($scope.data[i].eslfemale));
                 $scope.esltotal.push(Number($scope.data[i].esltotal));
                 $scope.eslobjective.push(Number($scope.data[i].eslobjective));
-                $scope.incomemillion.push(null);
-                $scope.incomeratio.push(null);
                 
                 console.log($scope.data[i].country);
             }
         });
         
-        $http.get("https://sos1617-01.herokuapp.com/api/v2/gvg?apikey=sos161701").then(function(response){
+        $http.get("https://latest-browsers-api.now.sh/").then(function(response){
             
             dataCache = response.data;
             $scope.data = dataCache;
             
-            for(var i=0; i<response.data.length; i++){
-                
-                if($scope.categorias.indexOf(capitalizeFirstLetter($scope.data[i].country) + " " + $scope.data[i].year)==-1){
-                    $scope.categorias.push(capitalizeFirstLetter($scope.data[i].country) + " " + $scope.data[i].year);
-                    $scope.eslmale.push(null);
-                    $scope.eslfemale.push(null);
-                    $scope.esltotal.push(null);
-                    $scope.eslobjective.push(null);
-                    $scope.incomemillion.push(Number($scope.data[i].income_million));
-                    $scope.incomeratio.push(Number($scope.data[i].income_ratio));
-                
-                    console.log($scope.data[i].country);
-                    
-                }else{
-                    var index = $scope.categorias.indexOf(capitalizeFirstLetter(capitalizeFirstLetter($scope.data[i].country) + " " + $scope.data[i].year));
-                    $scope.educationgdpperc.splice(index,1,Number($scope.data[i].income_million));
-                    $scope.educationprimarypercapita.splice(index,1,Number($scope.data[i].income_ratio));
-                }
-            }
+            $scope.versiones.push(Number($scope.data.versions.safari));
+            $scope.versiones.push(Number($scope.data.versions.opera));
+            $scope.versiones.push(Number($scope.data.versions.firefox));
+            $scope.versiones.push(Number($scope.data.versions.ie_mob));
+            $scope.versiones.push(Number($scope.data.versions.edge));
+            $scope.versiones.push(Number($scope.data.versions.chrome));
+            
+            console.log($scope.versiones);
         });
             
         console.log("Controller initialized");
-        $http.get("https://sos1617-01.herokuapp.com/api/v2/gvg?apikey=sos161701").then(function(response){
+        $http.get("/api/v2/earlyleavers/"+ "?" + "apikey=" + $scope.apikey).then(function(response){
             
-            
-            Highcharts.chart('container', {
-                chart: {
-                    type: 'spline'
-                },
-                title: {
-                    text: 'Highcharts'
-                },
-                subtitle: {
-                    text: 'Source: G01 - GVG'
-                },
-                xAxis: {
-                    categories: $scope.categorias
-                },
-                yAxis: {
-                    title: {
-                        text: 'Ratio in %'
+            google.charts.load('current', {packages: ['corechart', 'line']});
+            google.charts.setOnLoadCallback(drawCurveTypes);
+
+            function drawCurveTypes() {
+                var myData = [['Categories','ESL Total', 'Version']];
+                /*response.data.forEach(function (d){
+                    myData.push([capitalizeFirstLetter(d.country), Number(d.esltotal), Number(d.versiones)]);
+                });*/
+                
+                for(var i=0; i<6; i++){
+                    
+                    myData.push([$scope.categorias[i], $scope.esltotal[i], $scope.versiones[i]]);
+                }
+                    
+                var data = google.visualization.arrayToDataTable(myData);
+
+                var options = {
+                    hAxis: {
+                        title: 'Valores'
                     },
-                    labels: {
-                        formatter: function () {
-                            return this.value + '%';
-                        }
-                    }
-                },
-                tooltip: {
-                    crosshairs: true,
-                    shared: true
-                },
-                plotOptions: {
-                    spline: {
-                        marker: {
-                            radius: 4,
-                            lineColor: '#666666',
-                            lineWidth: 1
-                        },
-                        dataLabels: {
-                            enabled: true
-                        }
+                    vAxis: {
+                        title: 'Paises'
                     },
                     series: {
-                        connectNulls: true
+                        1: {curveType: 'function'}
                     }
-                },
-                series:[{
-                    name: 'ESL Male',
-                    /*marker: {
-                        symbol: 'square'
-                    },*/
-                    data: $scope.eslmale
-                }, {
-                    name: 'ESL Female',
-                   /*marker: {
-                        symbol: 'square'
-                    },*/
-                    data: $scope.eslfemale
-                }, {
-                    name: 'ESL Total',
-                    /*marker: {
-                        symbol: 'square'
-                    },*/
-                    data: $scope.esltotal
-                }, {
-                    name: 'ESL Objective',
-                    /*marker: {
-                        symbol: 'square'
-                    },*/
-                    data: $scope.eslobjective
-                },{
-                    name: 'Income Ratio',
-                    data: $scope.incomeratio
-                }/*,{
-                    name: 'Income Million',
-                    data: $scope.incomemillion
-                }*/]
-                
-            });
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+                }
             
         });
     }]);
