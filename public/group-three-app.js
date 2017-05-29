@@ -44,6 +44,10 @@ angular.module("GroupThreeApp", ["ngRoute"]).config(function($routeProvider) {
             templateUrl: "/esl/graphcountries.html",
             controller: "EslCountriesGraphCtrl"
         })
+        .when("/esl/graphversions", {
+            templateUrl: "/esl/graphversions.html",
+            controller: "EslVersionsGraphCtrl"
+        })
         
 
         .when("/inve", {
