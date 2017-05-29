@@ -50,6 +50,13 @@ angular
 
                 }
                 
+                
+            /////////API2//////////////////////
+                
+            $http.get("https://numbersapi.p.mashape.com/6/21/date?fragment=true&json=true&mashape-key=oz6U9F2JarmshGsOl9ZxXvOG8CEsp1DFgAmjsnmEE7ChuL3GIB")
+                .then(function(response){
+                    $scope.number.push(Number(response.data.number));    
+                
 
             /////INVESTMENTS IN EDUCATION/////
             
@@ -77,7 +84,7 @@ angular
                 
                  var myData = [['Country','Latitude + Risk poverty', 'Year']];
                  response.data.forEach(function (x){
-                    myData.push([x.country,Number($scope.latitude[0]) + Number(x.riskpoverty), Number(x.year)]);
+                    myData.push([x.country,Number($scope.number) + Number(x.riskpoverty), Number(x.year)]);
                      });
                  
                  var data = google.visualization.arrayToDataTable(myData);
@@ -111,11 +118,7 @@ angular
                  dashboard.draw(data, options);
             }
 
-            /////////API2//////////////////////
-                
-            $http.get("https://numbersapi.p.mashape.com/6/21/date?fragment=true&json=true&mashape-key=oz6U9F2JarmshGsOl9ZxXvOG8CEsp1DFgAmjsnmEE7ChuL3GIB")
-                .then(function(response){
-                    $scope.number.push(Number(response.data.number));
+
                     
                             
                             //////dygraphs //////////////
@@ -146,7 +149,7 @@ angular
                     labels: ['Spain 2014', 'France 2014'],
                     datasets: [{
                       label: 'numbers',
-                      data: [Number($scope.number), Number($scope.number)],
+                      data: [Number($scope.latitude[0]), Number($scope.latitude[1])],
                       backgroundColor: "rgba(153,255,51,0.6)"
                     }, {
                       label: 'inveducation',
