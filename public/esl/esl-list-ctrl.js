@@ -1,7 +1,7 @@
 /* global angular */
 /* global Materialize */
 /* global $ */
-/* global  refresh */
+
 var aux;
 
 angular.module("GroupThreeApp").
@@ -46,13 +46,13 @@ angular.module("GroupThreeApp").
             }, function error(response) {
                 if (response.apikey != $scope.apikey & response.status == 403) {
                     console.log("Incorrect apikey. Error ->" + response.status);
-                    //Materialize.toast('<i class="material-icons">error_outline</i> Api key incorrect. Cannot get data', 4000);
-                    sweetAlert("Incorrect apikey!!!");
+                    Materialize.toast('<i class="material-icons">error_outline</i> Api key incorrect. Cannot get data', 4000);
+                    //sweetAlert("Incorrect apikey!!!");
                 }
                 else if (response.status == 401) {
                     console.log("Empty Apikey. Error ->" + response.status);
-                    //Materialize.toast('<i class="material-icons">error_outline</i> Api key not defined. Cannot get data', 4000);
-                    sweetAlert("Empty apikey!!!");
+                    Materialize.toast('<i class="material-icons">error_outline</i> Api key not defined. Cannot get data', 4000);
+                    //sweetAlert("Empty apikey!!!");
                 }
 
             });
@@ -107,12 +107,12 @@ angular.module("GroupThreeApp").
             });
     };
 
-    $scope.editDataModal = function(data) {
+    /*$scope.editDataModal = function(data) {
         data["oldCountry"] = data["country"];
         data["oldYear"] = data["year"];
         $scope.editDataUnit = data;
         $('#editModal').modal('open');
-    };
+    };*/
 
     $scope.searches = function(){
         $http

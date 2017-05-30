@@ -1,136 +1,99 @@
 <header>
-        <h3 style="text-align:center">Early School Leavers</h3>
-        
+    <h3 style="text-align:center">Early School Leavers</h3>
 </header>
-    <main>
-        <div ng-controller="EslListCtrl">
+<main>
+    <div ng-controller="EslListCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 center-align">
+                    <div class="col s2 center-align">
+                        Items per page <input class="form-control" ng-model="limit">
+                    </div>
+                    <div class="col s8 center-align">
+                        <button class="btn waves-effect waves-light green darken-1" ng-click="paginacion(0)">Set<i class="material-icons right">done</i></button>
+                        <button class="btn waves-effect waves-light" ng-click="anterior()" ng-disabled="offset===0">Prev<i class="material-icons left">skip_previous</i></button>
+                        <button class="btn waves-effect waves-light" ng-click="siguiente()" ng-disabled="data.length<limit||!limit">Next<i class="material-icons right">skip_next</i></button>
+                    </div>
+                </div>
+            </div>
+            <table class="highlight">
+                <thead>
+                    <tr>
+                        <th style="text-align:center" width="14%">Country</th>
+                        <th style="text-align:center" width="14%">Year</th>
+                        <th style="text-align:center" width="14%">ESL Male</th>
+                        <th style="text-align:center" width="14%">ESL Female</th>
+                        <th style="text-align:center" width="14%">ESL Total</th>
+                        <th style="text-align:center" width="14%">ESL Objective</th>
+                        <th style="text-align:center" width="14%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class="form-control" ng-model="newData.country" style="text-align:center"/></td>
+                        <td><input class="form-control" ng-model="newData.year" style="text-align:center"/></td>
+                        <td><input class="form-control" ng-model="newData.eslmale" style="text-align:center"/></td>
+                        <td><input class="form-control" ng-model="newData.eslfemale" style="text-align:center"/></td>
+                        <td><input class="form-control" ng-model="newData.esltotal" style="text-align:center"/></td>
+                        <td><input class="form-control" ng-model="newData.eslobjective" style="text-align:center"/></td>
+                            
+                        <td style="text-align:center"><button class="btn waves-effect waves-light blue darken-3" ng-click="addData()"><i class="material-icons">add</i></button></td>
+                    </tr>
+                    <tr ng-repeat="dataUnit in data">
+                        <td style="text-align:center">{{dataUnit.country}}</td>
+                        <td style="text-align:center">{{dataUnit.year}}</td>
+                        <td style="text-align:center">{{dataUnit.eslmale}}</td>
+                        <td style="text-align:center">{{dataUnit.eslfemale}}</td>
+                        <td style="text-align:center">{{dataUnit.esltotal}}</td>
+                        <td style="text-align:center">{{dataUnit.eslobjective}}</td>
+                            
+                        <td style="text-align:center">
+                            <a href="#!/esl/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
+                            <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                        
+                </tbody>
+            </table>
+                
+            <div id="searches" class="row">
+                <div class="col s2"></div>
+                <div class="col s3">Introduce FROM<input class="form-control" ng-model="newData.from"></div>
+                <div class="col s3">Introduce TO<input class="form-control" ng-model="newData.to"></div>
+                <div class="col s1"><button class="btn-floating waves-effect waves-light" ng-click="searches()"><i class="material-icons">search</i></button></div>
+                <div class="col s1"><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></div>
+            </div>
+                
             <div class="container">
                 <div class="row">
-                    <div class="col s12 center-align">
-                        <div class="col s2 center-align">
-                            Items per page <input class="form-control" ng-model="limit">
-                        </div>
-                        <div class="col s8 center-align">
-                            <button class="btn waves-effect waves-light green darken-1" ng-click="paginacion(0)">Set<i class="material-icons right">done</i></button>
-                            <button class="btn waves-effect waves-light" ng-click="anterior()" ng-disabled="offset===0">Prev<i class="material-icons left">skip_previous</i></button>
-                            <button class="btn waves-effect waves-light" ng-click="siguiente()" ng-disabled="data.length<limit||!limit">Next<i class="material-icons right">skip_next</i></button>
-                        </div>
+                    <div class="col s3">
+                        <button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
+                    </div>
+                    <div class="col s3">
+                        <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Clear<i class="material-icons left">warning</i></button>
+                    </div>
+                    <div class="col s3">
+                        <button class="btn waves-effect waves-light pink darken-1" onClick="$('#apikeyModal').modal('open');">Apikey<i class="material-icons left">vpn_key</i></button>
+                    </div>
+                    <div class="col s3">
+                        <a href="#!/esl/graph" class="btn waves-effect waves-light blue darken-1">Graph<i class="material-icons left">trending_up</i></a>
                     </div>
                 </div>
-                <table class="highlight">
-                    <thead>
-                        <tr>
-                            <th style="text-align:center" width="14%">Country</th>
-                            <th style="text-align:center" width="14%">Year</th>
-                            <th style="text-align:center" width="14%">ESL Male</th>
-                            <th style="text-align:center" width="14%">ESL Female</th>
-                            <th style="text-align:center" width="14%">ESL Total</th>
-                            <th style="text-align:center" width="14%">ESL Objective</th>
-                            <th style="text-align:center" width="14%">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input class="form-control" ng-model="newData.country" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData.year" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData.eslmale" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData.eslfemale" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData.esltotal" style="text-align:center"/></td>
-                            <td><input class="form-control" ng-model="newData.eslobjective" style="text-align:center"/></td>
-                            
-                            <td style="text-align:center"><button class="btn waves-effect waves-light blue darken-3" ng-click="addData()"><i class="material-icons">add</i></button></td>
-                        </tr>
-                        <tr ng-repeat="dataUnit in data">
-                            <td style="text-align:center">{{dataUnit.country}}</td>
-                            <td style="text-align:center">{{dataUnit.year}}</td>
-                            <td style="text-align:center">{{dataUnit.eslmale}}</td>
-                            <td style="text-align:center">{{dataUnit.eslfemale}}</td>
-                            <td style="text-align:center">{{dataUnit.esltotal}}</td>
-                            <td style="text-align:center">{{dataUnit.eslobjective}}</td>
-                            
-                            <!--<td><button class="btn-floating waves-effect waves-light yellow darken-3" ng-click="editDataModal(dataUnit)"><i class="material-icons">edit</i></button>
-                            <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button></td>-->
-                            
-                            <td style="text-align:center">
-                                <a href="#!/esl/{{dataUnit.country}}/{{dataUnit.year}}" class="btn-floating waves-effect waves-light yellow darken-3"><i class="material-icons">edit</i></a>
-                                <button class="btn-floating waves-effect waves-light red" ng-click="deleteData(dataUnit)"><i class="material-icons">delete</i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <!--<tr>
-                            <td>
-                                <div id="searches" class="modal">
-                                    <td>Introduce FROM<input class="form-control" ng-model="newData.from"></td>
-                                    <td>Introduce TO<input class="form-control" ng-model="newData.to"></td>
-                                    <td><button class="btn-floating waves-effect waves-light" ng-click="searches()"><i class="material-icons">search</i></button></td>
-                                    <td><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></td>
-                                </div>
-                            </td>
-                        </tr>-->
-                    </tbody>
-                </table>
-                
-                <div id="searches" class="row">
-                    <div class="col s2"></div>
-                    <div class="col s3">Introduce FROM<input class="form-control" ng-model="newData.from"></div>
-                    <div class="col s3">Introduce TO<input class="form-control" ng-model="newData.to"></div>
-                    <div class="col s1"><button class="btn-floating waves-effect waves-light" ng-click="searches()"><i class="material-icons">search</i></button></div>
-                    <div class="col s1"><button class="btn-floating waves-effect waves-light red darken-1" ng-click="refresh()"><i class="material-icons">replay</i></div>
-                </div>
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col s3">
-                            <button class="btn waves-effect waves-light green darken-1" ng-click="loadInitialData()">Initial<i class="material-icons left">recent_actors</i></button>
-                        </div>
-                        <div class="col s3">
-                            <button class="btn waves-effect waves-light red darken-2" ng-click="deleteAllData()">Clear<i class="material-icons left">warning</i></button>
-                        </div>
-                        <div class="col s3">
-                            <button class="btn waves-effect waves-light pink darken-1" onClick="$('#apikeyModal').modal('open');">Apikey<i class="material-icons left">vpn_key</i></button>
-                        </div>
-                        <div class="col s3">
-                            <a href="#!/esl/graph" class="btn waves-effect waves-light blue darken-1">Graph<i class="material-icons left">trending_up</i></a>
-                        </div>
-                    </div>
-                </div>
+            </div>
     
-            </div>
+        </div>
 
-            <div id="searchModal" class="modal">
-                <div class="modal-content">
-                    <h4>Search</h4>
-                    <div class="row">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="sfrom" ng-model="searchAdd['from']">
-                                    <label for="sfrom">FROM</label>
-                                </div>
-                                <div class="input-field col s3">
-                                    <input class="form-control" type="text" id="sto" ng-model="searchAdd['to']">
-                                    <label for="sto"> TO </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat ">OK</a>
-                </div>
-            </div>
-            
-
-            <div id="apikeyModal" class="modal">
-        <div class="modal-content">
+        <div id="apikeyModal" class="modal">
+            <div class="modal-content">
             <h4>Set apikey</h4>
             <div class="row">
                 <form class="col s12">
@@ -146,7 +109,7 @@
         <div class="modal-footer">
             <a href="" class="modal-action modal-close waves-effect waves-green btn-flat">Set</a>
         </div>
-    </div>
-
         </div>
-    </main>
+
+    </div>
+</main>

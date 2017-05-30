@@ -3,21 +3,22 @@ var exports = module.exports = {};
 // Register all the functions used in this module
 exports.register = function(app, dbRaul, BASE_API_PATH3, checkApiKeyFunction) {
 
+
 //Load Initial Data
 
 app.get(BASE_API_PATH3 + "/earlyleavers/loadInitialData",function(request, response) {
     //if (!checkApiKeyFunction(request, response)) return;
     dbRaul.find({}).toArray(function(err,earlyleavers){
-        
-         if (err) {
-        console.error('WARNING: Error while getting initial data from DB');
-        return 0;
-    }
     
-      if (earlyleavers.length === 0) {
-        console.log('INFO: Empty DB, loading initial data');
+        if (err) {
+            console.error('WARNING: Error while getting initial data from DB');
+            return 0;
+        }
+    
+        if (earlyleavers.length === 0) {
+            console.log('INFO: Empty DB, loading initial data');
 
-              var earlyleavers = [{
+            var earlyleavers = [{
                 "country": "spain",
                 "year": "2014",
                 "eslmale": "25.6",
@@ -66,13 +67,14 @@ app.get(BASE_API_PATH3 + "/earlyleavers/loadInitialData",function(request, respo
                 "eslobjective": "16"
             }];
         
-    dbRaul.insert(earlyleavers);
-    response.sendStatus(200); //Ok
-      } else {
-        console.log('INFO: DB has ' + earlyleavers.length + ' objects ');
-        response.sendStatus(200); //Ok
-    }
-});
+            dbRaul.insert(earlyleavers);
+            response.sendStatus(200); //Ok
+                
+        } else {
+            console.log('INFO: DB has ' + earlyleavers.length + ' objects ');
+            response.sendStatus(200); //Ok
+        }
+    });
 });
 
 /*
@@ -97,21 +99,25 @@ app.get(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
     var to = parseInt(request.query.to, 10);
     var aux = [];
     var aux2= [];
+    
     if (limit && offset>=0) {
         dbRaul.find({}).toArray(function(err, earlyleavers) {    // .skip(offset).limit(limit)
+                
             if (err) {
                 console.error('ERROR from database');
                 response.sendStatus(500); // internal server error
+                
             }else {
                 if (earlyleavers.length === 0) {
                     response.sendStatus(404);
-
                 }
+                
                 if (from && to) {
                     aux = buscador(earlyleavers, aux, from, to);
+                    
                     if (aux.length > 0) {
                         aux2 = aux.slice(offset, offset+limit);
-                            
+                        
                         console.log("INFO: Sending earlyleavers with from and to and limit and offset: " + JSON.stringify(aux, 2, null));
                         console.log("INFO: Sending earlyleavers with from and to and limit and offset: " + JSON.stringify(earlyleavers, 2, null));
                         console.log("INFO: Sending earlyleavers with from and to and limit and offset: " + JSON.stringify(aux2, 2, null));
@@ -119,14 +125,11 @@ app.get(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
 
                     } else {
                         response.sendStatus(404); // No encuentra nada con esos filtros
-                    
-                        
                     }
-                    
+                
                 } else {
                     response.send(earlyleavers);
                     console.log("INFO: Sending earlyleavers without from and to: " + JSON.stringify(earlyleavers, 2, null));
-
                 }
             }
         });
@@ -174,7 +177,7 @@ var buscador = function(base, conjuntoauxiliar, desde, hasta) {
 
     for (var j = 0; j < base.length; j++) {
         var anyo = base[j].year;
-        
+    
         if (to >= anyo && from <= anyo) {
             conjuntoauxiliar.push(base[j]);
         }
@@ -211,33 +214,35 @@ app.get(BASE_API_PATH3 + "/earlyleavers/:year", function (request, response) {
                     console.log("WARNING: There are not any earlyleaver with country " + country);
                     response.sendStatus(404); // not found
                 }
-        });
-
-}
+            });
+        }
     }else{
 
-    if (!year) {
-        console.log("WARNING: New GET request to /earlyleavers/:year without year, sending 400...");
-        response.sendStatus(400); // bad request
-    } else {
-        console.log("INFO: New GET request to /earlyleavers/" + year);
-        dbRaul.find({year:year}).toArray(function (err, earlyleavers) {
-            if (err) {
-                console.error('WARNING: Error getting data from DB');
-                response.sendStatus(500); // internal server error
-            } else if (earlyleavers.length > 0) { 
+        if (!year) {
+            console.log("WARNING: New GET request to /earlyleavers/:year without year, sending 400...");
+            response.sendStatus(400); // bad request
+        
+        } else {
+            console.log("INFO: New GET request to /earlyleavers/" + year);
+            dbRaul.find({year:year}).toArray(function (err, earlyleavers) {
+                
+                if (err) {
+                    console.error('WARNING: Error getting data from DB');
+                    response.sendStatus(500); // internal server error
+                
+                } else if (earlyleavers.length > 0) { 
                     var earlyleaver = earlyleavers; //since we expect to have exactly ONE contact with this name
                     console.log("INFO: Sending result: " + JSON.stringify(earlyleaver, 2, null));
                     response.send(earlyleaver);
+                    
                 } else {
                     console.log("WARNING: There are not any earlyleaver with year " + year);
                     response.sendStatus(404); // not found
-                
                 }
-        });
-}
-    
-}});
+            });
+        }
+    }
+});
 
 
 // GET Item by country and year
@@ -246,27 +251,31 @@ app.get(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, resp
     //if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
+    
     if (!country || !year) {
         console.log("WARNING: New GET request to /earlyleavers/:country without name or without year, sending 400...");
         response.sendStatus(400); // bad request
+        
     } else {
         console.log("INFO: New GET request to /earlyleavers/" + country + "/" + year);
         dbRaul.find({country:country, $and:[{year:year}]}).toArray(function (err, earlyleavers) {
             if (err) {
                 console.error('WARNING: Error getting data from DB');
                 response.sendStatus(500); // internal server error
+            
             } else if (earlyleavers.length > 0) { 
-                    var earlyleaver = earlyleavers[0]; //since we expect to have exactly ONE contact with this name
-                    console.log("INFO: Sending earlyleaver: " + JSON.stringify(earlyleaver, 2, null));
-                    response.send(earlyleaver);
-                } else {
-                    console.log("WARNING: There are not any earlyleaver with country " + country +  "and year " + year);
-                    response.sendStatus(404); // not found
-                
-                }
+                var earlyleaver = earlyleavers[0]; //since we expect to have exactly ONE contact with this name
+                console.log("INFO: Sending earlyleaver: " + JSON.stringify(earlyleaver, 2, null));
+                response.send(earlyleaver);
+            
+            } else {
+                console.log("WARNING: There are not any earlyleaver with country " + country +  "and year " + year);
+                response.sendStatus(404); // not found
+            }
         });
-}
+    }
 });
+
 
 //POST Collection
 
@@ -276,11 +285,14 @@ app.post(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
     if (!newEarlyleaver) {
         console.log("WARNING: New POST request to /earlyleavers/ without earlyleaver, sending 400...");
         response.sendStatus(400); // bad request
+        
     } else {
         console.log("INFO: New POST request to /earlyleavers with body: " + JSON.stringify(newEarlyleaver, 2, null));
+        
         if (!newEarlyleaver.country || !newEarlyleaver.year || !newEarlyleaver.eslmale || !newEarlyleaver.eslfemale || !newEarlyleaver.esltotal || !newEarlyleaver.eslobjective) {
             console.log("WARNING: The earlyleaver " + JSON.stringify(newEarlyleaver, 2, null) + " is not well-formed, sending 400...");
             response.sendStatus(400); // bad request
+            
         } else {
             dbRaul.find({country:newEarlyleaver.country, $and:[{year:newEarlyleaver.year}]}).toArray(function (err, earlyleavers) {
                 if (err) {
@@ -289,14 +301,12 @@ app.post(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
                 } else {
                     var earlyleaversBeforeInsertion = earlyleavers.filter((earlyleaver) => {
                         return (earlyleaver.country.localeCompare(earlyleaver.country, "en", {'sensitivity': 'base'}) === 0);
-                      
-                      
-                     
-});
+                    });
 
                     if (earlyleaversBeforeInsertion.length > 0) {
                         console.log("WARNING: The earlyleaver " + JSON.stringify(newEarlyleaver, 2, null) + " already extis, sending 409...");
                         response.sendStatus(409); // conflict
+                        
                     } else {
                         console.log("INFO: Adding earlyleaver " + JSON.stringify(newEarlyleaver, 2, null));
                         dbRaul.insert(newEarlyleaver);
@@ -320,8 +330,8 @@ app.post(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, res
 });
 
 
-
 //PUT Collection (FORBIDDEN)
+
 app.put(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
     //if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /earlyleavers, sending 405...");
@@ -335,21 +345,27 @@ app.delete(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, r
     //if (!checkApiKeyFunction(request, response)) return;
     var country = request.params.country;
     var year = request.params.year;
+    
     if (!country || !year) {
         console.log("WARNING: New DELETE request to /earlyleavers/:country/:year without country and year, sending 400...");
         response.sendStatus(400); // bad request
+    
     } else {
         console.log("INFO: New DELETE request to /earlyleavers/" + country + " and year " + year);
         dbRaul.remove({country:country, $and:[{year:year}]}, {}, function (err, result) {
             var numRemoved = JSON.parse(result);
+            
             if (err) {
                 console.error('WARNING: Error removing data from DB');
                 response.sendStatus(500); // internal server error
+                
             } else {
                 console.log("INFO: Earlyleavers removed: " + numRemoved.n);
+                
                 if (numRemoved.n === 1) {
                     console.log("INFO: The earlyleavers with country " + country + " and year " + year + " has been succesfully deleted, sending 204...");
                     response.sendStatus(204); // no content
+                    
                 } else {
                     console.log("WARNING: There are no countries to delete");
                     response.sendStatus(404); // not found
@@ -362,48 +378,57 @@ app.delete(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, r
 
 //PUT Item
 
-
 app.put(BASE_API_PATH3 + "/earlyleavers/:country/:year", function (request, response) {
     //if (!checkApiKeyFunction(request, response)) return;
     var updatedEarlyleaver = request.body;
     var country = request.params.country;
     var year = request.params.year;
+    
     if (!updatedEarlyleaver) {
         console.log("WARNING: New PUT request to /earlyleavers/ without earlyleaver, sending 400...");
         response.sendStatus(400); // bad request
+    
     } else {
         console.log("INFO: New PUT request to /earlyleavers/" + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
+        
         if (!updatedEarlyleaver.country || !updatedEarlyleaver.year || !updatedEarlyleaver.eslmale || !updatedEarlyleaver.eslfemale ||
                     !updatedEarlyleaver.esltotal || !updatedEarlyleaver.eslobjective || updatedEarlyleaver.country !== country || updatedEarlyleaver.year !== year) { //keep an eye on this
             console.log("WARNING: The earlyleaver " + JSON.stringify(updatedEarlyleaver, 2, null) + " is not well-formed, sending 400...");
             response.sendStatus(400); // bad request
+        
         } else {
             dbRaul.find({country:updatedEarlyleaver.country, $and:[{year:updatedEarlyleaver.year}]}).toArray(function (err, earlyleavers) {
                 if (err) {
                     console.error('WARNING: Error getting data from DB');
                     response.sendStatus(500); // internal server error
+                
                 } else if (earlyleavers.length > 0) {
-                        dbRaul.update({country: updatedEarlyleaver.country, year: updatedEarlyleaver.year}, updatedEarlyleaver);
-                        console.log("INFO: Modifying earlyleaver with country " + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
-                        response.send(updatedEarlyleaver); // return the updated contact
-                    } else {
-                        console.log("WARNING: There are not any earlyleavers with country " + country);
-                        response.sendStatus(404); // not found
-                    }
+                    dbRaul.update({country: updatedEarlyleaver.country, year: updatedEarlyleaver.year}, updatedEarlyleaver);
+                    console.log("INFO: Modifying earlyleaver with country " + country + " with data " + JSON.stringify(updatedEarlyleaver, 2, null));
+                    response.send(updatedEarlyleaver); // return the updated contact
+                    
+                } else {
+                    console.log("WARNING: There are not any earlyleavers with country " + country);
+                    response.sendStatus(404); // not found
                 }
-            )}
-        }
-    });
+            }
+        )}
+    }
+});
+
 
 //DELETE Collection
+
 app.delete(BASE_API_PATH3 + "/earlyleavers", function (request, response) {
     //if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /earlyleavers");
     dbRaul.remove({}, {multi: true}, function (err, result) {
         var numRemoved = JSON.parse(result);
+        
         if (err) {
             console.error('WARNING: Error removing data from DB');
             response.sendStatus(500); // internal server error
+            
         } else {
             if (numRemoved.n > 0) {
                 console.log("INFO: All the earlyleavers (" + numRemoved.n + ") have been succesfully deleted, sending 204...");

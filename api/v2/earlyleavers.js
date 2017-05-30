@@ -3,6 +3,7 @@ var exports = module.exports = {};
 // Register all the functions used in this module
 exports.register = function(app, dbRaul, BASE_API_PATH2, checkApiKeyFunction) {
 
+
 //Load Initial Data
 
 app.get(BASE_API_PATH2 + "/earlyleavers/loadInitialData",function(request, response) {
@@ -165,25 +166,6 @@ app.get(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
 });
 
 
-
-/*ANTIGUO
-
-// GET a collection
-app.get(BASE_API_PATH + "/earlyleavers", function (request, response) {
-    if (!checkApiKeyFunction(request, response)) return;
-    console.log("INFO: New GET request to /earlyleavers");
-    dbRaul.find({}).toArray(function (err, earlyleavers) {
-        if (err) {
-            console.error('WARNING: Error getting data from DB');
-            response.sendStatus(500); // internal server error
-        } else {
-            console.log("INFO: Sending earlyleavers: " + JSON.stringify(earlyleavers, 2, null));
-            response.send(earlyleavers);
-        }
-    });
-});*/
-
-
 // Search
 
 var buscador = function(base, conjuntoauxiliar, desde, hasta) {
@@ -287,6 +269,7 @@ app.get(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, resp
 }
 });
 
+
 //POST Collection
 
 app.post(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
@@ -339,8 +322,8 @@ app.post(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, res
 });
 
 
-
 //PUT Collection (FORBIDDEN)
+
 app.put(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     console.log("WARNING: New PUT request to /earlyleavers, sending 405...");
@@ -381,7 +364,6 @@ app.delete(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, r
 
 //PUT Item
 
-
 app.put(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     var updatedEarlyleaver = request.body;
@@ -414,7 +396,9 @@ app.put(BASE_API_PATH2 + "/earlyleavers/:country/:year", function (request, resp
         }
     });
 
+
 //DELETE Collection
+
 app.delete(BASE_API_PATH2 + "/earlyleavers", function (request, response) {
     if (!checkApiKeyFunction(request, response)) return;
     console.log("INFO: New DELETE request to /earlyleavers");
