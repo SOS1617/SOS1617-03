@@ -210,20 +210,20 @@ angular
         
             function drawRegionsMap() {
                 
-                 var myData = [['Country','Risk of poverty', 'Year']];
+                 var myData = [['Country','Risk poverty', 'Year']];
                  response.data.forEach(function (x){
-                    myData.push([x.country, Number(x.riskpoverty), Number(x.year)]);
+                    myData.push([x.country,Number(x.riskpoverty), Number(x.year)]);
                      });
                  
                  var data = google.visualization.arrayToDataTable(myData);
                  var options = {
                     colorAxis: {colors: ['green', 'orange' , 'red']}
                  };
-                   var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+                   var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard1'));
             
                    var yearSelector = new google.visualization.ControlWrapper({
                 controlType: 'CategoryFilter',
-                containerId: 'filter',
+                containerId: 'filter1',
                 options: {
                         filterColumnIndex: 2,
                   ui: {
@@ -245,6 +245,7 @@ angular
                  dashboard.bind(yearSelector, chart);
                  dashboard.draw(data, options);
             }
+
             
             
             ////////////////////D3///////////////////////7
@@ -390,16 +391,7 @@ angular
                                   
             });        
             
-            //////////////////API Minimum Salary Highchart ///////////////
-                        
-            console.log("Controller intialized");
-                $http
-                    .get("/proxyIvan").then(function(response) {
-                    
-                        
-                        
-                        
-                    });
+           
                     
                     
                         

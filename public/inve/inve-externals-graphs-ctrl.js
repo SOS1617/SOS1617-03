@@ -117,7 +117,7 @@ angular
                  dashboard.bind(yearSelector, chart);
                  dashboard.draw(data, options);
             }
-
+            
 
                     
                             
